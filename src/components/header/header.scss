@@ -1,0 +1,15 @@
+.header-container {
+    height: 100px;
+
+    .header-top {
+        height: 33px;
+        background-color: rgb(252,133,7);
+    }
+    .header-bot {
+        height: 64px;
+
+        .MuiAppBar-root {
+            background-color: white; 
+        }
+    }
+}
