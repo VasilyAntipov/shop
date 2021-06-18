@@ -1,3 +1,20 @@
-.menu-container {
-    left: 0;
+.menu-wrap {
+    max-width: 400px;
+    width: 300px;
+
+    .MuiList-root {     
+        background-color: white;
+        width: 280px;
+        
+        .MuiListItem-root {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+
+            .MuiListItemText-root {
+                padding-left: 20px;
+            }
+        }
+    }
 }
+

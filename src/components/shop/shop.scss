@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 * {
+    font-family: "PT Sans", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    text-decoration-line: none;
+    text-decoration-style: solid;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -14,7 +19,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1480px;
+    
     margin: auto;
     font-family: "Roboto";
     color: #2e3a4edc;
