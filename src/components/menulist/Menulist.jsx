@@ -1,49 +1,47 @@
 import './menulist.scss'
-import { makeStyles } from '@material-ui/core/styles';
-import Icon from '@mdi/react';
+import React from 'react'
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import { mdiWashingMachine } from '@mdi/js';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
-
-function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-}
+import Menubutton from '../menubutton/Menubutton'
+import { Paper } from '@material-ui/core';
 
 export default function Menulist() {
-    const classes = useStyles();
     return (
         <div className="menu-wrap">
-            <List disablePadding={false} component="nav" aria-label="main mailbox folders">
-                <ListItem button>
-                    {/* <ListItemIcon> */}
-                    <Icon path={mdiWashingMachine}
-                        size={1.2}
-                        color="rgb(252, 133, 7)" />
-                    {/* </ListItemIcon> */}
-                    <ListItemText primary="Бытовая техника" secondary="для дома уход за собой" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <DraftsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Смартфоны и гаджеты" secondary="планшеты фототехника" />
-                </ListItem>
-
-            </List>
-
+            <Paper>
+                <List dense="true" disablePadding="true">
+                    <Menubutton
+                        path={mdiWashingMachine}
+                        size={1.5}
+                        color="rgb(252, 133, 7)"
+                        primary="Бытовая техника"
+                        secondary="для дома уход за собой" />
+                    <Menubutton
+                        path={mdiWashingMachine}
+                        size={1.5}
+                        color="rgb(252, 133, 7)"
+                        primary="Смартфоны и гаджеты"
+                        secondary="планшеты фототехника" />
+                    <Menubutton
+                        path={mdiWashingMachine}
+                        size={1.5}
+                        color="rgb(252, 133, 7)"
+                        primary="ТВ и мультимедия"
+                        secondary="аудио видеоигры" />
+                    <Menubutton
+                        path={mdiWashingMachine}
+                        size={1.5}
+                        color="rgb(252, 133, 7)"
+                        primary="Компьютеры"
+                        secondary="комплектующие ноутбуки" />
+                    <Menubutton
+                        path={mdiWashingMachine}
+                        size={1.5}
+                        color="rgb(252, 133, 7)"
+                        primary="Офис и сеть"
+                        secondary="кресла проекторы" />
+                </List>
+            </Paper>
         </div>
 
     )

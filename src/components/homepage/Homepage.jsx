@@ -2,7 +2,7 @@ import './homepage.scss'
 import React from 'react'
 import Menulist from '../menulist/Menulist'
 import Products from '../products/Products'
-import Navbar from '../Navbar/Navbar'
+import Navbar from '../navbar/Navbar'
 import { Paper } from '@material-ui/core'
 
 
