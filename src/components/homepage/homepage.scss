@@ -20,8 +20,14 @@
             max-width: calc(100%-300px);
             margin-left: 20px;
             display: block;
-            
 
+            &.show {
+                display: block;
+            }
+            &.hide {
+                display: none;
+            }
+            
             .products-top-wrap {
                 display: flex;
                 margin-bottom: 20px;
@@ -59,3 +65,5 @@
         display: flex;
     }
 }
+
+
