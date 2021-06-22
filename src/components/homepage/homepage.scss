@@ -1,18 +1,12 @@
 .homepage-container {
     max-width: 1300px;
     padding-left: 20px;
-    padding-right: 20px;
+    // padding-right: 20px;
 
     .homepage-grid {
         margin-left: 20px;
         justify-content: space-between;
         display: flex;
-
-        .MuiList-root {
-            padding-right: 20px;
-            max-width: 350px;
-            margin-left: 20px;
-        }
 
         .products-wrap {
             margin-top: 10px;

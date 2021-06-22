@@ -11,20 +11,22 @@ import { changeDisplaySubMenuAction } from '../../actions/menuActions'
 export default function Homepage() {
     const dispatch = useDispatch()
 
-    const buttonMouseOver = (value) => {
+    const openCloseSubMenu = (value) => {
         dispatch(changeDisplaySubMenuAction(value))
     }
-
     return (
         <div className="homepage-container">
             <Navbar />
             <div className="homepage-grid">
                 <Menulist
-                    mouseOver={() => buttonMouseOver('show')}
-                    mouseOut={() => buttonMouseOver('hide')}
+                    mouseEnter={() => openCloseSubMenu('show')}
+                    mouseLeave={() => openCloseSubMenu('hide')}  
                 />
                 <div className="products-wrap">
-                    <Submenu />
+                    <Submenu
+                        mouseEnter={() => openCloseSubMenu('show')}
+                        mouseLeave={() => openCloseSubMenu('hide')}
+                    />
                     <div className="products-top-wrap">
                         <div className="products-banner"><Paper><Products /></Paper></div>
                         <div className="products-actions"><Paper>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ex qui consectetur error reprehenderit numquam omnis quos quis voluptates repudiandae tenetur aliquam similique voluptas recusandae officiis non delectus quas labore?</Paper></div>
