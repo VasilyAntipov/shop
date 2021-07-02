@@ -2,41 +2,27 @@ import React from 'react'
 import './submenu.scss'
 import { Paper } from '@material-ui/core'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { changeDisplaySubmenu } from '../../actions/menuActions'
 
-export default function Submenu({ mouseEnter, mouseLeave }) {
+export default function Submenu() {
     const displaySubmenu = useSelector(state => state.menu.displaySubmenu)
+    const activeId = useSelector(state => state.menu.activeId)
+    const dispatch = useDispatch()
+    
     return (
         <Paper className={'submenu ' + displaySubmenu}
-            onMouseEnter={mouseEnter}
-            onMouseLeave={mouseLeave}
+            onMouseEnter={()=>dispatch(changeDisplaySubmenu('show'))}
+            onMouseLeave={()=>dispatch(changeDisplaySubmenu('hide'))}
         >
             <div className="content-menu">
-                <p>
-                    <ul>
-                    Приготовление пищи2187
-                        <li>Приготовление пищи2187</li>
-                        <li>Техника для кухни</li>
-                        <li>Холодильное оборудование1991</li>
-                        <li>Посудомоечные машины549</li>
-                        <li>Приготовление напитков2595</li>
-                        <li>Встраиваемая техника5593</li>
-                    </ul>
-                    
-                    
-                    
-                    
-                    
-                    
-                    Нарезка, смешивание, упаковка1134Приготовление десертов103Измерения201Прочие товары для кухни137
-                    Техника для дома
-                    Стирка и сушка961
-                    Глаженье849
-                    Уборка1771
-                    Летний климат564
-                    Зимний климат911Поддержание климата680Водонагреватели588Шитье, вышивание и уход за одеждой188Умный дом536Товары для ванных и туалетных комнат10Часы143
-
-                </p>
-
+                <div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, fugiat enim. Adipisci sed harum neque veritatis laborum asperiores fugit quia quisquam maxime blanditiis quaerat cumque illo suscipit numquam, quidem quasi!
+                    Labore temporibus, ad velit voluptatum minus fugiat alias error itaque magni veniam. Iusto maxime pariatur, laboriosam provident id maiores blanditiis totam ipsam! Est ipsa quam, voluptatibus veniam alias eius nisi?
+                    Neque laborum consequuntur omnis non sapiente quidem accusantium id iure ex cupiditate unde dolorum nesciunt fugit consequatur rerum officiis ipsam ab quisquam nemo nulla, cum atque! Deserunt cumque nihil nam.
+                    Nostrum placeat tempore, architecto doloremque necessitatibus officia! Enim, consequuntur repudiandae? Culpa obcaecati magnam natus, molestias facilis delectus voluptate dignissimos deleniti, cupiditate et exercitationem eum excepturi consectetur officia! Harum, commodi ex?
+                    Ratione, dolor corporis blanditiis sequi unde, fugiat placeat perferendis quam labore quae natus necessitatibus. Deserunt illo unde distinctio praesentium assumenda possimus, totam vitae enim dolorum, harum excepturi, non quas sequi.</p>
+                </div>
             </div>
         </Paper>
     )

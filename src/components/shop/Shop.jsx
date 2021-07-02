@@ -1,18 +1,21 @@
 import './shop.scss';
 import Footer from '../footer/Footer';
 import Header from '../header/Header'
-import Homepage from '../homepage/Homepage'
-
+import HomePage from '../homepage/HomePage'
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 function Shop() {
     return (
-        <div className="Shop">
+        <BrowserRouter>
             <div className="container">
-                <Header />
-                <Homepage />
-                <Footer />
+                <Route component={Header} />
+                <Switch>
+                    <Route exact path="/" component={HomePage} />
+                </Switch>
+                <Route component={Footer} />
             </div>
-        </div>
+        </BrowserRouter>
     );
 }
 
