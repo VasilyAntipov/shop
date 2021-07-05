@@ -1,18 +1,14 @@
 import './menulist.scss'
-import React, { useEffect } from 'react'
+import React from 'react'
 import List from '@material-ui/core/List';
 import { mdiWashingMachine } from '@mdi/js';
 import { MenuButton } from '../menubutton/MenuButton'
 import { Paper } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux'
-import { initMenu } from '../../actions';
+import { useSelector } from 'react-redux'
+
 export const MenuList = () => {
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(initMenu());
-    }, []);
-    const menu = useSelector(state => state.menu);
+    const menu = useSelector(state => state.menu)
 
     return (
         <Paper className="menu-wrap">

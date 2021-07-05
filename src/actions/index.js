@@ -7,6 +7,9 @@ import {
     INIT_MENU_SUCCESS,
     INIT_MENU_FAIL,
     INIT_MENU,
+    INIT_SUB_MENU_SUCCESS,
+    INIT_SUB_MENU_FAIL,
+    INIT_SUB_MENU,
     SET_ACTIVE_ID
 } from '../constants'
 
@@ -18,4 +21,7 @@ export const initCatalog = createAction(INIT_CATALOG)
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
 export const initMenuFail = createAction(INIT_MENU_FAIL)
 export const initMenu = createAction(INIT_MENU)
+export const initSubMenuSuccess = createAction(INIT_SUB_MENU_SUCCESS)
+export const initSubMenuFail = createAction(INIT_SUB_MENU_FAIL)
+export const initSubMenu = createAction(INIT_SUB_MENU)
 export const setActiveId = createAction(SET_ACTIVE_ID)

@@ -3,6 +3,9 @@ import {
     INIT_MENU,
     INIT_MENU_FAIL,
     INIT_MENU_SUCCESS,
+    INIT_SUB_MENU,
+    INIT_SUB_MENU_FAIL,
+    INIT_SUB_MENU_SUCCESS,
     SET_ACTIVE_ID,
 } from '../constants'
 
@@ -11,7 +14,8 @@ const initState = {
     activeId: null,
     isLoading: false,
     isLoaded: false,
-    items: [{name:'vasya'}, {name:'misha'}],
+    items: [],
+    subItems: [],
     error: null,
 }
 
@@ -39,6 +43,11 @@ export function menuReducer(state = initState, action) {
                 ...state,
                 isLoaded: true,
                 error: action.payload
+            }
+        case INIT_SUB_MENU_SUCCESS:
+            return {
+                ...state,
+                subItems: action.payload
             }
         case SET_ACTIVE_ID:
             return {

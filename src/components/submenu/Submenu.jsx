@@ -7,9 +7,11 @@ import { changeDisplaySubmenu } from '../../actions'
 
 export const Submenu = () => {
     const displaySubmenu = useSelector(state => state.menu.displaySubmenu)
-    const activeId = useSelector(state => state.menu.activeId)
+    const menu = useSelector(state => state.menu)
     const dispatch = useDispatch()
-
+    console.log(menu.subItems)
+    console.log(menu.items)
+    console.log(menu.activeId)
     return (
         <Paper className={'submenu ' + displaySubmenu}
             onMouseEnter={() => dispatch(changeDisplaySubmenu('show'))}
@@ -17,11 +19,16 @@ export const Submenu = () => {
         >
             <div className="content-menu">
                 <div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, fugiat enim. Adipisci sed harum neque veritatis laborum asperiores fugit quia quisquam maxime blanditiis quaerat cumque illo suscipit numquam, quidem quasi!
-                        Labore temporibus, ad velit voluptatum minus fugiat alias error itaque magni veniam. Iusto maxime pariatur, laboriosam provident id maiores blanditiis totam ipsam! Est ipsa quam, voluptatibus veniam alias eius nisi?
-                        Neque laborum consequuntur omnis non sapiente quidem accusantium id iure ex cupiditate unde dolorum nesciunt fugit consequatur rerum officiis ipsam ab quisquam nemo nulla, cum atque! Deserunt cumque nihil nam.
-                        Nostrum placeat tempore, architecto doloremque necessitatibus officia! Enim, consequuntur repudiandae? Culpa obcaecati magnam natus, molestias facilis delectus voluptate dignissimos deleniti, cupiditate et exercitationem eum excepturi consectetur officia! Harum, commodi ex?
-                        Ratione, dolor corporis blanditiis sequi unde, fugiat placeat perferendis quam labore quae natus necessitatibus. Deserunt illo unde distinctio praesentium assumenda possimus, totam vitae enim dolorum, harum excepturi, non quas sequi.</p>
+                    <ul>
+                        {menu.subItems.map((item, i) => {
+                            if (item.cat1_id === menu.activeId)
+                                return (
+                                    <li key={i}>
+                                        <p>{item.cat1_id} {item.name}</p>
+                                    </li>
+                                )
+                        })}
+                    </ul>
                 </div>
             </div>
         </Paper>

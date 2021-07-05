@@ -6,7 +6,7 @@ import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
 import { changeDisplaySubmenu, setActiveId } from '../../actions'
 
-export const MenuButton = ({ id, path, primary, secondary }) => {
+export const MenuButton = ({ id, path, primary, secondary }) =>{
 
     const dispatch = useDispatch();
     const openCloseSubMenu = (value, id) => {
