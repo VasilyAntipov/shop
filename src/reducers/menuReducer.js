@@ -4,7 +4,7 @@ import {
     INIT_CATALOG_FAIL,
     INIT_CATALOG_SUCCESS,
     SET_ACTIVE_ID,
-} from '../constants/actionTypes'
+} from '../constants'
 
 const initState = {
     displaySubmenu: 'hide',

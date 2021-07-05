@@ -1,6 +1,6 @@
 import './homepage.scss'
 import React from 'react'
-import Menulist from '../menulist/Menulist'
+import {MenuList} from '../menulist/Menulist'
 import Products from '../products/Products'
 import { Paper } from '@material-ui/core'
 import Submenu from '../submenu/Submenu'
@@ -10,7 +10,7 @@ export default function HomePage() {
     return (
         <div className="homepage-container">
             <div className="homepage-grid">
-                <Menulist />
+                <MenuList />
                 <div className="products-wrap">
                     <Submenu />
                     <div className="products-top-wrap">

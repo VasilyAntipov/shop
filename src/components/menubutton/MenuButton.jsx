@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
-import { changeDisplaySubmenu, setActiveId } from '../../actions/menuActions'
+import { changeDisplaySubmenu, setActiveId } from '../../actions'
 
 export default function MenuButton({ id, path, primary, secondary }) {
 

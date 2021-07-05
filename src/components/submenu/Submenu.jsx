@@ -3,7 +3,7 @@ import './submenu.scss'
 import { Paper } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { changeDisplaySubmenu } from '../../actions/menuActions'
+import { changeDisplaySubmenu } from '../../actions'
 
 export default function Submenu() {
     const displaySubmenu = useSelector(state => state.menu.displaySubmenu)

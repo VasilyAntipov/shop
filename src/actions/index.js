@@ -5,7 +5,7 @@ import {
     INIT_CATALOG_FAIL,
     INIT_CATALOG,
     SET_ACTIVE_ID
-} from '../constants/actionTypes'
+} from '../constants'
 
 
 export const changeDisplaySubmenu = createAction(CHANGE_DISPLAY_SUBMENU)
