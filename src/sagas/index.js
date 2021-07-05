@@ -1,19 +1,19 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
-import { getCatalog } from '../api'
-import { INIT_CATALOG } from '../constants';
-import { initCatalogSuccess, initCatalogFail } from '../actions'
+import { getMenu } from '../api'
+import { INIT_MENU } from '../constants';
+import { initMenuSuccess, initMenuFail } from '../actions'
 
-function* initCatalog() {
+function* initMenu() {
     try {
-        const catalog = yield getCatalog();
-        yield put(initCatalogSuccess(catalog));
+        const menu = yield getMenu();
+        yield put(initMenuSuccess(menu));
     } catch (e) {
-        yield put(initCatalogFail('COULD NOT GET CATALOG'));
+        yield put(initMenuFail('COULD NOT GET MENU'));
     }
 }
 
 export function* rootSaga() {
     yield all([
-        takeLatest(INIT_CATALOG, initCatalog),
+        takeLatest(INIT_MENU, initMenu),
     ]);
 }

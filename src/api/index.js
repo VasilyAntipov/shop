@@ -1,8 +1,9 @@
-export const getCatalog = async () => {
+import { db } from "./db";
+export const getMenu = async () => {
     try {
-        let response = await fetch('http://localhost:3001/api/catalog');
-        let catalog = await response.json();
-        return catalog;
+        let response = await fetch(`${db}/catalog`);
+        let menu = await response.json();
+        return menu;
     } catch (e) {
         alert(e);
     }

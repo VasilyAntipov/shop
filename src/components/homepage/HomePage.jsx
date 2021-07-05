@@ -1,11 +1,11 @@
 import './homepage.scss'
 import React from 'react'
-import {MenuList} from '../menulist/Menulist'
-import Products from '../products/Products'
+import { MenuList } from '../menulist/Menulist'
+import { Products } from '../products/Products'
 import { Paper } from '@material-ui/core'
-import Submenu from '../submenu/Submenu'
+import { Submenu } from '../submenu/Submenu'
 
-export default function HomePage() {
+export const HomePage = () => {
 
     return (
         <div className="homepage-container">

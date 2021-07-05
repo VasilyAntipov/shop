@@ -4,7 +4,7 @@ import { Paper } from '@material-ui/core'
 
 import React from 'react'
 
-export default function CategoryCard() {
+export const CategoryCard = ()=> {
     return (
         <Paper className="categoryCard">
             карточка

@@ -2,15 +2,15 @@ import './menulist.scss'
 import React, { useEffect } from 'react'
 import List from '@material-ui/core/List';
 import { mdiWashingMachine } from '@mdi/js';
-import MenuButton from '../menubutton/MenuButton'
+import { MenuButton } from '../menubutton/MenuButton'
 import { Paper } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux'
-import { initCatalog } from '../../actions';
+import { initMenu } from '../../actions';
 export const MenuList = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(initCatalog());
+        dispatch(initMenu());
     }, []);
     const menu = useSelector(state => state.menu);
 

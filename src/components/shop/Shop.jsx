@@ -1,11 +1,11 @@
 import './shop.scss';
-import Footer from '../footer/Footer';
-import Header from '../header/Header'
-import HomePage from '../homepage/HomePage'
+import {Footer} from '../footer/Footer';
+import {Header} from '../header/Header'
+import {HomePage} from '../homepage/HomePage'
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-function Shop() {
+export const Shop = () => {
     return (
         <BrowserRouter>
             <div className="container">
@@ -19,4 +19,3 @@ function Shop() {
     );
 }
 
-export default Shop;

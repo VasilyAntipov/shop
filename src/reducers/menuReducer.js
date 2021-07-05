@@ -1,8 +1,8 @@
 import {
     CHANGE_DISPLAY_SUBMENU,
-    INIT_CATALOG,
-    INIT_CATALOG_FAIL,
-    INIT_CATALOG_SUCCESS,
+    INIT_MENU,
+    INIT_MENU_FAIL,
+    INIT_MENU_SUCCESS,
     SET_ACTIVE_ID,
 } from '../constants'
 
@@ -22,19 +22,19 @@ export function menuReducer(state = initState, action) {
                 ...state,
                 displaySubmenu: action.payload
             }
-        case INIT_CATALOG:
+        case INIT_MENU:
             return {
                 ...state,
                 isLoading: true
             }
-        case INIT_CATALOG_SUCCESS:
+        case INIT_MENU_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 isLoaded: true,
                 items: action.payload
             }
-        case INIT_CATALOG_FAIL:
+        case INIT_MENU_FAIL:
             return {
                 ...state,
                 isLoaded: true,
