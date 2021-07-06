@@ -1,4 +1,4 @@
-import './categoryCard.scss'
+import './categorycard.scss'
 import React from 'react'
 import { Paper } from '@material-ui/core'
 

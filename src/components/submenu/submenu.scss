@@ -1,9 +1,10 @@
 .submenu {
     padding: 0;
     margin: 0;
+
     // width: 800px;
     max-width: max-content;
-    height: 100vh;
+    max-height: max-content;
     position: absolute;
     left: 323px;
     top: 110px;
@@ -15,5 +16,25 @@
     }
     &.hide {
         display: none;
+    }
+    .content-menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: baseline;
+
+        .menu-level-container {
+            padding: 8px;
+            margin: 8px;
+            .menu-first-level {
+                p {
+                    font-size: 1.1em;
+                    font-weight: bolder;
+                }
+                padding-bottom: 5px;
+            }
+        }
+        li {
+            list-style-type: none;
+        }
     }
 }

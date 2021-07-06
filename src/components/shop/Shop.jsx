@@ -13,10 +13,7 @@ export const Shop = () => {
     useEffect(() => {
         dispatch(initMenu());
     }, []);
-    useEffect(() => {
-        dispatch(initSubMenu());
-    }, []);
-
+  
     return (
         <BrowserRouter>
             <div className="container">

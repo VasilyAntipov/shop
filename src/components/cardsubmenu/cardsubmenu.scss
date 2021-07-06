@@ -1,0 +1,16 @@
+.categorycard {
+    padding: 0;
+    margin: 0;
+    max-width: max-content;
+    max-height: max-content;
+    position: absolute;
+    border-radius: 5px;
+    padding: 32px;
+
+    &.show {
+        display: block;
+    }
+    &.hide {
+        display: none;
+    }
+}
