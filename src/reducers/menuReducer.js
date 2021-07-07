@@ -1,17 +1,17 @@
 import {
-    CHANGE_DISPLAY_SUBMENU,
     INIT_MENU,
     INIT_MENU_FAIL,
     INIT_MENU_SUCCESS,
     INIT_SUB_MENU,
     INIT_SUB_MENU_FAIL,
     INIT_SUB_MENU_SUCCESS,
-    SET_ACTIVE_ID,
+    SET_ID_ACTIVE_MENU,
+    SET_IS_MENU_ACTIVE,
 } from '../constants'
 
 const initState = {
-    displaySubmenu: 'hide',
-    activeId: null,
+    idActiveMenu: null,
+    isMenuActive: false,
     isLoading: false,
     isLoaded: false,
     items: [],
@@ -21,11 +21,6 @@ const initState = {
 
 export function menuReducer(state = initState, action) {
     switch (action.type) {
-        case CHANGE_DISPLAY_SUBMENU:
-            return {
-                ...state,
-                displaySubmenu: action.payload
-            }
         case INIT_MENU:
             return {
                 ...state,
@@ -49,10 +44,15 @@ export function menuReducer(state = initState, action) {
                 ...state,
                 subItems: action.payload
             }
-        case SET_ACTIVE_ID:
+        case SET_ID_ACTIVE_MENU:
             return {
                 ...state,
-                activeId: action.payload
+                idActiveMenu: action.payload
+            }
+        case SET_IS_MENU_ACTIVE:
+            return {
+                ...state,
+                isMenuActive: action.payload
             }
         default:
             return state

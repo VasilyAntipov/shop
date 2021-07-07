@@ -4,21 +4,19 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
-import { changeDisplaySubmenu, setActiveId } from '../../actions'
+import { setIdActiveMenu, setIsMenuActive } from '../../actions'
 
-export const MenuButton = ({ id, path, primary, secondary }) =>{
-
+export const MenuButton = ({ id, path, primary, secondary, click }) => {
     const dispatch = useDispatch();
-    const openCloseSubMenu = (value, id) => {
-        dispatch(changeDisplaySubmenu(value))
-        dispatch(setActiveId(id))
-    }
-
     return (
         <ListItem className="menu-list"
             button={true}
-            onMouseEnter={() => openCloseSubMenu('show', id)}
-            onMouseLeave={() => openCloseSubMenu('hide', id)}
+            onMouseEnter={() => {
+                dispatch(setIdActiveMenu(id))
+                dispatch(setIsMenuActive(true))}
+            }
+            onMouseLeave={() => dispatch(setIsMenuActive(false))}
+            onClick={click}
         >
             <Icon
                 path={path}

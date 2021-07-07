@@ -13,9 +13,10 @@ export const MenuList = () => {
     return (
         <Paper className="menu-wrap">
             <List>
-                {menu.items.map((item, i) =>
+                {menu.items.map((item) =>
                     <MenuButton
-                        key={i}
+                        click={()=> alert('Привет Сережа!')}
+                        key={item.id}
                         id={item.id}
                         path={mdiWashingMachine}
                         primary={item.name}

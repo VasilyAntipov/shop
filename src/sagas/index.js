@@ -17,6 +17,5 @@ function* initMenu() {
 export function* rootSaga() {
     yield all([
         takeLatest(INIT_MENU, initMenu),
-        // takeLatest(INIT_SUB_MENU, initSubMenu),
     ]);
 }

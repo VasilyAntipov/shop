@@ -1,12 +1,23 @@
+import './submenuitem.scss'
 import { Link } from '@material-ui/core'
 import React from 'react'
 
-export const SubMenuItem = ({ name }) => {
+export const SubMenuItem = ({ click, mouseEnter, mouseLeave, name, size }) => {
     return (
         <Link
+            className={`submenu-item`}
+            component="button"
             color={'textPrimary'}
             underline={'none'}
-        >{name}</Link>
+            onClick={click}
 
+        >
+            <div className={size}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+            >
+                {name}
+            </div>
+        </Link>
     )
 }

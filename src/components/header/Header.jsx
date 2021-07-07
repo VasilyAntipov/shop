@@ -1,5 +1,6 @@
 import './header.scss'
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -163,12 +164,18 @@ export const Header = () => {
         </Menu>
     );
 
+    const menu = useSelector(state => state.menu)
+
     return (
 
         <div className="header-container">
 
             <div className="header-top">
-
+                {menu.idActiveMenu} ; {menu.oldIdActiveMenu}
+                {menu.idActiveMenu || menu.oldIdActiveMenu
+                    ? 'show'
+                    : 'hide'
+                }
             </div>
 
             <div className="header-bot">

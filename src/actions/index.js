@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
 import {
-    CHANGE_DISPLAY_SUBMENU,
     INIT_CATALOG_SUCCESS,
     INIT_CATALOG_FAIL,
     INIT_CATALOG,
@@ -10,11 +9,11 @@ import {
     INIT_SUB_MENU_SUCCESS,
     INIT_SUB_MENU_FAIL,
     INIT_SUB_MENU,
-    SET_ACTIVE_ID
+    SET_ID_ACTIVE_MENU,
+    SET_IS_MENU_ACTIVE,
 } from '../constants'
 
 
-export const changeDisplaySubmenu = createAction(CHANGE_DISPLAY_SUBMENU)
 export const initCatalogSuccess = createAction(INIT_CATALOG_SUCCESS)
 export const initCatalogFail = createAction(INIT_CATALOG_FAIL)
 export const initCatalog = createAction(INIT_CATALOG)
@@ -24,4 +23,5 @@ export const initMenu = createAction(INIT_MENU)
 export const initSubMenuSuccess = createAction(INIT_SUB_MENU_SUCCESS)
 export const initSubMenuFail = createAction(INIT_SUB_MENU_FAIL)
 export const initSubMenu = createAction(INIT_SUB_MENU)
-export const setActiveId = createAction(SET_ACTIVE_ID)
+export const setIdActiveMenu = createAction(SET_ID_ACTIVE_MENU)
+export const setIsMenuActive = createAction(SET_IS_MENU_ACTIVE)
