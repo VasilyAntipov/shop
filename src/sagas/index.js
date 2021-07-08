@@ -1,7 +1,7 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
 import { getMenu, getSubMenu } from '../api'
-import { INIT_MENU, INIT_SUB_MENU } from '../constants';
-import { initMenuSuccess, initMenuFail, initSubMenuSuccess, initSubMenuFail } from '../actions'
+import { INIT_MENU } from '../constants';
+import { initMenuSuccess, initMenuFail, initSubMenuSuccess } from '../actions'
 
 function* initMenu() {
     try {

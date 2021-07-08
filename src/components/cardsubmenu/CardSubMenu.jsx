@@ -1,29 +1,40 @@
 import './cardsubmenu.scss'
 import React from 'react'
 import { Paper } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector , useDispatch} from 'react-redux'
+import { SubMenuItem } from '../submenuitem/SubMenuItem'
+import { showCardSubMenu } from '../../actions'
 
-export const CardSubMenu = ({ anchorEl, open, close, parentId }) => {
+export const CardSubMenu = ({ anchorEl, id }) => {
     const menu = useSelector(state => state.menu)
-    const cardOffsetX = 5;
+    const cardOffsetX = 0;
     const cardOffsetY = -40;
-    let position = null; let x, y;
+    const dispatch = useDispatch()
+    let position = null;
     if (anchorEl) {
-        x = anchorEl.getBoundingClientRect().right + cardOffsetX;
-        y = anchorEl.getBoundingClientRect().bottom + cardOffsetY;
-        position = { 'top': y, 'left': x }
+        const x = anchorEl.getBoundingClientRect().bottom + cardOffsetY;
+        const y = anchorEl.getBoundingClientRect().right + cardOffsetX;
+        position = { 'top': x, 'left': y }
     }
+
     return (
         <Paper
-            className={`card-submenu`}
+            className={`card-submenu ${menu.cardSubMenuActive ? 'show' : 'hide'}`}
             style={position}
+            onMouseEnter = {()=>dispatch(showCardSubMenu(true))}
+            onMouseLeave = {()=>dispatch(showCardSubMenu(false))}
         >
             {menu.subItems.map((item) => {
-                if (item.parent_id === parentId) {
+                if (item.parent_id === id) {
                     return (
-                        <div>
-                            {item.name}
-                        </div>
+                        <li key={item.id}>
+                            <SubMenuItem
+                                id={item.id}
+                                size={'normal'}
+                                name={item.name}
+                                click={() => alert('продукты еще не готовы')}
+                            />
+                        </li>
                     )
                 }
             })}

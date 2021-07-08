@@ -1,5 +1,5 @@
 .card-submenu {
-    left:-1000px;
+    left: -1000px;
     position: fixed;
     padding: 0;
     margin: 0;
@@ -8,10 +8,18 @@
     border-radius: 5px;
     padding: 32px;
     z-index: 10;
-    background-color: green;
-    // display: none;
+    background-color: white;
+    display: none;
 
     &.show {
         display: block;
+    }
+
+    .card-item {
+        &:hover {
+            cursor: pointer;
+            color: rgb(252, 133, 7);
+            font-size: 30px;
+        }
     }
 }

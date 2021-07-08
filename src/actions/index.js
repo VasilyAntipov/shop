@@ -11,6 +11,7 @@ import {
     INIT_SUB_MENU,
     SET_ID_ACTIVE_MENU,
     SET_IS_MENU_ACTIVE,
+    SHOW_CARD_SUB_MENU
 } from '../constants'
 
 
@@ -25,3 +26,4 @@ export const initSubMenuFail = createAction(INIT_SUB_MENU_FAIL)
 export const initSubMenu = createAction(INIT_SUB_MENU)
 export const setIdActiveMenu = createAction(SET_ID_ACTIVE_MENU)
 export const setIsMenuActive = createAction(SET_IS_MENU_ACTIVE)
+export const showCardSubMenu = createAction(SHOW_CARD_SUB_MENU)

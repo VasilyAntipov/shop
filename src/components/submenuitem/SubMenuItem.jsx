@@ -2,7 +2,7 @@ import './submenuitem.scss'
 import { Link } from '@material-ui/core'
 import React from 'react'
 
-export const SubMenuItem = ({ click, mouseEnter, mouseLeave, name, size }) => {
+export const SubMenuItem = ({ id, click, mouseEnter, mouseLeave, name, size}) => {
     return (
         <Link
             className={`submenu-item`}
@@ -10,7 +10,6 @@ export const SubMenuItem = ({ click, mouseEnter, mouseLeave, name, size }) => {
             color={'textPrimary'}
             underline={'none'}
             onClick={click}
-
         >
             <div className={size}
                         onMouseEnter={mouseEnter}

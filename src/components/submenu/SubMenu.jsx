@@ -3,7 +3,7 @@ import './submenu.scss'
 import { Paper } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { setIdActiveMenu, setIsMenuActive, } from '../../actions'
+import { setIsMenuActive, showCardSubMenu } from '../../actions'
 import { SubMenuItem } from '../submenuitem/SubMenuItem'
 import { CardSubMenu } from '../cardsubmenu/CardSubMenu'
 
@@ -14,57 +14,65 @@ export const SubMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [idActiveSubMenu, setIdActiveSubMenu] = React.useState(null);
 
+    const haveChild = (id) => {
+        return menu.subItems.find(item => item.parent_id === id) ? true : false;
+    }
     const handleCardSubMenuOpen = (id, event) => {
-        setIdActiveSubMenu(id);
-        setAnchorEl(event.currentTarget);
+        if (haveChild(id)) {
+            setIdActiveSubMenu(id);
+            setAnchorEl(event.currentTarget);
+            dispatch(showCardSubMenu(true))
+        }
     };
 
-    const handleCardSubMenuClose = () => {
-        setIdActiveSubMenu(null);
-        setAnchorEl(null);
+    const handleCardSubMenuClose = (event) => {
+
+        dispatch(showCardSubMenu(false))
     };
 
-    const open = Boolean(anchorEl);
+    // const open = Boolean(anchorEl);state
 
-    return (    
+    return (
         <Paper className=
             {`submenu ${(menu.isMenuActive) ? 'show' : 'hide'}`}
             onMouseEnter={() => dispatch(setIsMenuActive(true))}
-            onMouseLeave={() => dispatch(setIsMenuActive(false))}
+            menu onMouseLeave={() => dispatch(setIsMenuActive(false))}
         >
             <CardSubMenu
-                parentId={idActiveSubMenu}
+                id={idActiveSubMenu}
                 anchorEl={anchorEl}
-                // open={open}
-                // close={() => handlePopoverClose()}
             />
             <div className="content-menu">
-                {menu.subItems.map((item, i) => {
-                    if (item.parent_id === menu.idActiveMenu)
+                {menu.subItems.map((item) => {
+                    if (item.parent_id === menu.idActiveMenu) {
                         return (
-                            <div key={i} className="menu-level-container">
+                            <div key={item.id} className="menu-level-container">
                                 <SubMenuItem
-                                    click={() => alert('asd')}
                                     size={'big'}
                                     name={item.name}
                                 />
-                                {menu.subItems.map((subItem, i) => {
+                                {menu.subItems.map((subItem) => {
                                     if (subItem.parent_id === item.id)
                                         return (
-                                            <li key={i}>
+                                            <li>
                                                 <SubMenuItem
+                                                    id={subItem.id}
                                                     size={'normal'}
-                                                    name={subItem.name}
+                                                    name={`${subItem.name}${haveChild(subItem.id) ? ' >' : ''}`}
                                                     mouseEnter={(event) => handleCardSubMenuOpen(subItem.id, event)}
-                                                    mouseLeave={() => handleCardSubMenuClose()}
+                                                    mouseLeave={(event) => handleCardSubMenuClose(event)}
                                                 />
                                             </li>
                                         )
                                 })}
+
                             </div>
                         )
+                    }
+
                 })}
             </div>
         </Paper >
     )
 }
+

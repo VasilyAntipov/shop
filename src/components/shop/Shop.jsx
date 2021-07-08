@@ -5,14 +5,12 @@ import { HomePage } from '../homepage/HomePage'
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { initMenu , initSubMenu} from '../../actions';
+import { initMenu} from '../../actions';
 
 
 export const Shop = () => {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(initMenu());
-    }, []);
+    useEffect(()=>dispatch(initMenu()));
   
     return (
         <BrowserRouter>
