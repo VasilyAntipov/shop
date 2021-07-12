@@ -2,7 +2,7 @@ import './menulist.scss'
 import React from 'react'
 import List from '@material-ui/core/List';
 import { mdiWashingMachine } from '@mdi/js';
-import { MenuButton } from './menubutton/MenuButton'
+import { MenuButton } from '../menubutton/MenuButton'
 import { Paper } from '@material-ui/core';
 import { useSelector } from 'react-redux'
 

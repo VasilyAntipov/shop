@@ -1,8 +1,5 @@
 import { createAction } from 'redux-actions';
 import {
-    INIT_CATALOG_SUCCESS,
-    INIT_CATALOG_FAIL,
-    INIT_CATALOG,
     INIT_MENU_SUCCESS,
     INIT_MENU_FAIL,
     INIT_MENU,

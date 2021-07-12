@@ -1,12 +1,12 @@
-import './cardsubmenu.scss'
+import './submenucard.scss'
 import React from 'react'
 import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { SubMenuItem } from '../submenuitem/SubMenuItem'
-import { showCardSubMenu, initProducts } from '../../../../actions'
-import {menuHaveChild} from '../../../../selectors'
+import { MenuItem } from '../menuitem/MenuItem'
+import { showCardSubMenu, initProducts } from '../../actions'
+import {menuHaveChild} from '../../selectors'
 
-export const CardSubMenu = ({ anchorEl, id }) => {
+export const SubMenuCard = ({ anchorEl, id }) => {
     const menu = useSelector(state => state.menu)
     const cardOffsetX = 0;
     const cardOffsetY = -40;
@@ -32,7 +32,7 @@ export const CardSubMenu = ({ anchorEl, id }) => {
                         : [() => dispatch(initProducts(item.id)), 'products']
                     return (
                         <li key={item.id}>
-                            <SubMenuItem
+                            <MenuItem
                                 id={item.id}
                                 size={'normal'}
                                 name={item.name + item.id}

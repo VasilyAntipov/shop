@@ -1,9 +1,9 @@
-import './submenuitem.scss'
+import './menuitem.scss'
 import { Link } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 import React from 'react'
 
-export const SubMenuItem = ({ click, id, mouseEnter, mouseLeave, name, size, path }) => {
+export const MenuItem = ({ click, id, mouseEnter, mouseLeave, name, size, path }) => {
     return (
         <Link
             className={`submenu-item`}

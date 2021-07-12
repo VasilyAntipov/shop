@@ -17,9 +17,9 @@ function* initMenu() {
     }
 }
 
-function* initProducts(props) {
+function* initProducts(action) {
     try {
-        const products = yield getProducts(props.payload);
+        const products = yield getProducts(action.payload);
         yield put(initProductsSuccess(products));
     } catch (e) {
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));
