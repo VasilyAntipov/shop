@@ -9,7 +9,13 @@
         height: 64px;
 
         .MuiAppBar-root {
-            background-color: white; 
+            background-color: black; 
+
+            .dns-button {
+                font-size: 30px;
+                font-style: bold;
+                color:rgb(252,133,7);
+            }
         }
     }
 }

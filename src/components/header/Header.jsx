@@ -185,11 +185,14 @@ export const Header = () => {
                                 color="inherit"
                                 aria-label="open drawer"
                             >
-                                <MenuIcon />
+                                <Link 
+                                className='dns-button'
+                                to={'/home'}
+                                >DNS</Link>
                             </IconButton>
-                            <Typography className={classes.title} variant="h6" noWrap>
+                            {/* <Typography className={classes.title} variant="h6" noWrap>
                                 Material-UI
-                            </Typography>
+                            </Typography> */}
                             <div className={classes.search}>
                                 <div className={classes.searchIcon}>
                                     <SearchIcon />

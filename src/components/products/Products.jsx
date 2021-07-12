@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './products.scss'
 import { ProductCard } from '../productcard/ProductCard'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
 export const Products = () => {
-    const prod = useSelector(state => state.prod)
     const params = useParams()
+    const prod = useSelector(state => state.prod)
     return (
         <div className="products">
             {prod.items.map((item) => {

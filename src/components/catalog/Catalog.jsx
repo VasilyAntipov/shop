@@ -11,7 +11,7 @@ export const Catalog = () => {
             {menu.subItems.map((item) => {
                 if (item.parent_id === +params.id)
                     return (
-                        <CatalogCard name={item.name} />
+                        <CatalogCard name={item.name} key={item.id} />
                     )
             })}
         </div>
