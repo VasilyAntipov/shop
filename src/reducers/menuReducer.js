@@ -19,7 +19,7 @@ const initState = {
     error: null,
 }
 
-export function menuReducer(state = initState, action) {
+export const menuReducer = (state = initState, action) => {
     switch (action.type) {
         case INIT_MENU:
             return {

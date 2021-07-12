@@ -1,7 +1,10 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
-import { getMenu, getSubMenu } from '../api'
-import { INIT_MENU } from '../constants';
-import { initMenuSuccess, initMenuFail, initSubMenuSuccess } from '../actions'
+import { getMenu, getSubMenu, getProducts } from '../api'
+import { INIT_MENU, INIT_PRODUCTS } from '../constants';
+import {
+    initMenuSuccess, initMenuFail, initSubMenuSuccess,
+    initProductsFail, initProductsSuccess,
+} from '../actions'
 
 function* initMenu() {
     try {
@@ -14,8 +17,19 @@ function* initMenu() {
     }
 }
 
+function* initProducts(props) {
+    try {
+        const products = yield getProducts(props.payload);
+        yield put(initProductsSuccess(products));
+    } catch (e) {
+        yield put(initProductsFail('COULD NOT GET PRODUCTS'));
+    }
+}
+
+
 export function* rootSaga() {
     yield all([
         takeLatest(INIT_MENU, initMenu),
+        takeLatest(INIT_PRODUCTS, initProducts),
     ]);
 }

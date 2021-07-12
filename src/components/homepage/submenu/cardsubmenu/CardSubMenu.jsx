@@ -1,9 +1,10 @@
 import './cardsubmenu.scss'
 import React from 'react'
 import { Paper } from '@material-ui/core'
-import { useSelector , useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { SubMenuItem } from '../submenuitem/SubMenuItem'
-import { showCardSubMenu } from '../../actions'
+import { showCardSubMenu, initProducts } from '../../../../actions'
+import {menuHaveChild} from '../../../../selectors'
 
 export const CardSubMenu = ({ anchorEl, id }) => {
     const menu = useSelector(state => state.menu)
@@ -21,18 +22,22 @@ export const CardSubMenu = ({ anchorEl, id }) => {
         <Paper
             className={`card-submenu ${menu.cardSubMenuActive ? 'show' : 'hide'}`}
             style={position}
-            onMouseEnter = {()=>dispatch(showCardSubMenu(true))}
-            onMouseLeave = {()=>dispatch(showCardSubMenu(false))}
+            onMouseEnter={() => dispatch(showCardSubMenu(true))}
+            onMouseLeave={() => dispatch(showCardSubMenu(false))}
         >
             {menu.subItems.map((item) => {
                 if (item.parent_id === id) {
+                    const [click, path] = menuHaveChild(menu, item.id)
+                        ? [null, 'catalog']
+                        : [() => dispatch(initProducts(item.id)), 'products']
                     return (
                         <li key={item.id}>
                             <SubMenuItem
                                 id={item.id}
                                 size={'normal'}
-                                name={item.name}
-                                click={() => alert('продукты еще не готовы')}
+                                name={item.name + item.id}
+                                click={click}
+                                path={path}
                             />
                         </li>
                     )

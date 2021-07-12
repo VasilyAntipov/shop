@@ -18,3 +18,13 @@ export const getSubMenu = async () => {
         alert(e);
     }
 }
+
+export const getProducts = async (id) => {
+    try {
+        let response = await fetch(`${db}/products/${id}`);
+        let menu = await response.json();
+        return menu;
+    } catch (e) {
+        alert(e);
+    }
+}
