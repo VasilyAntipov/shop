@@ -3,8 +3,8 @@ import React from 'react'
 import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuItem } from '../menuitem/MenuItem'
-import { showCardSubMenu, initProducts } from '../../actions'
-import {menuHaveChild} from '../../selectors'
+import { showCardSubMenu, } from '../../actions'
+import { getSubItems } from '../../selectors'
 
 export const SubMenuCard = ({ anchorEl, id }) => {
     const menu = useSelector(state => state.menu)
@@ -25,19 +25,14 @@ export const SubMenuCard = ({ anchorEl, id }) => {
             onMouseEnter={() => dispatch(showCardSubMenu(true))}
             onMouseLeave={() => dispatch(showCardSubMenu(false))}
         >
-            {menu.subItems.map((item) => {
+            {getSubItems(menu).map((item) => {
                 if (item.parent_id === id) {
-                    const [click, path] = menuHaveChild(menu, item.id)
-                        ? [null, 'catalog']
-                        : [() => dispatch(initProducts(item.id)), 'products']
                     return (
                         <li key={item.id}>
                             <MenuItem
                                 id={item.id}
                                 size={'normal'}
-                                name={item.name + item.id}
-                                click={click}
-                                path={path}
+                                name={item.name}
                             />
                         </li>
                     )

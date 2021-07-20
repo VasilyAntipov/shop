@@ -1,12 +1,12 @@
 import React from 'react'
 import './submenu.scss'
 import { Paper } from '@material-ui/core'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { setIsMenuActive, showCardSubMenu, initCatalog, initProducts } from '../../actions'
+import { useSelector, useDispatch } from 'react-redux'
+import { setIsMenuActive, showCardSubMenu } from '../../actions'
 import { MenuItem } from '../menuitem/MenuItem'
 import { SubMenuCard } from '../submenucard/SubMenuCard'
-import { menuHaveChild } from '../../selectors'
+import { menuHaveChild, getItems, getSubItems } from '../../selectors'
+import { ARROW } from '../../constants'
 
 export const SubMenu = () => {
     const menu = useSelector(state => state.menu)
@@ -24,20 +24,16 @@ export const SubMenu = () => {
     };
 
     const subItemMenu = (item) => {
-        const [arrowName, click, path] = menuHaveChild(menu, item.id)
-            ? ['>', null, 'catalog']
-            : ['', () => dispatch(initProducts(item.id)), 'products']
-
+        const arrow = menuHaveChild(menu, item.id) ? ARROW : ''
         return (
             <li key={item.id}>
                 <MenuItem
                     id={item.id}
                     size={'normal'}
-                    name={item.name + arrowName}
+                    name={item.name}
                     mouseEnter={(event) => handleCardSubMenuOpen(item.id, event)}
                     mouseLeave={() => dispatch(showCardSubMenu(false))}
-                    click={click}
-                    path={path}
+                    arrow={arrow}
                 />
             </li>
         )
@@ -54,15 +50,16 @@ export const SubMenu = () => {
                 anchorEl={anchorEl}
             />
             <div className="content-menu">
-                {menu.subItems.map((item) => {
+                {getSubItems(menu).map((item) => {
                     if (item.parent_id === menu.idActiveMenu) {
                         return (
                             <div key={item.id} className="menu-level-container">
                                 <MenuItem
+                                    id={item.id}
                                     size={'big'}
                                     name={item.name}
                                 />
-                                {menu.subItems.map((subItem) => {
+                                {getSubItems(menu).map((subItem) => {
                                     if (subItem.parent_id === item.id)
                                         return subItemMenu(subItem)
                                 })}

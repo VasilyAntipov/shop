@@ -1,12 +1,28 @@
 import React from 'react'
 import './productcard.scss'
 import { Paper } from '@material-ui/core'
-
-export const ProductCard = ({ name }) => {
+import { Button } from '@material-ui/core'
+import { IMAGEPATH, SERVER } from '../../constants'
+export const ProductCard = ({ name, img }) => {
     return (
         <div>
             <Paper className="product-card">
-                {name}
+                <div className="img-container">
+                    <img src={SERVER + IMAGEPATH + img}></img>
+                </div>
+                <div cnassName='product-card-body'>
+                    <span>{name}</span>
+                    <br></br>
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, eos.</span>
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, eos.</span>
+                    <br></br>
+                    <br></br>
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, eos.</span>
+                </div>
+                <div className="product-card-buy">
+                    <div className='price'>цена</div>
+                    <Button>купить</Button>
+                </div>
             </Paper>
         </div>
     )

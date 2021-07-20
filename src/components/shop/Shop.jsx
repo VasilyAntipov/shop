@@ -25,6 +25,7 @@ const Shop = () => {
                     <Route exact path="/home" component={HomePage} />
                     <Route exact path="/about" component={AboutPage} />
                     <Route exact path="/catalog/:id" component={CatalogPage} />
+                    <Route exact path="/catalog/" component={CatalogPage} />
                     <Route exact path="/products/:id" component={ProductsPage} />
                     <Redirect from='/' to='/home' />
                 </Switch>

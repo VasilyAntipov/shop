@@ -1,6 +1,35 @@
 .product-card {
-    width: 300px;
-    height: 300px;
+    width: 90%;
+    height: 250px;
     margin: 5px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr) 200px;
+    padding: 30px;
+
+    .img-container {
+        width: 200px;
+        height: 200px;
+        vertical-align: middle;
+        text-align: center;
+
+        img {
+            width: 120px;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .product-card-buy {
+
+        text-align: center;
+
+        .price {
+
+        }
+        button {
+            margin-top: 50px;
+        }
+    }
+
+  
 }

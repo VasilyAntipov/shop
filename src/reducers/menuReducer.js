@@ -14,7 +14,6 @@ const initState = {
     isLoading: false,
     isLoaded: false,
     items: [],
-    subItems: [],
     cardSubMenuActive: false,
     error: null,
 }
@@ -38,11 +37,6 @@ export const menuReducer = (state = initState, action) => {
                 ...state,
                 isLoaded: true,
                 error: action.payload
-            }
-        case INIT_SUB_MENU_SUCCESS:
-            return {
-                ...state,
-                subItems: action.payload
             }
         case SET_ID_ACTIVE_MENU:
             return {

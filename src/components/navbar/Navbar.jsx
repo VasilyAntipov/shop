@@ -1,24 +1,40 @@
 import React from 'react'
 import './navbar.scss'
-import Typography from '@material-ui/core/Typography';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
-
-function handleClick(event) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
+import { Link, NavLink, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { CATALOGPATH, PRODUCTSPATH, SERVER } from '../../constants'
+import { menuHaveChild, getNavItems } from '../../selectors';
 
 export const Navbar = () => {
-  return (
-    <Breadcrumbs aria-label="breadcrumb">
-      <Link color="inherit" href="/" onClick={handleClick}>
-        Material-UI
-      </Link>
-      <Link color="inherit" href="/getting-started/installation/" onClick={handleClick}>
-        Core
-      </Link>
-      <Typography color="textPrimary">Breadcrumb</Typography>
-    </Breadcrumbs>
-  );
+    const menu = useSelector(state => state.menu)
+    const params = useParams()
+
+    const navItems = params.id
+        ? getNavItems(menu, params.id).map(item => {
+
+            const path = menuHaveChild(menu, item.id)
+                ? CATALOGPATH
+                : PRODUCTSPATH
+            return (
+                <Link
+                    to={`${path}${item.id}`}
+                >
+                    /{item.name}
+                </Link>
+            )
+        })
+        : null;
+
+    if (!menu.isLoaded)
+        return <div>Loading</div>
+
+    return (
+        <div className="navbar">
+            <NavLink
+                to='/catalog'
+            >Каталог
+            </NavLink>
+            {navItems}
+        </div>
+    )
 }

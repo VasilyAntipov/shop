@@ -10,8 +10,6 @@ function* initMenu() {
     try {
         const menu = yield getMenu();
         yield put(initMenuSuccess(menu));
-        const subMenu = yield getSubMenu();
-        yield put(initSubMenuSuccess(subMenu));
     } catch (e) {
         yield put(initMenuFail('COULD NOT GET MENU'));
     }

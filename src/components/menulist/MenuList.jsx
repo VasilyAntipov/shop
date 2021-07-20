@@ -5,22 +5,21 @@ import { mdiWashingMachine } from '@mdi/js';
 import { MenuButton } from '../menubutton/MenuButton'
 import { Paper } from '@material-ui/core';
 import { useSelector } from 'react-redux'
+import { getItems } from '../../selectors';
 
 export const MenuList = () => {
-
     const menu = useSelector(state => state.menu)
-
+    if (!menu.isLoaded)
+        return <div>Loading menu</div>
     return (
         <Paper className="menu-wrap">
             <List>
-                {menu.items.map((item) =>
+                {getItems(menu).map((item) =>
                     <MenuButton
-                        click={()=> alert('Привет Сережа!')}
                         key={item.id}
                         id={item.id}
                         path={mdiWashingMachine}
-                        primary={item.name}
-                        secondary={'доп секция'}
+                        name={item.name}
                     />
                 )}
             </List>
