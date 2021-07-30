@@ -1,4 +1,45 @@
 .product-filter {
     width: 250px;
-    height: max-content ;
+    height: max-content;
+    margin-top: 5px;
+    padding: 0;
+
+    .filter {
+        .MuiAccordionDetails-root {
+            padding: 0;
+            display: inline;
+            width: 100%;
+            background-color: red;
+        }
+        .button-check {
+            padding-left: 10px;
+            cursor: pointer;
+            &:hover {
+                background-color: rgb(255, 244, 184);
+            }
+        }
+
+        .MuiFormControlLabel-root {
+            width: 100%;
+            .MuiFormControlLabel-label {
+                font-size: 0.8rem;
+            }
+        }
+    }
+    // .producer-filter {
+    //     .MuiAccordionDetails-root {
+    //         padding: 0;
+    //         display: inline;
+    //     }
+    //     .button-check {
+    //         padding-left: 10px;
+    //         cursor: pointer;
+    //         &:hover {
+    //             background-color: rgb(255, 244, 184);
+    //         }
+    //     }
+    //     .MuiFormControlLabel-label {
+    //         font-size: 0.8rem;
+    //     }
+    // }
 }

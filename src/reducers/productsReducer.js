@@ -3,6 +3,8 @@ import {
     INIT_PRODUCTS,
     INIT_PRODUCTS_FAIL,
     INIT_PRODUCTS_SUCCESS,
+    ADD_FILTER,
+    REMOVE_FILTER,
 } from "../constants"
 
 const initState = {
@@ -10,6 +12,10 @@ const initState = {
     isLoading: false,
     isLoaded: false,
     items: [],
+    filters: [
+        { type: 'price', data: [] },
+        { type: 'producer', data: [] }
+    ],
     error: null,
 }
 
@@ -37,6 +43,36 @@ export const productsReducer = (state = initState, action) => {
             return {
                 ...state,
                 isCatalog: action.payload
+            }
+        case ADD_FILTER:
+            return {
+                ...state,
+                filters: state.filters.map(item => {
+                    if (item.type === action.payload.filterType)
+                        return {
+                            type: action.payload.filterType,
+                            data: [
+                                ...item.data,
+                                {
+                                    id: action.payload.id,
+                                    value: action.payload.value
+                                }
+                            ]
+                        }
+                    else return item
+                })
+            }
+        case REMOVE_FILTER:
+            return {
+                ...state,
+                filters: state.filters.map(item => {
+                    if (item.type === action.payload.filterType)
+                        return {
+                            type: action.payload.filterType,
+                            data: item.data.filter(item => item.id !== action.payload.id)
+                        }
+                    else return item
+                })
             }
         default:
             return state

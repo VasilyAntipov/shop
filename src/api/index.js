@@ -5,7 +5,7 @@ export const getMenu = async () => {
         let menu = await response.json();
         return menu;
     } catch (e) {
-        alert(e);
+        console.log(e);
     }
 }
 
@@ -15,7 +15,7 @@ export const getSubMenu = async () => {
         let subMenu = await response.json();
         return subMenu;
     } catch (e) {
-        alert(e);
+        console.log(e);
     }
 }
 
@@ -25,6 +25,6 @@ export const getProducts = async (id) => {
         let menu = await response.json();
         return menu;
     } catch (e) {
-        alert(e);
+        console.log(e);
     }
 }

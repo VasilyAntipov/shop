@@ -4,6 +4,7 @@ import { ProductCard } from '../productcard/ProductCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { initProducts } from '../../actions'
+import { getFiltersString } from '../../selectors'
 
 export const Products = () => {
     const params = useParams()
@@ -12,7 +13,6 @@ export const Products = () => {
     useEffect(() => {
         dispatch(initProducts(+params.id));
       }, []);
-      console.log(prod)
       
     if(!prod.isLoaded) {
         return (
@@ -25,12 +25,13 @@ export const Products = () => {
 
     return (
         <div className="products">
+            
             {prod.items.map((item) => {
-                if (item.cat_id === +params.id)
+                if (item.catid === +params.id)
                     return (
-                        <ProductCard id={item.id} name={item.name} img={item.photo}/>
+                        <ProductCard id={item.id} name={item.name} img={item.photo} price={item.price}/>
                     )
             })}
-        </div>
+        </div>  
     )
 }

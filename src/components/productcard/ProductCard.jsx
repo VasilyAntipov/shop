@@ -3,7 +3,7 @@ import './productcard.scss'
 import { Paper } from '@material-ui/core'
 import { Button } from '@material-ui/core'
 import { IMAGEPATH, SERVER } from '../../constants'
-export const ProductCard = ({ name, img }) => {
+export const ProductCard = ({ name, img, id, price }) => {
     return (
         <div>
             <Paper className="product-card">
@@ -20,7 +20,7 @@ export const ProductCard = ({ name, img }) => {
                     <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, eos.</span>
                 </div>
                 <div className="product-card-buy">
-                    <div className='price'>цена</div>
+                    <div className='price'>{price}₽</div>
                     <Button>купить</Button>
                 </div>
             </Paper>

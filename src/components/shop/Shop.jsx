@@ -22,11 +22,12 @@ const Shop = () => {
             <div className="Shop">
                 <Route component={Header} />
                 <Switch>
-                    <Route exact path="/home" component={HomePage} />
-                    <Route exact path="/about" component={AboutPage} />
-                    <Route exact path="/catalog/:id" component={CatalogPage} />
+                    <Route path="/home" component={HomePage} />
+                    <Route path="/about" component={AboutPage} />
+                    <Route path="/catalog/:id" component={CatalogPage} />
                     <Route exact path="/catalog/" component={CatalogPage} />
                     <Route exact path="/products/:id" component={ProductsPage} />
+                    <Route path="/products/:id/:filters?" component={ProductsPage} />
                     <Redirect from='/' to='/home' />
                 </Switch>
                 <Route component={Footer} />

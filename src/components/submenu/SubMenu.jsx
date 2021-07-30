@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './submenu.scss'
 import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,8 +12,8 @@ export const SubMenu = () => {
     const menu = useSelector(state => state.menu)
     const dispatch = useDispatch()
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [idActiveSubMenu, setIdActiveSubMenu] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [idActiveSubMenu, setIdActiveSubMenu] = useState(null);
 
     const handleCardSubMenuOpen = (id, event) => {
         if (menuHaveChild(menu, id)) {

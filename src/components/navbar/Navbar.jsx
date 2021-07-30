@@ -9,6 +9,9 @@ export const Navbar = () => {
     const menu = useSelector(state => state.menu)
     const params = useParams()
 
+    if (!menu.isLoaded)
+        return <div>Loading</div>
+
     const navItems = params.id
         ? getNavItems(menu, params.id).map(item => {
 
@@ -16,21 +19,18 @@ export const Navbar = () => {
                 ? CATALOGPATH
                 : PRODUCTSPATH
             return (
-                <Link
+                <Link className='nav-link'
                     to={`${path}${item.id}`}
                 >
-                    /{item.name}
+                    {`->${item.name}`}
                 </Link>
             )
         })
         : null;
 
-    if (!menu.isLoaded)
-        return <div>Loading</div>
-
     return (
         <div className="navbar">
-            <NavLink
+            <NavLink className='nav-link'
                 to='/catalog'
             >Каталог
             </NavLink>
