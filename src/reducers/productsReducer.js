@@ -82,16 +82,23 @@ export const productsReducer = (state = initState, action) => {
             return {
                 ...state,
                 filters: [
-                    { type: 'price', data: [] },
-                    { type: 'producer', data: [] }
+                    ...state.filters.map(item => {
+                        if (item.type === action.payload)
+                            return {
+                                type: action.payload,
+                                data: []
+                            }
+                        else
+                            return item
+                    }),
                 ],
             }
         case SHOW_FILTER_FLAG:
             return {
                 ...state,
-                filterFlag: { 
-                    visible: action.payload.visible, 
-                    coordinatsY: action.payload.coordinatsY 
+                filterFlag: {
+                    visible: action.payload.visible,
+                    coordinatsY: action.payload.coordinatsY
                 }
             }
         default:

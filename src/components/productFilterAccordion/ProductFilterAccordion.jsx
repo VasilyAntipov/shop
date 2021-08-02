@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { useDispatch } from 'react-redux'
-import { addFilter, removeFilter, showFilterFlag } from '../../actions'
+import { addFilter, clearFilters, removeFilter, showFilterFlag } from '../../actions'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router'
 
@@ -28,21 +28,22 @@ export const ProductFilterAccordion = ({ accordionArray, accordionName, accordio
         }))
         if (e.target.checked) {
             setIsChecked(arr => arr.map((item, i) => i === index ? true : item))
-            dispatch(addFilter(
-                { id, value, filterType: e.target.name }
-            ))
+            dispatch(addFilter({ id, value, filterType: e.target.name }))
         }
         else {
             setIsChecked(arr => arr.map((item, i) => i === index ? false : item))
-            dispatch(removeFilter(
-                { id, filterType: e.target.name }
-            ))
-
+            dispatch(removeFilter({ id, filterType: e.target.name }))
         }
     };
 
-    const handleClickClearFilters = () => {
+    const handleClickClearFilters = (e) => {
         setIsChecked(Array(accordionArray.length).fill(false))
+        dispatch(clearFilters(accordionName))
+        dispatch(showFilterFlag({
+            visible: true,
+            coordinatsY: e.pageY - 30
+        }))
+        console.log(e)
     }
 
     return (
@@ -69,10 +70,8 @@ export const ProductFilterAccordion = ({ accordionArray, accordionName, accordio
                 </AccordionDetails>
                 <AccordionActions>
                     <Link className="disable-filters"
-                        to={{
-                            pathname: `/products/${params.id}`,
-                        }}
-                        onClick={handleClickClearFilters}
+                        onClick={(e) => handleClickClearFilters(e)}
+
                     >сбросить
                     </Link>
                 </AccordionActions>
