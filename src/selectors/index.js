@@ -30,8 +30,8 @@ export const getFiltersString = (state) => {
         if (item.data.length > 0) {
             item.data.map(item => valueArr.push(item.value))
         }
-        if (valueArr.length > 0) res.push(`${item.type}=${valueArr.join(',')}`)
+        if (valueArr.length > 0)
+            res.push(`${item.type}=${valueArr.join(',')}`)
     })
     return res.join('&')
-
 }

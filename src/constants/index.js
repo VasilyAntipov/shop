@@ -11,6 +11,8 @@ export const INIT_PRODUCTS_SUCCESS = 'INIT_PRODUCTS_SUCCESS'
 export const INIT_PRODUCTS_FAIL = 'INIT_PRODUCTS_FAIL'
 export const ADD_FILTER = 'ADD_FILTER'
 export const REMOVE_FILTER = 'REMOVE_FILTER'
+export const CLEAR_FILTERS = 'CLEAR_FILTERS'
+export const SHOW_FILTER_FLAG = 'SHOW_FILTER_FLAG'
 
 export const SERVER = 'http://localhost:3001/'
 export const PRODUCTSPATH = '/products/'
@@ -20,8 +22,11 @@ export const API = 'api/'
 export const IMAGEPATH = 'images/'
 
 export const priceFilter = [
-    { id: 0, value: '0-10000' },
-    { id: 1, value: '10001-20000' },
-    { id: 2, value: '20001-30000' },
-    { id: 3, value: '30001-40000' }
+    { id: 0, name: '0-10000' },
+    { id: 1, name: '10001-20000' },
+    { id: 2, name: '20001-30000' },
+    { id: 3, name: '30001-40000' }
 ]
+
+export const PRODUCER = 'producer'
+export const PRICE = 'price'

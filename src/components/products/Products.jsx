@@ -25,7 +25,6 @@ export const Products = () => {
 
     return (
         <div className="products">
-            
             {prod.items.map((item) => {
                 if (item.catid === +params.id)
                     return (

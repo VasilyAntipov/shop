@@ -5,6 +5,8 @@ import {
     INIT_PRODUCTS_SUCCESS,
     ADD_FILTER,
     REMOVE_FILTER,
+    CLEAR_FILTERS,
+    SHOW_FILTER_FLAG,
 } from "../constants"
 
 const initState = {
@@ -16,7 +18,9 @@ const initState = {
         { type: 'price', data: [] },
         { type: 'producer', data: [] }
     ],
+    filterFlag: { visible: false, coordinatsY: null },
     error: null,
+
 }
 
 export const productsReducer = (state = initState, action) => {
@@ -73,6 +77,22 @@ export const productsReducer = (state = initState, action) => {
                         }
                     else return item
                 })
+            }
+        case CLEAR_FILTERS:
+            return {
+                ...state,
+                filters: [
+                    { type: 'price', data: [] },
+                    { type: 'producer', data: [] }
+                ],
+            }
+        case SHOW_FILTER_FLAG:
+            return {
+                ...state,
+                filterFlag: { 
+                    visible: action.payload.visible, 
+                    coordinatsY: action.payload.coordinatsY 
+                }
             }
         default:
             return state

@@ -12,6 +12,8 @@ import {
     INIT_PRODUCTS_SUCCESS,
     ADD_FILTER,
     REMOVE_FILTER,
+    CLEAR_FILTERS,
+    SHOW_FILTER_FLAG
 } from '../constants'
 
 
@@ -27,3 +29,5 @@ export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
 export const addFilter = createAction(ADD_FILTER)
 export const removeFilter = createAction(REMOVE_FILTER)
+export const clearFilters = createAction(CLEAR_FILTERS)
+export const showFilterFlag = createAction(SHOW_FILTER_FLAG)
