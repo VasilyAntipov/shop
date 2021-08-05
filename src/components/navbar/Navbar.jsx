@@ -9,30 +9,25 @@ export const Navbar = () => {
     const menu = useSelector(state => state.menu)
     const params = useParams()
 
-    if (!menu.isLoaded)
-        return <div>Loading MENU</div>
+    const getLink = (menu, itemId) => {
+        const path = menuHaveChild(menu, itemId) ? CATALOG_PATH : PRODUCTS_PATH;
+        return path + itemId;
+    };
 
-    const navItems = params.id
-        ? getNavItems(menu, params.id).map((item, index) => {
-            const path = menuHaveChild(menu, item.id)
-                ? CATALOG_PATH
-                : PRODUCTS_PATH
-            return (
-                <Link
-                    className='nav-link'
-                    key={index}
-                    to={`${path}${item.id}`}
-                >
-                    {`->${item.name}`}
-                </Link>
-            )
-        })
-        : null;
+    const navItems = getNavItems(menu, params.id).map(item => (
+        <Link className='nav-link' to={getLink(menu, item.id)}>
+            {item.name}
+        </Link>
+    ));
+
+    if (!menu.isLoaded) {
+        return <div>Loading</div>
+    }
 
     return (
         <div className="navbar">
             <NavLink className='nav-link'
-                to={CATALOG_PATH}
+                to='/catalog'
             >Каталог
             </NavLink>
             {navItems}

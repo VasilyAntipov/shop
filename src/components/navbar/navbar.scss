@@ -9,3 +9,6 @@
         }
     }
 }
+.nav-link:not(:last-of-type)::after {
+    content: "->";
+}
