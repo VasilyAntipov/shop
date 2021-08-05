@@ -1,16 +1,21 @@
 import React from 'react'
 import './productfilter.scss'
 import { Paper } from '@material-ui/core'
-import { PRICE, priceFilter, PRODUCER } from '../../constants'
 import { useSelector } from 'react-redux'
-import { getUniqueProducers } from '../../selectors'
 import { ProductFilterAccordion } from '../productFilterAccordion/ProductFilterAccordion'
 import { ProductFilterFlag } from '../productFilterFlag/ProductFilterFlag'
+import { useLocation } from 'react-router-dom'
+
 export const ProductFilter = () => {
 
-    const prod = useSelector(state => state.prod)
+    const filters = useSelector(state => state.filters)
+    const location = useLocation();
+    
+    if (location.search) {
+        console.log(location.search)
+    }
 
-    if (!prod.isLoaded) {
+    if (!filters.isLoaded) {
         return (
             <div className="product-filter">
                 <h1>LOADING FILTER...</h1>
@@ -21,18 +26,17 @@ export const ProductFilter = () => {
     return (
         <div className="product-filter">
             <Paper>
-                <ProductFilterAccordion
-                    accordionArray={priceFilter}
-                    accordionName={PRICE}
-                    accordionLabel={'Цена'}
-                />
-                <ProductFilterAccordion
-                    accordionArray={getUniqueProducers(prod)}
-                    accordionName={PRODUCER}
-                    accordionLabel={'Производитель'}
-                />
+                {filters.items.map((filter, index) => {
+                    return (
+                        <ProductFilterAccordion
+                            key={index}
+                            filterArray={filter.data}
+                            filterType={filter.type}
+                            filterName={filter.name}
+                        />
+                    )
+                })}
             </Paper>
-
             <ProductFilterFlag />
         </div >
     )

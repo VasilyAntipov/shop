@@ -11,8 +11,6 @@ import { initMenu } from '../../actions';
 import { CatalogPage } from '../catalogpage/CatalogPage';
 import { ProductsPage } from '../productspage/ProductsPage';
 
-
-
 const Shop = () => {
     const dispatch = useDispatch();
     useEffect(() => dispatch(initMenu()));
@@ -27,7 +25,7 @@ const Shop = () => {
                     <Route path="/catalog/:id" component={CatalogPage} />
                     <Route exact path="/catalog/" component={CatalogPage} />
                     <Route exact path="/products/:id" component={ProductsPage} />
-                    <Route path="/products/:id/:filters?" component={ProductsPage} />
+                    <Route path="/products/:id/?:filters?" component={ProductsPage} />
                     <Redirect from='/' to='/home' />
                 </Switch>
                 <Route component={Footer} />

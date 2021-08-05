@@ -3,35 +3,30 @@ export const getItems = (state) => state.items.filter(item => item.parent_id ===
 export const getSubItems = (state) => state.items.filter(item => item.parent_id !== null)
 export const getItem = (state, id) => state.items.filter(item => item.id === id)
 
-export const getNavItems = (state, parentId) => {
-    let id = Number(parentId)
-    const arr = [];
-    while (id !== null) {
-        let findItem = state.items.find(item => item.id === id)
-        arr.push(findItem)
-        id = findItem.parent_id;
-    };
-    return arr.reverse();
-}
-
-export const getUniqueProducers = (state) => {
-    const uniques = new Set();
-    state.items.map(item => uniques.add({ id: item.id, name: item.prodname }));
-    return [...uniques]
-}
-
-export const getUniqueByFieldName = (array, fieldName) =>
-    [...new Set(array.map((item) => item[fieldName]))];
-
-export const getFiltersString = (state) => {
+export const getNavItems = (state, childId) => {
+    const getItemById = (id) => state.items.find(item => item.id === id);
+    let current = getItemById(Number(childId));
     const res = [];
-    state.filters.map(item => {
-        const valueArr = [];
-        if (item.data.length > 0) {
-            item.data.map(item => valueArr.push(item.value))
-        }
-        if (valueArr.length > 0)
-            res.push(`${item.type}=${valueArr.join(',')}`)
+    while (current) {
+        res.unshift(current);
+        current = getItemById(current.parent_id);
+    }
+    return res;
+}
+
+export const getFiltersToString = (state) => {
+    const res = [];
+    state.items.forEach(item => {
+        const dataArray = [];
+        item.data.forEach(dataItem => {
+            if (dataItem.checked) {
+                dataArray.push(dataItem.id)
+            }
+        })
+        if (dataArray.length > 0)
+            res.push(`${item.type}=${dataArray.join(',')}`)
     })
-    return res.join('&')
+    if (res.length > 0)
+        return '?' + res.join('&');
+    return ''
 }

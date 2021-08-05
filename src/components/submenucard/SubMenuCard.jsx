@@ -37,6 +37,7 @@ export const SubMenuCard = ({ anchorEl, id }) => {
                         </li>
                     )
                 }
+                return null
             })}
         </Paper>
     )

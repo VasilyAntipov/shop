@@ -1,18 +1,19 @@
 import React from 'react'
 import './productfilterflag.scss'
 import { Button } from '@material-ui/core'
-import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import { PRODUCTSPATH } from '../../constants'
-import { getFiltersString } from '../../selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { showFilterFlag } from '../../actions'
+import { PRODUCTS_PATH } from '../../constants'
+import { getFiltersToString } from '../../selectors'
+import { useParams } from 'react-router'
 
 export const ProductFilterFlag = () => {
-    const prod = useSelector(state => state.prod)
-    const params = useParams();
+    const filters = useSelector(state => state.filters)
     const dispatch = useDispatch()
+    const params = useParams()
     const handleClick = () => {
+        console.log(getFiltersToString(filters))
         dispatch(showFilterFlag(
             {
                 visible: false,
@@ -25,10 +26,10 @@ export const ProductFilterFlag = () => {
         <Button component={Link} size="small"
             onClick={handleClick}
             to={{
-                pathname: `${PRODUCTSPATH}${params.id}/${getFiltersString(prod)}`,
+                pathname: `${PRODUCTS_PATH}${params.id}/${getFiltersToString(filters)}`,
             }}
-            className={`flag ${prod.filterFlag.visible ? 'visible' : 'hide'}`}
-            style={{ 'top': prod.filterFlag.coordinatsY }}
+            className={`flag ${filters.filterFlag.visible ? 'visible' : 'hide'}`}
+            style={{ 'top': filters.filterFlag.coordinatsY }}
         >
             <div className="triangle"></div>
             <span>Показать</span>

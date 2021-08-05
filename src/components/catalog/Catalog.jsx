@@ -23,7 +23,9 @@ export const Catalog = () => {
                     return (
                         <CatalogCard id={item.id} name={item.name} key={item.id} img={item.photo} />
                     )
-                }
+                } else
+                    return null
+
             })}
         </div>
     )

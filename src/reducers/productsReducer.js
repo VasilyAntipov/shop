@@ -1,26 +1,16 @@
 import {
-    IS_CATALOG,
+    IS_PRODUCT,
     INIT_PRODUCTS,
     INIT_PRODUCTS_FAIL,
     INIT_PRODUCTS_SUCCESS,
-    ADD_FILTER,
-    REMOVE_FILTER,
-    CLEAR_FILTERS,
-    SHOW_FILTER_FLAG,
 } from "../constants"
 
 const initState = {
-    isCatalog: true,
+    isProduct: true,
     isLoading: false,
     isLoaded: false,
     items: [],
-    filters: [
-        { type: 'price', data: [] },
-        { type: 'producer', data: [] }
-    ],
-    filterFlag: { visible: false, coordinatsY: null },
     error: null,
-
 }
 
 export const productsReducer = (state = initState, action) => {
@@ -43,63 +33,10 @@ export const productsReducer = (state = initState, action) => {
                 isLoaded: true,
                 error: action.payload
             }
-        case IS_CATALOG:
+        case IS_PRODUCT:
             return {
                 ...state,
-                isCatalog: action.payload
-            }
-        case ADD_FILTER:
-            return {
-                ...state,
-                filters: state.filters.map(item => {
-                    if (item.type === action.payload.filterType)
-                        return {
-                            type: action.payload.filterType,
-                            data: [
-                                ...item.data,
-                                {
-                                    id: action.payload.id,
-                                    value: action.payload.value
-                                }
-                            ]
-                        }
-                    else return item
-                })
-            }
-        case REMOVE_FILTER:
-            return {
-                ...state,
-                filters: state.filters.map(item => {
-                    if (item.type === action.payload.filterType)
-                        return {
-                            type: action.payload.filterType,
-                            data: item.data.filter(item => item.id !== action.payload.id)
-                        }
-                    else return item
-                })
-            }
-        case CLEAR_FILTERS:
-            return {
-                ...state,
-                filters: [
-                    ...state.filters.map(item => {
-                        if (item.type === action.payload)
-                            return {
-                                type: action.payload,
-                                data: []
-                            }
-                        else
-                            return item
-                    }),
-                ],
-            }
-        case SHOW_FILTER_FLAG:
-            return {
-                ...state,
-                filterFlag: {
-                    visible: action.payload.visible,
-                    coordinatsY: action.payload.coordinatsY
-                }
+                isProduct: action.payload
             }
         default:
             return state

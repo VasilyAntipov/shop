@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './productfilteraccordion.scss'
 import {
     Accordion,
@@ -7,72 +7,66 @@ import {
     AccordionActions,
     Checkbox,
     FormControlLabel,
+    Link,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { useDispatch } from 'react-redux'
-import { addFilter, clearFilters, removeFilter, showFilterFlag } from '../../actions'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router'
+import {
+    clearFilters,
+    showFilterFlag,
+    checkFilter,
+    unCheckFilter
+} from '../../actions'
 
+export const ProductFilterAccordion = ({ filterArray, filterType, filterName }) => {
 
-export const ProductFilterAccordion = ({ accordionArray, accordionName, accordionLabel }) => {
-    const [isChecked, setIsChecked] = useState(Array(accordionArray.length).fill(false))
     const dispatch = useDispatch()
-    const params = useParams();
-    const handleChange = (e, id, value, index) => {
+    const handleChange = (e, id) => {
         const coordinateFilterFlagY = e.target.getBoundingClientRect().top + window.pageYOffset;
-
         dispatch(showFilterFlag({
             visible: true,
             coordinatsY: coordinateFilterFlagY
         }))
-        if (e.target.checked) {
-            setIsChecked(arr => arr.map((item, i) => i === index ? true : item))
-            dispatch(addFilter({ id, value, filterType: e.target.name }))
-        }
-        else {
-            setIsChecked(arr => arr.map((item, i) => i === index ? false : item))
-            dispatch(removeFilter({ id, filterType: e.target.name }))
-        }
+        if (e.target.checked)
+            dispatch(checkFilter({ id, filterType }))
+        else
+            dispatch(unCheckFilter({ id, filterType }))
+
     };
 
     const handleClickClearFilters = (e) => {
-        setIsChecked(Array(accordionArray.length).fill(false))
-        dispatch(clearFilters(accordionName))
+        dispatch(clearFilters(filterType))
         dispatch(showFilterFlag({
             visible: true,
             coordinatsY: e.pageY - 30
         }))
-        console.log(e)
     }
 
     return (
         <div>
             <Accordion className="filter">
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                >
-                    {accordionLabel}
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}                >
+                    {filterName}
                 </AccordionSummary>
                 <AccordionDetails>
-                    {accordionArray.map((item, index) => {
+                    {filterArray.map((item) => {
                         return (
-                            <div className="button-check">
+                            <div className="button-check" key={item.id}>
                                 <FormControlLabel className="form"
-                                    key={index}
-                                    control={<Checkbox name={accordionName} checked={isChecked[index]} />}
+                                    control={<Checkbox checked={item.checked ? true : false} />}
                                     label={`${item.name}`}
-                                    onChange={(e) => handleChange(e, item.id, item.name, index)}
+                                    onChange={(e) => handleChange(e, item.id)}
                                 />
                             </div>
                         )
                     })}
                 </AccordionDetails>
                 <AccordionActions>
-                    <Link className="disable-filters"
+                    <Link
+                        className="disable-filters"
                         onClick={(e) => handleClickClearFilters(e)}
-
-                    >сбросить
+                    >
+                        сбросить
                     </Link>
                 </AccordionActions>
             </Accordion>

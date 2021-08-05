@@ -2,7 +2,7 @@ import React from 'react'
 import './navbar.scss'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { CATALOGPATH, PRODUCTSPATH, SERVER } from '../../constants'
+import { CATALOG_PATH, PRODUCTS_PATH } from '../../constants'
 import { menuHaveChild, getNavItems } from '../../selectors';
 
 export const Navbar = () => {
@@ -10,16 +10,17 @@ export const Navbar = () => {
     const params = useParams()
 
     if (!menu.isLoaded)
-        return <div>Loading</div>
+        return <div>Loading MENU</div>
 
     const navItems = params.id
-        ? getNavItems(menu, params.id).map(item => {
-
+        ? getNavItems(menu, params.id).map((item, index) => {
             const path = menuHaveChild(menu, item.id)
-                ? CATALOGPATH
-                : PRODUCTSPATH
+                ? CATALOG_PATH
+                : PRODUCTS_PATH
             return (
-                <Link className='nav-link'
+                <Link
+                    className='nav-link'
+                    key={index}
                     to={`${path}${item.id}`}
                 >
                     {`->${item.name}`}
@@ -31,7 +32,7 @@ export const Navbar = () => {
     return (
         <div className="navbar">
             <NavLink className='nav-link'
-                to='/catalog'
+                to={CATALOG_PATH}
             >Каталог
             </NavLink>
             {navItems}

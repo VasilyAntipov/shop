@@ -5,28 +5,27 @@ export const SET_ID_ACTIVE_MENU = 'SET_ID_ACTIVE_MENU';
 export const SET_IS_MENU_ACTIVE = 'SET_IS_MENU_ACTIVE'
 export const SHOW_CARD_SUB_MENU = 'SHOW_CARD_SUB_MENU'
 
-export const IS_CATALOG = 'IS_CATALOG'
+export const IS_PRODUCT = 'IS_PRODUCT'
 export const INIT_PRODUCTS = 'INIT_PRODUCTS'
 export const INIT_PRODUCTS_SUCCESS = 'INIT_PRODUCTS_SUCCESS'
 export const INIT_PRODUCTS_FAIL = 'INIT_PRODUCTS_FAIL'
-export const ADD_FILTER = 'ADD_FILTER'
-export const REMOVE_FILTER = 'REMOVE_FILTER'
+
+export const INIT_FILTERS = 'INIT_FILTERS'
+export const INIT_FILTERS_SUCCESS = 'INIT_FILTERS_SUCCESS'
+export const INIT_FILTERS_FAIL = 'INIT_FILTERS_FAIL'
+export const CHECK_FILTER = 'CHECK_FILTER'
+export const UNCHECK_FILTER = 'UNCHECK_FILTER'
 export const CLEAR_FILTERS = 'CLEAR_FILTERS'
 export const SHOW_FILTER_FLAG = 'SHOW_FILTER_FLAG'
 
 export const SERVER = 'http://localhost:3001/'
-export const PRODUCTSPATH = '/products/'
-export const CATALOGPATH = '/catalog/'
+export const PRODUCTS_PATH = '/products/'
+export const CATALOG_PATH = '/catalog/'
 export const ARROW = '>'
 export const API = 'api/'
-export const IMAGEPATH = 'images/'
+export const IMAGE_PATH = 'images/'
 
-export const priceFilter = [
-    { id: 0, name: '0-10000' },
-    { id: 1, name: '10001-20000' },
-    { id: 2, name: '20001-30000' },
-    { id: 3, name: '30001-40000' }
-]
 
 export const PRODUCER = 'producer'
 export const PRICE = 'price'
+export const ALL = 'all'

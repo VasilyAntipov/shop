@@ -1,14 +1,12 @@
 import './menubutton.scss'
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Link } from '@material-ui/core';
 import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
 import { setIdActiveMenu, setIsMenuActive } from '../../actions'
 import { MenuItem } from '../menuitem/MenuItem';
 
-export const MenuButton = ({ id, path, name}) => {
+export const MenuButton = ({ id, path, name }) => {
     const dispatch = useDispatch();
     return (
         <ListItem className="menu-list"
@@ -16,8 +14,7 @@ export const MenuButton = ({ id, path, name}) => {
             onMouseEnter={() => {
                 dispatch(setIdActiveMenu(id))
                 dispatch(setIsMenuActive(true))
-            }
-            }
+            }}
             onMouseLeave={() => dispatch(setIsMenuActive(false))}
         >
             <Icon

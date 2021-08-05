@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './submenu.scss'
 import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsMenuActive, showCardSubMenu } from '../../actions'
 import { MenuItem } from '../menuitem/MenuItem'
 import { SubMenuCard } from '../submenucard/SubMenuCard'
-import { menuHaveChild, getItems, getSubItems } from '../../selectors'
+import { menuHaveChild, getSubItems } from '../../selectors'
 import { ARROW } from '../../constants'
 
 export const SubMenu = () => {
@@ -62,11 +62,12 @@ export const SubMenu = () => {
                                 {getSubItems(menu).map((subItem) => {
                                     if (subItem.parent_id === item.id)
                                         return subItemMenu(subItem)
+                                    return null
                                 })}
                             </div>
                         )
                     }
-
+                    return null
                 })}
             </div>
         </Paper >
