@@ -3,9 +3,8 @@ import {
     INIT_FILTERS_SUCCESS,
     INIT_FILTERS_FAIL,
     SHOW_FILTER_FLAG,
-    CHECK_FILTER,
-    UNCHECK_FILTER,
     CLEAR_FILTERS,
+    CHANGE_FILTER_MARK,
 
 } from "../constants"
 
@@ -26,14 +25,12 @@ export const filtersReducer = (state = initState, action) => {
                 isLoading: true
             }
         case INIT_FILTERS_SUCCESS:
+            console.log(action)
             return {
                 ...state,
                 isLoading: false,
                 isLoaded: true,
-                items: [
-                    ...action.payload,
-
-                ]
+                items: [...action.payload]
             }
         case INIT_FILTERS_FAIL:
             return {
@@ -49,47 +46,24 @@ export const filtersReducer = (state = initState, action) => {
                     coordinatsY: action.payload.coordinatsY
                 }
             }
-        case CHECK_FILTER:
-            return {
-                ...state,
-                items: state.items.map(item => {
-                    if (item.type === action.payload.filterType)
-                        return {
-                            ...item,
-                            data: item.data.map(dataItem => {
-                                if (dataItem.id === action.payload.id)
-                                    return {
-                                        ...dataItem,
-                                        checked: true,
-                                    }
-                                else
-                                    return dataItem
-                            })
-                        }
-                    else return item
-                })
-            }
-        case UNCHECK_FILTER:
-            return {
-                ...state,
-                items: state.items.map(item => {
-                    if (item.type === action.payload.filterType)
-                        return {
-                            ...item,
-                            data: item.data.map(dataItem => {
-                                if (dataItem.id === action.payload.id) {
-                                    delete dataItem.checked;
-                                    return {
-                                        ...dataItem
-                                    }
-                                }
-                                else
-                                    return dataItem
-                            })
-                        }
-                    else return item
-                })
-            }
+        case CHANGE_FILTER_MARK: {
+            const { filterType, id } = action.payload;
+            const items = state.items.map((item) => {
+                const { data: dataSrc, type, ...itemCopy } = item;
+                if (type !== filterType) {
+                    return item;
+                }
+                const data = dataSrc.map(dataItem => {
+                    if (dataItem.id === id) {
+                        dataItem.checked = !dataItem.checked;
+                    }
+                    return { ...dataItem };
+                });
+                return { ...itemCopy, data };
+            });
+            return { ...state, items };
+        }
+
         case CLEAR_FILTERS:
             return {
                 ...state,

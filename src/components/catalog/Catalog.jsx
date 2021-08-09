@@ -3,14 +3,16 @@ import './catalog.scss'
 import { CatalogCard } from '../catalogcard/CatalogCard'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { getSubItems, getItems } from '../../selectors'
+import { subMenuItemsSelector, mainMenuItemsSelector } from '../../selectors'
 export const Catalog = () => {
-    const menu = useSelector(state => state.menu)
+    const mainItems = useSelector(mainMenuItemsSelector)
+    const subItems = useSelector(subMenuItemsSelector)
     const params = useParams()
+
     if (params.id === undefined)
         return (
             <div className="catalog">
-                {getItems(menu).map((item) =>
+                {mainItems.map((item) =>
                     <CatalogCard id={item.id} name={item.name} key={item.id} img={item.photo} />
                 )}
             </div>
@@ -18,7 +20,7 @@ export const Catalog = () => {
 
     return (
         <div className="catalog">
-            {getSubItems(menu).map((item) => {
+            {subItems.map((item) => {
                 if (item.parent_id === Number(params.id)) {
                     return (
                         <CatalogCard id={item.id} name={item.name} key={item.id} img={item.photo} />

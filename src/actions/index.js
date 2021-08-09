@@ -15,8 +15,7 @@ import {
     INIT_FILTERS,
     INIT_FILTERS_SUCCESS,
     INIT_FILTERS_FAIL,
-    CHECK_FILTER,
-    UNCHECK_FILTER,
+    CHANGE_FILTER_MARK,
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -32,9 +31,18 @@ export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
 
 export const initFilters = createAction(INIT_FILTERS)
-export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS)
+export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (filters) => {
+    return filters.map(({ data, ...rest }) => (
+        {
+            ...rest,
+            data: data.map((item) => ({
+                ...item,
+                checked: false
+            }))
+        }
+    ))
+})
 export const initFiltersFail = createAction(INIT_FILTERS_FAIL)
 export const showFilterFlag = createAction(SHOW_FILTER_FLAG)
-export const checkFilter = createAction(CHECK_FILTER)
-export const unCheckFilter = createAction(UNCHECK_FILTER)
+export const changeFilterMark = createAction(CHANGE_FILTER_MARK)
 export const clearFilters = createAction(CLEAR_FILTERS)

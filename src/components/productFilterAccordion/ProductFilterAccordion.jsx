@@ -14,24 +14,21 @@ import { useDispatch } from 'react-redux'
 import {
     clearFilters,
     showFilterFlag,
-    checkFilter,
-    unCheckFilter
+    changeFilterMark
 } from '../../actions'
 
 export const ProductFilterAccordion = ({ filterArray, filterType, filterName }) => {
 
     const dispatch = useDispatch()
     const handleChange = (e, id) => {
+
         const coordinateFilterFlagY = e.target.getBoundingClientRect().top + window.pageYOffset;
+
         dispatch(showFilterFlag({
             visible: true,
             coordinatsY: coordinateFilterFlagY
         }))
-        if (e.target.checked)
-            dispatch(checkFilter({ id, filterType }))
-        else
-            dispatch(unCheckFilter({ id, filterType }))
-
+        dispatch(changeFilterMark({ id, filterType }))
     };
 
     const handleClickClearFilters = (e) => {
@@ -51,10 +48,14 @@ export const ProductFilterAccordion = ({ filterArray, filterType, filterName }) 
                 <AccordionDetails>
                     {filterArray.map((item) => {
                         return (
-                            <div className="button-check" key={item.id}>
-                                <FormControlLabel className="form"
-                                    control={<Checkbox checked={item.checked ? true : false} />}
-                                    label={`${item.name}`}
+                            <div
+                                className="button-check"
+                                key={item.id}
+                            >
+                                <FormControlLabel
+                                    className="form"
+                                    control={<Checkbox checked={item.checked} />}
+                                    label={item.name}
                                     onChange={(e) => handleChange(e, item.id)}
                                 />
                             </div>
@@ -65,8 +66,7 @@ export const ProductFilterAccordion = ({ filterArray, filterType, filterName }) 
                     <Link
                         className="disable-filters"
                         onClick={(e) => handleClickClearFilters(e)}
-                    >
-                        сбросить
+                    >сбросить
                     </Link>
                 </AccordionActions>
             </Accordion>

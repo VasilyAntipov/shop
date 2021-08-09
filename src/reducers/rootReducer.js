@@ -6,6 +6,6 @@ import { filtersReducer } from './filtersReducer'
 
 export const rootReducer = combineReducers({
     menu: menuReducer,
-    prod: productsReducer,
+    products: productsReducer,
     filters: filtersReducer,
-})
+})  

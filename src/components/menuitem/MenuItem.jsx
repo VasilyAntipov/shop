@@ -4,13 +4,12 @@ import { Link as RouterLink } from 'react-router-dom'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { CATALOG_PATH, PRODUCTS_PATH } from '../../constants'
-import { menuHaveChild } from '../../selectors'
+import { menuHaveChildSelector } from '../../selectors'
 
 export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', arrow = '' }) => {
-    const menu = useSelector(state => state.menu)
-    const path = menuHaveChild(menu, id)
-        ? CATALOG_PATH
-        : PRODUCTS_PATH
+    
+    const menuHaveChild = useSelector(state => menuHaveChildSelector(state, id))
+    const path = menuHaveChild ? CATALOG_PATH : PRODUCTS_PATH
 
     return (
         <Link

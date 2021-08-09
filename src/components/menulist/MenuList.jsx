@@ -5,16 +5,19 @@ import { mdiWashingMachine } from '@mdi/js';
 import { MenuButton } from '../menubutton/MenuButton'
 import { Paper } from '@material-ui/core';
 import { useSelector } from 'react-redux'
-import { getItems } from '../../selectors';
+import { mainMenuItemsSelector, menuIsLoadedSelector } from '../../selectors';
 
 export const MenuList = () => {
-    const menu = useSelector(state => state.menu)
-    if (!menu.isLoaded)
+
+    const mainMenuItems = useSelector(mainMenuItemsSelector)
+    const menuIsLoaded = useSelector(menuIsLoadedSelector)
+    if (!menuIsLoaded)
         return <div>Loading menu</div>
+
     return (
         <Paper className="menu-wrap">
             <List>
-                {getItems(menu).map((item) =>
+                {mainMenuItems.map((item) =>
                     <MenuButton
                         key={item.id}
                         id={item.id}

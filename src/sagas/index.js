@@ -33,7 +33,7 @@ function* initFilters(action) {
         const filters = yield getFilters(action.payload);
         yield put(initFiltersSuccess(filters));
     } catch (e) {
-        yield put(initFiltersFail('COULD NOT GET PRODUCTS'));
+        yield put(initFiltersFail('COULD NOT GET FILTERS'));
     }
 }
 
