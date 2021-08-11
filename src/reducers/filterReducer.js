@@ -13,11 +13,11 @@ const initState = {
     isLoading: false,
     isLoaded: false,
     items: [],
-    filterFlag: { visible: false, coordinatsY: null },
+    applyButton: { visible: false, coordinatsY: null },
     error: null,
 }
 
-export const filtersReducer = (state = initState, action) => {
+export const filterReducer = (state = initState, action) => {
     switch (action.type) {
         case INIT_FILTERS:
             return {
@@ -25,7 +25,6 @@ export const filtersReducer = (state = initState, action) => {
                 isLoading: true
             }
         case INIT_FILTERS_SUCCESS:
-            console.log(action)
             return {
                 ...state,
                 isLoading: false,
@@ -41,7 +40,7 @@ export const filtersReducer = (state = initState, action) => {
         case SHOW_FILTER_FLAG:
             return {
                 ...state,
-                filterFlag: {
+                applyButton: {
                     visible: action.payload.visible,
                     coordinatsY: action.payload.coordinatsY
                 }
@@ -49,8 +48,8 @@ export const filtersReducer = (state = initState, action) => {
         case CHANGE_FILTER_MARK: {
             const { filterType, id } = action.payload;
             const items = state.items.map((item) => {
-                const { data: dataSrc, type, ...itemCopy } = item;
-                if (type !== filterType) {
+                const { data: dataSrc, ...itemCopy } = item;
+                if (item.type !== filterType) {
                     return item;
                 }
                 const data = dataSrc.map(dataItem => {

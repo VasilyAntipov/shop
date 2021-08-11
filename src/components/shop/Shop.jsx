@@ -14,7 +14,6 @@ import { ProductsPage } from '../productspage/ProductsPage';
 const Shop = () => {
     const dispatch = useDispatch();
     useEffect(() => dispatch(initMenu()));
-
     return (
         <BrowserRouter>
             <div className="Shop">

@@ -5,43 +5,36 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setIsMenuActive, showCardSubMenu } from '../../actions'
 import { MenuItem } from '../menuitem/MenuItem'
 import { SubMenuCard } from '../submenucard/SubMenuCard'
-import { menuHaveChild, getSubItems } from '../../selectors'
-import { ARROW } from '../../constants'
+import {
+    subMenuItemsSelector,
+    menuHaveChildSelector,
+    isMenuActiveSelector,
+    idActiveMenuSelector
+} from '../../selectors'
 
 export const SubMenu = () => {
-    const menu = useSelector(state => state.menu)
+
+    const subItems = useSelector(subMenuItemsSelector)
+    const menuHaveChild = useSelector(menuHaveChildSelector)
+    const isMenuActive = useSelector(isMenuActiveSelector)
+    const idMenuActive = useSelector(idActiveMenuSelector)
+
     const dispatch = useDispatch()
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [idActiveSubMenu, setIdActiveSubMenu] = useState(null);
 
     const handleCardSubMenuOpen = (id, event) => {
-        if (menuHaveChild(menu, id)) {
+        if (menuHaveChild(id)) {
             setIdActiveSubMenu(id);
             setAnchorEl(event.currentTarget);
             dispatch(showCardSubMenu(true))
         }
     };
 
-    const subItemMenu = (item) => {
-        const arrow = menuHaveChild(menu, item.id) ? ARROW : ''
-        return (
-            <li key={item.id}>
-                <MenuItem
-                    id={item.id}
-                    size={'normal'}
-                    name={item.name}
-                    mouseEnter={(event) => handleCardSubMenuOpen(item.id, event)}
-                    mouseLeave={() => dispatch(showCardSubMenu(false))}
-                    arrow={arrow}
-                />
-            </li>
-        )
-    }
-
     return (
-        <Paper className=
-            {`submenu ${(menu.isMenuActive) ? 'show' : 'hide'}`}
+        <Paper
+            className={`submenu ${(isMenuActive) ? 'show' : 'hide'}`}
             onMouseEnter={() => dispatch(setIsMenuActive(true))}
             onMouseLeave={() => dispatch(setIsMenuActive(false))}
         >
@@ -50,8 +43,9 @@ export const SubMenu = () => {
                 anchorEl={anchorEl}
             />
             <div className="content-menu">
-                {getSubItems(menu).map((item) => {
-                    if (item.parent_id === menu.idActiveMenu) {
+                {subItems
+                    .filter(elem => elem.parent_id === idMenuActive)
+                    .map((item) => {
                         return (
                             <div key={item.id} className="menu-level-container">
                                 <MenuItem
@@ -59,16 +53,25 @@ export const SubMenu = () => {
                                     size={'big'}
                                     name={item.name}
                                 />
-                                {getSubItems(menu).map((subItem) => {
-                                    if (subItem.parent_id === item.id)
-                                        return subItemMenu(subItem)
-                                    return null
-                                })}
+                                {subItems
+                                    .filter(elem => elem.parent_id === item.id)
+                                    .map((subItem) => {
+                                        return (
+                                            <li key={subItem.id}>
+                                                <MenuItem
+                                                    id={subItem.id}
+                                                    size={'normal'}
+                                                    name={subItem.name}
+                                                    showArrow={true}
+                                                    mouseEnter={(event) => handleCardSubMenuOpen(subItem.id, event)}
+                                                    mouseLeave={() => dispatch(showCardSubMenu(false))}
+                                                />
+                                            </li>
+                                        )
+                                    })}
                             </div>
                         )
-                    }
-                    return null
-                })}
+                    })}
             </div>
         </Paper >
     )

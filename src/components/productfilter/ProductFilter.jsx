@@ -5,17 +5,14 @@ import { useSelector } from 'react-redux'
 import { ProductFilterAccordion } from '../productFilterAccordion/ProductFilterAccordion'
 import { ProductFilterFlag } from '../productFilterFlag/ProductFilterFlag'
 import { useLocation } from 'react-router-dom'
+import { filterItemsSelector, filterIsLoadedSelector } from '../../selectors'
 
 export const ProductFilter = () => {
 
-    const filters = useSelector(state => state.filters)
-    const location = useLocation();
-    
-    if (location.search) {
-        console.log(location.search)
-    }
+    const filterItems = useSelector(filterItemsSelector)
+    const filterIsLoaded = useSelector(filterIsLoadedSelector)
 
-    if (!filters.isLoaded) {
+    if (!filterIsLoaded) {
         return (
             <div className="product-filter">
                 <h1>LOADING FILTER...</h1>
@@ -26,13 +23,13 @@ export const ProductFilter = () => {
     return (
         <div className="product-filter">
             <Paper>
-                {filters.items.map((filter, index) => {
+                {filterItems.map((item, index) => {
                     return (
                         <ProductFilterAccordion
                             key={index}
-                            filterArray={filter.data}
-                            filterType={filter.type}
-                            filterName={filter.name}
+                            filterArray={item.data}
+                            filterType={item.type}
+                            filterName={item.name}
                         />
                     )
                 })}

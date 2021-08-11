@@ -11,6 +11,7 @@ export const MenuList = () => {
 
     const mainMenuItems = useSelector(mainMenuItemsSelector)
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
+    
     if (!menuIsLoaded)
         return <div>Loading menu</div>
 

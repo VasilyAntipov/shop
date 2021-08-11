@@ -19,9 +19,9 @@ export const getSubMenu = async () => {
     }
 }
 
-export const getProducts = async (id) => {
+export const getProducts = async (payload) => {
     try {
-        const response = await fetch(`${SERVER}${API}products/${id}`);
+        const response = await fetch(`${SERVER}${API}products/${payload.id}/${payload.search}`);
         const data = await response.json();
         return data;
     } catch (e) {
@@ -31,7 +31,7 @@ export const getProducts = async (id) => {
 
 export const getFilters = async (id) => {
     try {
-        let response = await fetch(`${SERVER}${API}filters/${id}`);
+        let response = await fetch(`${SERVER}${API}filters/${id}`)
         let data = await response.json();
         return data;
     } catch (e) {

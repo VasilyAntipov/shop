@@ -3,13 +3,20 @@ import { Link } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { CATALOG_PATH, PRODUCTS_PATH } from '../../constants'
+import { CATALOG_PATH, PRODUCTS_PATH, ARROW } from '../../constants'
 import { menuHaveChildSelector } from '../../selectors'
 
-export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', arrow = '' }) => {
-    
-    const menuHaveChild = useSelector(state => menuHaveChildSelector(state, id))
-    const path = menuHaveChild ? CATALOG_PATH : PRODUCTS_PATH
+export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', showArrow = false }) => {
+    let path;
+    const menuHaveChild = useSelector(state => menuHaveChildSelector(state))
+    if (menuHaveChild(id)) {
+        path = CATALOG_PATH
+        if (showArrow) {
+            name += ARROW
+        }
+    } else {
+        path = PRODUCTS_PATH
+    }
 
     return (
         <Link
@@ -23,7 +30,7 @@ export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', ar
                 onMouseEnter={mouseEnter}
                 onMouseLeave={mouseLeave}
             >
-                {name + arrow}
+                {name}
             </div>
         </Link>
 

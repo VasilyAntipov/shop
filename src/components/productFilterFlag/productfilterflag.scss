@@ -16,14 +16,14 @@
         display: none;
     }
 
-    &:hover .triangle {
+    &:hover .apply-filter-button {
         border-right: 15px solid rgb(231, 124, 9);
     }
     &:hover {
         background-color: rgb(231, 124, 9);
     }
 
-    .triangle {
+    .apply-filter-button {
         top: 15px;
         position: absolute;
         right: 100%;

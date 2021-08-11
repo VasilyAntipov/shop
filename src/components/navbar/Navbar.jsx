@@ -3,34 +3,42 @@ import './navbar.scss'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { CATALOG_PATH, PRODUCTS_PATH } from '../../constants'
-import { menuHaveChild, getNavItems } from '../../selectors';
+import {
+    navItemsSelector,
+    menuHaveChildSelector,
+    menuIsLoadedSelector
+} from '../../selectors';
 
 export const Navbar = () => {
-    const menu = useSelector(state => state.menu)
     const params = useParams()
+    const menuIsLoaded = useSelector(menuIsLoadedSelector)
+    const menuHaveChild = useSelector(state => menuHaveChildSelector(state))
+    const navItems = useSelector(state => navItemsSelector(state))
 
-    const getLink = (menu, itemId) => {
-        const path = menuHaveChild(menu, itemId) ? CATALOG_PATH : PRODUCTS_PATH;
+    const getLink = (itemId) => {
+        const path = menuHaveChild(itemId) ? CATALOG_PATH : PRODUCTS_PATH;
         return path + itemId;
     };
 
-    const navItems = getNavItems(menu, params.id).map(item => (
-        <Link className='nav-link' to={getLink(menu, item.id)}>
-            {item.name}
-        </Link>
-    ));
-
-    if (!menu.isLoaded) {
+    if (!menuIsLoaded) {
         return <div>Loading</div>
     }
 
     return (
         <div className="navbar">
-            <NavLink className='nav-link'
+            <NavLink
+                className='nav-link'
                 to='/catalog'
-            >Каталог
+            >
+                Каталог
             </NavLink>
-            {navItems}
+            {navItems(params.id).map(item => {
+                return (
+                    <Link className='nav-link' to={getLink(item.id)}>
+                        {item.name}
+                    </Link>
+                )
+            })}
         </div>
     )
 }

@@ -30,8 +30,9 @@ function* initProducts(action) {
 
 function* initFilters(action) {
     try {
-        const filters = yield getFilters(action.payload);
-        yield put(initFiltersSuccess(filters));
+        const { id, search } = action.payload;
+        const filters = yield getFilters(id);
+        yield put(initFiltersSuccess({ filters, search }));
     } catch (e) {
         yield put(initFiltersFail('COULD NOT GET FILTERS'));
     }

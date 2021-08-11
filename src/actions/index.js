@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { urlParse } from '../additional';
 import {
     INIT_MENU_SUCCESS,
     INIT_MENU_FAIL,
@@ -31,17 +32,50 @@ export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
 
 export const initFilters = createAction(INIT_FILTERS)
-export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (filters) => {
-    return filters.map(({ data, ...rest }) => (
-        {
-            ...rest,
-            data: data.map((item) => ({
-                ...item,
-                checked: false
-            }))
-        }
-    ))
+export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (payload) => {
+
+    const { filters, search } = payload;
+    let filtersChecked = urlParse(search);
+    try {
+        return filters.map((item) => {
+            let dataSrc;
+            const checked = filtersChecked.find(checkItem => item.type === checkItem.type)
+            if (checked) {
+                dataSrc = item.data.map(dataItem => {
+                    if (checked.arrayOfChecked.includes(dataItem.id))
+                        return { ...dataItem, checked: true }
+                    else
+                        return { ...dataItem, checked: false }
+                })
+            }
+            else
+                dataSrc = item.data.map((dataItem) => {
+                    return { ...dataItem, checked: false }
+                })
+            return (
+                {
+                    type: item.type,
+                    name: item.name,
+                    data: dataSrc
+                }
+            )
+        })
+    }
+    catch (e) {
+        return filters.map((item) => (
+            {
+                type: item.type,
+                name: item.name,
+                data: item.data.map((item) => ({
+                    ...item,
+                    checked: false
+                }))
+            }
+        ))
+    }
 })
+
+
 export const initFiltersFail = createAction(INIT_FILTERS_FAIL)
 export const showFilterFlag = createAction(SHOW_FILTER_FLAG)
 export const changeFilterMark = createAction(CHANGE_FILTER_MARK)

@@ -4,29 +4,30 @@ import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuItem } from '../menuitem/MenuItem'
 import { showCardSubMenu, } from '../../actions'
-import { getSubItems } from '../../selectors'
+import { cardSubMenuActiveSelector, subMenuItemsSelector } from '../../selectors'
 
 export const SubMenuCard = ({ anchorEl, id }) => {
-    const menu = useSelector(state => state.menu)
-    const cardOffsetX = 0;
     const cardOffsetY = -40;
     const dispatch = useDispatch()
-    let position = null;
+    const subItems = useSelector(subMenuItemsSelector)
+    const cardSubMenuActive = useSelector(cardSubMenuActiveSelector)
+    let position;
     if (anchorEl) {
         const x = anchorEl.getBoundingClientRect().bottom + cardOffsetY;
-        const y = anchorEl.getBoundingClientRect().right + cardOffsetX;
+        const y = anchorEl.getBoundingClientRect().right;
         position = { 'top': x, 'left': y }
     }
 
     return (
         <Paper
-            className={`card-submenu ${menu.cardSubMenuActive ? 'show' : 'hide'}`}
+            className={`card-submenu ${cardSubMenuActive ? 'show' : 'hide'}`}
             style={position}
             onMouseEnter={() => dispatch(showCardSubMenu(true))}
             onMouseLeave={() => dispatch(showCardSubMenu(false))}
         >
-            {getSubItems(menu).map((item) => {
-                if (item.parent_id === id) {
+            {subItems
+                .filter(item => item.parent_id === id)
+                .map((item) => {
                     return (
                         <li key={item.id}>
                             <MenuItem
@@ -36,8 +37,7 @@ export const SubMenuCard = ({ anchorEl, id }) => {
                             />
                         </li>
                     )
-                }
-            })}
+                })}
         </Paper>
     )
 }

@@ -1,30 +1,28 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import './products.scss'
 import { ProductCard } from '../productcard/ProductCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useLocation } from 'react-router'
 import { initProducts, initFilters } from '../../actions'
+import { productIsLoadedSelector, productItemsSelector } from '../../selectors'
 
 export const Products = () => {
-    
+
     const params = useParams()
     const location = useLocation()
-   
-    const prod = useSelector(state => state.products)
+    const productIsLoaded = useSelector(productIsLoadedSelector)
+    const productItems = useSelector(productItemsSelector)
     const dispatch = useDispatch()
-    console.log(location.search)
 
     useEffect(useCallback(() => {
-        dispatch(initProducts(params.id));
-        dispatch(initFilters(params.id));
-    }), [dispatch, params.id]);
+        dispatch(initProducts({id: params.id, search: location.search}));
+        dispatch(initFilters({ id: params.id, search: location.search }));
+    }), [dispatch, params.id, location.search]);
 
-
-
-    if (!prod.isLoaded) {
+    if (!productIsLoaded) {
         return (
             <div className="loader">
-                <img src="/img/loader.gif" alt='картинка'/>
+                <img src="/img/loader.gif" alt='картинка' />
                 <h1>LOADING PRODUCTS...</h1>
             </div>
         );
@@ -32,7 +30,7 @@ export const Products = () => {
 
     return (
         <div className="products">
-            {prod.items.map((item) => {
+            {productItems.map((item) => {
                 if (item.catid === +params.id)
                     return (
                         <ProductCard
@@ -40,7 +38,10 @@ export const Products = () => {
                             id={item.id}
                             name={item.name}
                             img={item.photo}
-                            price={item.price} />
+                            price={item.price}
+                            producer={item.producer}
+                            country={item.country}
+                        />
                     )
                 return null
             })}

@@ -13,7 +13,7 @@ const initState = {
     error: null,
 }
 
-export const productsReducer = (state = initState, action) => {
+export const productReducer = (state = initState, action) => {
     switch (action.type) {
         case INIT_PRODUCTS:
             return {

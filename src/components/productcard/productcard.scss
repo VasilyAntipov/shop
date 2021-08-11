@@ -18,18 +18,25 @@
             object-fit: contain;
         }
     }
-
-    .product-card-buy {
-
-        text-align: center;
-
-        .price {
-            font-size: 1.5rem;
-        }
-        button {
-            margin-top: 50px;
+    .product-card-body {
+        display: flex;
+        .card-body-container {
+            margin-top: auto;
+            margin-bottom: auto;
         }
     }
-
-  
+    .product-card-buy {
+        display: flex;
+        text-align: center;
+        .card-buy-container {
+            margin-top: auto;
+            margin-bottom: auto;
+            .price {
+                font-size: 1.5rem;
+            }
+            button {
+                margin-top: 50px;
+            }
+        }
+    }
 }

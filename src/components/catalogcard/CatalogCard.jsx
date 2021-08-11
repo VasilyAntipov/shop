@@ -3,14 +3,15 @@ import './catalogcard.scss'
 import { Paper } from '@material-ui/core'
 import { SERVER, IMAGE_PATH, CATALOG_PATH, PRODUCTS_PATH } from '../../constants'
 import { useSelector } from 'react-redux'
-import { menuHaveChild } from '../../selectors'
+import { menuHaveChildSelector } from '../../selectors'
 import { Link as RouterLink } from 'react-router-dom'
 import { Link } from '@material-ui/core'
 
 
 export const CatalogCard = ({ id, name, img }) => {
-    const menu = useSelector(state => state.menu)
-    const path = menuHaveChild(menu, id)
+    
+    const menuHaveChild = useSelector(state => menuHaveChildSelector(state))
+    const path = menuHaveChild(id)
         ? CATALOG_PATH
         : PRODUCTS_PATH
 
