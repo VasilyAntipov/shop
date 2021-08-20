@@ -44,7 +44,7 @@ export const SubMenu = () => {
             />
             <div className="content-menu">
                 {subItems
-                    .filter(elem => elem.parent_id === idMenuActive)
+                    .filter(elem => elem.parentId === idMenuActive)
                     .map((item) => {
                         return (
                             <div key={item.id} className="menu-level-container">
@@ -54,7 +54,7 @@ export const SubMenu = () => {
                                     name={item.name}
                                 />
                                 {subItems
-                                    .filter(elem => elem.parent_id === item.id)
+                                    .filter(elem => elem.parentId === item.id)
                                     .map((subItem) => {
                                         return (
                                             <li key={subItem.id}>

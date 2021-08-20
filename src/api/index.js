@@ -1,7 +1,8 @@
-import { SERVER, API } from "../constants";
+import { API_URL } from "../constants";
+
 export const getMenu = async () => {
     try {
-        const response = await fetch(`${SERVER}${API}menu`);
+        const response = await fetch(`${API_URL}/category`);
         const menu = await response.json();
         return menu;
     } catch (e) {
@@ -9,21 +10,11 @@ export const getMenu = async () => {
     }
 }
 
-export const getSubMenu = async () => {
-    try {
-        const response = await fetch(`${SERVER}${API}submenu`);
-        const subMenu = await response.json();
-        return subMenu;
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 export const getProducts = async (payload) => {
     try {
-        const response = await fetch(`${SERVER}${API}products/${payload.id}/${payload.search}`);
+        const response = await fetch(`${API_URL}/product/all/${payload.id}/${payload.search}`);
         const data = await response.json();
-        return data;
+        return data
     } catch (e) {
         console.log(e);
     }
@@ -31,7 +22,7 @@ export const getProducts = async (payload) => {
 
 export const getFilters = async (id) => {
     try {
-        let response = await fetch(`${SERVER}${API}filters/${id}`)
+        let response = await fetch(`${API_URL}/filter/${id}`)
         let data = await response.json();
         return data;
     } catch (e) {

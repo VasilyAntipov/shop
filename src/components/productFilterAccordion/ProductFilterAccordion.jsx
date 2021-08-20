@@ -17,7 +17,7 @@ import {
     changeFilterMark
 } from '../../actions'
 
-export const ProductFilterAccordion = ({ filterArray, filterType, filterName }) => {
+export const ProductFilterAccordion = ({ filterArray, filterType, filterName , filterCount }) => {
 
     const dispatch = useDispatch()
     const handleChange = (e, id) => {
@@ -55,7 +55,7 @@ export const ProductFilterAccordion = ({ filterArray, filterType, filterName }) 
                                 <FormControlLabel
                                     className="form"
                                     control={<Checkbox checked={item.checked} />}
-                                    label={item.name}
+                                    label={`${item.name} (${item.count})`}
                                     onChange={(e) => handleChange(e, item.id)}
                                 />
                             </div>

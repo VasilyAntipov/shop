@@ -9,7 +9,7 @@ import { HomePage } from '../homepage/HomePage'
 import { AboutPage } from '../aboutpage/AboutPage'
 import { initMenu } from '../../actions';
 import { CatalogPage } from '../catalogpage/CatalogPage';
-import { ProductsPage } from '../productspage/ProductsPage';
+import { ProductsPage } from '../productsPage/ProductsPage';
 
 const Shop = () => {
     const dispatch = useDispatch();

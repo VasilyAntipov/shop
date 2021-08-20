@@ -15,7 +15,7 @@ export const Products = () => {
     const dispatch = useDispatch()
 
     useEffect(useCallback(() => {
-        dispatch(initProducts({id: params.id, search: location.search}));
+        dispatch(initProducts({ id: params.id, search: location.search }));
         dispatch(initFilters({ id: params.id, search: location.search }));
     }), [dispatch, params.id, location.search]);
 
@@ -31,19 +31,17 @@ export const Products = () => {
     return (
         <div className="products">
             {productItems.map((item) => {
-                if (item.catid === +params.id)
-                    return (
-                        <ProductCard
-                            key={item.id}
-                            id={item.id}
-                            name={item.name}
-                            img={item.photo}
-                            price={item.price}
-                            producer={item.producer}
-                            country={item.country}
-                        />
-                    )
-                return null
+                return (
+                    <ProductCard
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        img={item.img}
+                        price={item.price}
+                        brand={item.brand.name}
+                        country={item.country.name}
+                    />
+                )
             })}
         </div>
     )

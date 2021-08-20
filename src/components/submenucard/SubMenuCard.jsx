@@ -26,7 +26,7 @@ export const SubMenuCard = ({ anchorEl, id }) => {
             onMouseLeave={() => dispatch(showCardSubMenu(false))}
         >
             {subItems
-                .filter(item => item.parent_id === id)
+                .filter(item => item.parentId === id)
                 .map((item) => {
                     return (
                         <li key={item.id}>

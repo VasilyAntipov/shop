@@ -9,11 +9,11 @@ export const menuItemsSelector = (state) => menuSelector(state).items
 export const cardSubMenuActiveSelector = (state) => menuSelector(state).cardSubMenuActive
 export const selectMenuId = (_, id) => id
 export const mainMenuItemsSelector =
-    createSelector([menuItemsSelector], (items) => items.filter(item => item.parent_id === null))
+    createSelector([menuItemsSelector], (items) => items.filter(item => item.parentId === null))
 export const subMenuItemsSelector =
-    createSelector([menuItemsSelector], (items) => items.filter(item => item.parent_id !== null))
+    createSelector([menuItemsSelector], (items) => items.filter(item => item.parentId !== null))
 export const menuHaveChildSelector =
-    (state) => (id) => menuItemsSelector(state).some(item => item.parent_id === id);
+    (state) => (id) => menuItemsSelector(state).some(item => item.parentId === id);
 export const navItemsSelector =
     (state) => (childId) => {
         const getItemById = (id) => menuItemsSelector(state).find(item => item.id === id);
@@ -21,7 +21,7 @@ export const navItemsSelector =
         const res = [];
         while (current) {
             res.unshift(current);
-            current = getItemById(current.parent_id);
+            current = getItemById(current.parentId);
         }
         return res;
     }
@@ -47,7 +47,7 @@ export const setFilterToURI = createSelector(filterItemsSelector,
         })
         if (res.length > 0)
             return '?' + res.join('&');
-        return ''   
+        return ''
     })
 
 export const productSelector = (state) => state.product

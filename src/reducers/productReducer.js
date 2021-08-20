@@ -10,6 +10,7 @@ const initState = {
     isLoading: false,
     isLoaded: false,
     items: [],
+    countItems: null,
     error: null,
 }
 
@@ -25,7 +26,8 @@ export const productReducer = (state = initState, action) => {
                 ...state,
                 isLoading: false,
                 isLoaded: true,
-                items: action.payload
+                items: action.payload.rows,
+                countItems: action.payload.count
             }
         case INIT_PRODUCTS_FAIL:
             return {

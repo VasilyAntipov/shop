@@ -1,16 +1,25 @@
 import React from 'react'
 import './productfilter.scss'
-import { Paper } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { Paper, Link } from '@material-ui/core'
+import { useSelector, useDispatch } from 'react-redux'
 import { ProductFilterAccordion } from '../productFilterAccordion/ProductFilterAccordion'
 import { ProductFilterFlag } from '../productFilterFlag/ProductFilterFlag'
-import { useLocation } from 'react-router-dom'
 import { filterItemsSelector, filterIsLoadedSelector } from '../../selectors'
-
+import { clearFiltersAll, showFilterFlag } from '../../actions'
 export const ProductFilter = () => {
 
+    const dispatch = useDispatch()
     const filterItems = useSelector(filterItemsSelector)
     const filterIsLoaded = useSelector(filterIsLoadedSelector)
+
+    const handleClickClearFilters = (e) => {
+        dispatch(clearFiltersAll())
+        dispatch(showFilterFlag({
+            visible: true,
+            coordinatsY: e.pageY - 30
+        }));
+
+    }
 
     if (!filterIsLoaded) {
         return (
@@ -33,6 +42,11 @@ export const ProductFilter = () => {
                         />
                     )
                 })}
+                <Link
+                    className="disable-all-filters"
+                    onClick={(e) => handleClickClearFilters(e)}
+                >сбросить все фильтры
+                </Link>
             </Paper>
             <ProductFilterFlag />
         </div >

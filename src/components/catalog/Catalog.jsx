@@ -21,7 +21,7 @@ export const Catalog = () => {
     return (
         <div className="catalog">
             {subItems.map((item) => {
-                if (item.parent_id === Number(params.id)) {
+                if (item.parentId === Number(params.id)) {
                     return (
                         <CatalogCard id={item.id} name={item.name} key={item.id} img={item.photo} />
                     )

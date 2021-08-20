@@ -1,3 +1,4 @@
+import { mdiFormatLetterCaseLower } from "@mdi/js"
 import {
     INIT_FILTERS,
     INIT_FILTERS_SUCCESS,
@@ -5,6 +6,7 @@ import {
     SHOW_FILTER_FLAG,
     CLEAR_FILTERS,
     CHANGE_FILTER_MARK,
+    CLEAR_FILTERS_ALL
 
 } from "../constants"
 
@@ -71,11 +73,24 @@ export const filterReducer = (state = initState, action) => {
                         return {
                             ...item,
                             data: item.data.map(dataItem => {
-                                delete dataItem.checked;
+                                dataItem.checked = false;
                                 return dataItem
                             })
                         }
                     else return item
+                })
+            }
+        case CLEAR_FILTERS_ALL:
+            return {
+                ...state,
+                items: state.items.map(item => {
+                    return {
+                        ...item,
+                        data: item.data.map(dataItem => {
+                            dataItem.checked = false;
+                            return dataItem
+                        })
+                    }
                 })
             }
         default:
