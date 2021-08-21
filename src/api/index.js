@@ -29,4 +29,3 @@ export const getFilters = async (id) => {
         console.log(e);
     }
 }
-

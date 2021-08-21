@@ -7,13 +7,15 @@ import { Footer } from '../footer/Footer';
 import { Header } from '../header/Header'
 import { HomePage } from '../homepage/HomePage'
 import { AboutPage } from '../aboutpage/AboutPage'
-import { initMenu } from '../../actions';
+import { initMenu, } from '../../actions';
 import { CatalogPage } from '../catalogpage/CatalogPage';
 import { ProductsPage } from '../productsPage/ProductsPage';
 
 const Shop = () => {
     const dispatch = useDispatch();
-    useEffect(() => dispatch(initMenu()));
+    useEffect(() => {
+        dispatch(initMenu())
+    });
     return (
         <BrowserRouter>
             <div className="Shop">

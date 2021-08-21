@@ -1,11 +1,14 @@
-.filter-panel {
-    padding: 0;
-    margin: 0;
-    width: 300px;
-    position: relative;
-    left: 323px;
-    top: 300px;
-    border-radius: 5px;
-    padding-left: 20px;
-    padding-top: 10px;
+.product-filter-panel {
+    margin-right: 5px;
+    padding: 15px;
+    height: 80px;
+    // position: relative;
+    display: block;
+    font-size: 14px;
+    .popover {
+        float: left;
+        display: block;
+        width: 300px;
+        margin: 2px;
+    }
 }

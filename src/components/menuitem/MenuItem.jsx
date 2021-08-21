@@ -20,7 +20,7 @@ export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', sh
 
     return (
         <Link
-            className={`submenu-item`}
+            className="submenu-item"
             component={RouterLink}
             color={'textPrimary'}
             underline={'none'}

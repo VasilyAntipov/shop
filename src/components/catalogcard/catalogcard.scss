@@ -11,6 +11,7 @@
         width: 200px;
         height: 200px;
         padding: 20px;
+        
 
         .img-container {
             width: 120px;
@@ -22,6 +23,10 @@
                 object-fit: contain;
             }
         }
+    }
+
+    .catalog-card-title {
+        font-size: 16px;
     }
 
     &:hover {

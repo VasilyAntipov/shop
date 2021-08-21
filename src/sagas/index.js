@@ -1,6 +1,6 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
-import { getMenu, getProducts, getFilters } from '../api'
-import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS } from '../constants';
+import { getMenu, getProducts, getFilters, } from '../api'
+import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, } from '../constants';
 import {
     initMenuSuccess,
     initMenuFail,
@@ -8,6 +8,7 @@ import {
     initProductsSuccess,
     initFiltersSuccess,
     initFiltersFail,
+    initOrderGroupListSuccess,
 } from '../actions'
 
 function* initMenu() {
@@ -18,6 +19,7 @@ function* initMenu() {
         yield put(initMenuFail('COULD NOT GET MENU'));
     }
 }
+
 
 function* initProducts(action) {
     try {
@@ -31,8 +33,9 @@ function* initProducts(action) {
 function* initFilters(action) {
     try {
         const { id, search } = action.payload;
-        const filters = yield getFilters(id);
+        const { filters, orderList, groupList } = yield getFilters(id);
         yield put(initFiltersSuccess({ filters, search }));
+        yield put(initOrderGroupListSuccess({ orderList, groupList }));
     } catch (e) {
         yield put(initFiltersFail('COULD NOT GET FILTERS'));
     }

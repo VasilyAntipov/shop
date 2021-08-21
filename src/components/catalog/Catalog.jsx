@@ -13,7 +13,10 @@ export const Catalog = () => {
         return (
             <div className="catalog">
                 {mainItems.map((item) =>
-                    <CatalogCard id={item.id} name={item.name} key={item.id} img={item.photo} />
+                    <CatalogCard id={item.id}
+                     name={item.name} 
+                     key={item.id} 
+                     img={item.img} />
                 )}
             </div>
         )
@@ -23,7 +26,10 @@ export const Catalog = () => {
             {subItems.map((item) => {
                 if (item.parentId === Number(params.id)) {
                     return (
-                        <CatalogCard id={item.id} name={item.name} key={item.id} img={item.photo} />
+                        <CatalogCard id={item.id} 
+                        name={item.name} 
+                        key={item.id} 
+                        img={item.img} />
                     )
                 } else
                     return null

@@ -1,7 +1,7 @@
 import React from 'react'
 import './catalogcard.scss'
 import { Paper } from '@material-ui/core'
-import { SERVER, IMAGE_PATH, CATALOG_PATH, PRODUCTS_PATH } from '../../constants'
+import { CATALOG_PATH, PRODUCTS_PATH, IMAGES_URL } from '../../constants'
 import { useSelector } from 'react-redux'
 import { menuHaveChildSelector } from '../../selectors'
 import { Link as RouterLink } from 'react-router-dom'
@@ -28,12 +28,12 @@ export const CatalogCard = ({ id, name, img }) => {
                     <div className="catalog-card-content">
                         <div className="img-container">
                             <img
-                                src={SERVER + IMAGE_PATH + img}
-                                alt={'картинка'}
+                                src={IMAGES_URL + img}
+                                alt={img}
                             ></img>
                         </div>
                     </div>
-                    <span>{name}</span>
+                    <span className="catalog-card-title">{name}</span>
                 </Paper>
             </Link>
         </div>

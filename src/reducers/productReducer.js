@@ -3,6 +3,7 @@ import {
     INIT_PRODUCTS,
     INIT_PRODUCTS_FAIL,
     INIT_PRODUCTS_SUCCESS,
+    ADD_QUERY,
 } from "../constants"
 
 const initState = {
@@ -11,6 +12,7 @@ const initState = {
     isLoaded: false,
     items: [],
     countItems: null,
+    queryUrl: [],
     error: null,
 }
 
@@ -39,6 +41,11 @@ export const productReducer = (state = initState, action) => {
             return {
                 ...state,
                 isProduct: action.payload
+            }
+        case ADD_QUERY:
+            return {
+                ...state,
+                queryUrl: [...state.queryUrl, action.payload ] 
             }
         default:
             return state

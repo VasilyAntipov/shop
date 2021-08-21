@@ -6,7 +6,9 @@ import {
     SHOW_FILTER_FLAG,
     CLEAR_FILTERS,
     CHANGE_FILTER_MARK,
-    CLEAR_FILTERS_ALL
+    CLEAR_FILTERS_ALL,
+    INIT_ORDER_GROUP_LIST_SUCCESS
+
 
 } from "../constants"
 
@@ -15,6 +17,8 @@ const initState = {
     isLoading: false,
     isLoaded: false,
     items: [],
+    orderList: [],
+    groupList: [],
     applyButton: { visible: false, coordinatsY: null },
     error: null,
 }
@@ -92,6 +96,12 @@ export const filterReducer = (state = initState, action) => {
                         })
                     }
                 })
+            }
+        case INIT_ORDER_GROUP_LIST_SUCCESS:
+            return {
+                ...state,
+                orderList: action.payload.orderList,
+                groupList: action.payload.groupList
             }
         default:
             return state
