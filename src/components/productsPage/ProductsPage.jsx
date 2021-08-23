@@ -11,8 +11,10 @@ import {
     menuIsLoadedSelector,
     productIsLoadedSelector,
     productCountSelector,
+    queryUrlSelector    
 } from '../../selectors'
-import { initProducts, initFilters } from '../../actions'
+import { initProducts, initFilters, initUrl ,addQuery} from '../../actions'
+import { locationSearchToObject } from '../../utils'
 
 export const ProductsPage = () => {
     const params = useParams()
@@ -26,7 +28,8 @@ export const ProductsPage = () => {
     useEffect(useCallback(() => {
         dispatch(initProducts({ id: params.id, search: location.search }));
         dispatch(initFilters({ id: params.id, search: location.search }));
-    }), [dispatch, params.id, location.search]);
+        
+    }), [dispatch, params, location]);
 
     if (!menuIsLoaded || !productIsLoaded) {
         return (

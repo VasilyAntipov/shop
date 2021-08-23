@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './productfilteraccordion.scss'
 import {
     Accordion,
@@ -17,10 +17,12 @@ import {
     changeFilterMark
 } from '../../actions'
 
-export const ProductFilterAccordion = ({ filterArray, filterType, filterName , filterCount }) => {
+export const ProductFilterAccordion = ({ filterArray, filterType, filterName, filterCount }) => {
 
     const dispatch = useDispatch()
     const handleChange = (e, id) => {
+
+
 
         const coordinateFilterFlagY = e.target.getBoundingClientRect().top + window.pageYOffset;
 

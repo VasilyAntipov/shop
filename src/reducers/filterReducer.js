@@ -7,8 +7,7 @@ import {
     CLEAR_FILTERS,
     CHANGE_FILTER_MARK,
     CLEAR_FILTERS_ALL,
-    INIT_ORDER_GROUP_LIST_SUCCESS
-
+    INIT_ORDER_GROUP_LIST_SUCCESS,
 
 } from "../constants"
 

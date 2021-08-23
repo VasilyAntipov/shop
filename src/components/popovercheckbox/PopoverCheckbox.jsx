@@ -1,38 +1,41 @@
+import './popovercheckbox.scss'
 import React, { useState } from 'react'
-import { Popover, RadioGroup, FormControlLabel, Radio, Link } from '@material-ui/core'
+import { Popover, Link } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 import { useLocation } from 'react-router'
+import { addSearchToUrl } from '../../utils'
 
-export const PopoverCheckbox = ({ className, checkBox, title }) => {
+export const PopoverCheckbox = ({ className, checkBox, title, element }) => {
 
 
-    const location= useLocation();
-    console.log(location)
+    const location = useLocation()
+    const params = new URLSearchParams(location.search);
+    const activeItemId = params.get(element);
+
     const [anchorEl, setAnchorEl] = useState(null);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
 
     const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
 
-    const [value, setValue] = React.useState(checkBox[0].title);
+    const handleClickItem = (e, id) => {
+        handleClose(e)
+    }
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
 
     return (
         <div className={className}>
             <span className="sort">{title}</span>
             <Link onClick={(e) => handleClick(e)}>
-                {value}
+                {checkBox[activeItemId-1].title}
             </Link>
             <Popover
-                id={id}
                 open={open}
                 anchorEl={anchorEl}
                 onClose={(e) => handleClose(e)}
@@ -45,25 +48,22 @@ export const PopoverCheckbox = ({ className, checkBox, title }) => {
                     horizontal: 'center',
                 }}
             >
-                <RadioGroup
-                    name={checkBox.name}
-                    value={value}
-                    onChange={handleChange}
-                >
-                    {checkBox.map(item => {
-                        return (
-                            <FormControlLabel
-                                key={item.id}
-                                value={item.title}
-                                control={<Radio />}
-                                label={item.title}
-                                // {
-                                    // <RouterLink to={`${pathname}&order=${item.id}`}>
-                                    //     {item.title}
-                                    // </RouterLink>}
-                            />)
-                    })}
-                </RadioGroup>
+                {checkBox.map(item => {
+                    return (
+                        <RouterLink
+                            className={"popover-list-item"}
+
+                            to={{
+                                pathname: location.pathname,
+                                search: addSearchToUrl(location, { type: element, data: item.id }, element)
+                            }}
+                            key={item.id}
+                            onClick={(e) => handleClickItem(e, item.id)}
+                        >
+                            {item.title}
+                        </RouterLink>
+                    )
+                })}
             </Popover>
         </div >
     )

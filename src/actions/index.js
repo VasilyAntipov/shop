@@ -19,7 +19,8 @@ import {
     CHANGE_FILTER_MARK,
     CLEAR_FILTERS_ALL,
     ADD_QUERY,
-    INIT_ORDER_GROUP_LIST_SUCCESS
+    INIT_ORDER_GROUP_LIST_SUCCESS,
+    INIT_URL
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -33,7 +34,6 @@ export const isProduct = createAction(IS_PRODUCT)
 export const initProducts = createAction(INIT_PRODUCTS)
 export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
-export const addQuery = createAction(ADD_QUERY)
 
 export const initFilters = createAction(INIT_FILTERS)
 export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (payload) => {

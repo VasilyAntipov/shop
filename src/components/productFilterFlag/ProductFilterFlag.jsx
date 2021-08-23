@@ -3,18 +3,15 @@ import './productfilterflag.scss'
 import { Button } from '@material-ui/core'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { initProducts, showFilterFlag } from '../../actions'
-import { PRODUCTS_PATH } from '../../constants'
-import { setFilterToURI, filterApplyButtonSelector } from '../../selectors'
-import { useParams } from 'react-router'
-
+import { showFilterFlag } from '../../actions'
+import { filterApplyButtonSelector, filtersToArraySelector } from '../../selectors'
+import { addSearchToUrl } from '../../utils'
 export const ProductFilterFlag = () => {
 
-    const params = useParams()
     const location = useLocation()
-
-    const filterURI = useSelector(setFilterToURI)
     const applyButton = useSelector(filterApplyButtonSelector)
+    const filtersToArray = useSelector(filtersToArraySelector)
+    const search = addSearchToUrl(location, filtersToArray, 'filters')
 
     const dispatch = useDispatch()
 
@@ -30,8 +27,8 @@ export const ProductFilterFlag = () => {
     return (
         <Button component={Link} size="small"
             to={{
-                pathname: `${PRODUCTS_PATH}${params.id}/`,
-                search: filterURI
+                pathname: location.pathname,
+                search,
             }}
             onClick={handleClick}
             className={`flag ${applyButton.visible ? 'visible' : 'hide'}`}

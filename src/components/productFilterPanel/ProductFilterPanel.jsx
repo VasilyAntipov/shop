@@ -13,12 +13,14 @@ export const ProductFilterPanel = () => {
     return (
         <Paper className="product-filter-panel">
             <PopoverCheckbox
+                element="order"
                 checkBox={orderList}
                 className="popover sort"
                 title="сортировка: "
             />
 
             <PopoverCheckbox
+                element="group"
                 checkBox={groupList}
                 className="popover group"
                 title="группировка: "

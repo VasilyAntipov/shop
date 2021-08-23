@@ -12,7 +12,7 @@ const initState = {
     isLoaded: false,
     items: [],
     countItems: null,
-    queryUrl: [],
+    queryUrl: '',
     error: null,
 }
 
@@ -42,11 +42,7 @@ export const productReducer = (state = initState, action) => {
                 ...state,
                 isProduct: action.payload
             }
-        case ADD_QUERY:
-            return {
-                ...state,
-                queryUrl: [...state.queryUrl, action.payload ] 
-            }
+
         default:
             return state
     }

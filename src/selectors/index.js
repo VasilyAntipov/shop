@@ -40,7 +40,9 @@ export const filterIsLoadedSelector = (state) => filterSelector(state).isLoaded
 export const filterApplyButtonSelector = (state) => filterSelector(state).applyButton
 export const orderListSelector = (state) => filterSelector(state).orderList
 export const groupListSelector = (state) => filterSelector(state).groupList
-export const setFilterToURI = createSelector(filterItemsSelector,
+export const queryUrlSelector = (state) => filterSelector(state).queryUrl
+
+export const filtersToArraySelector = createSelector(filterItemsSelector,
     items => {
         const res = [];
         items.forEach(item => {
@@ -51,12 +53,11 @@ export const setFilterToURI = createSelector(filterItemsSelector,
                 }
             })
             if (dataArray.length > 0)
-                res.push(`${item.type}=${dataArray.join(',')}`)
+                res.push({ type: item.type, data: dataArray.join(',') })
         })
-        if (res.length > 0)
-            return '?' + res.join('&');
-        return ''
+        return res
     })
+
 ///////////////////////////prod_selectors///////////////////////////////////////
 
 export const productSelector = (state) => state.product
