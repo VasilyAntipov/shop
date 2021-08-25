@@ -2,10 +2,10 @@ import React from 'react'
 import './productfilter.scss'
 import { Paper, Link } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { ProductFilterAccordion } from '../productFilterAccordion/ProductFilterAccordion'
-import { ProductFilterFlag } from '../productFilterFlag/ProductFilterFlag'
-import { filterItemsSelector, filterIsLoadedSelector } from '../../selectors'
-import { clearFiltersAll, showFilterFlag } from '../../actions'
+import { ProductFilterAccordion } from '../productfilteraccordion/ProductFilterAccordion'
+import { ProductFilterFlag } from '../productfilterflag/ProductFilterFlag'
+import { filterItemsSelector, filterIsLoadedSelector } from '../../redux/selectors'
+import { clearFiltersAll, showFilterFlag } from '../../redux/actions'
 export const ProductFilter = () => {
 
     const dispatch = useDispatch()

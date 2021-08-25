@@ -1,0 +1,15 @@
+.page-panel {
+    .pages {
+        height: 40px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        .page-number-button {
+            width: 20px;
+            height: 40px;
+            &:hover {
+                background-color: rgb(252, 234, 210);
+            }
+        }
+    }
+}

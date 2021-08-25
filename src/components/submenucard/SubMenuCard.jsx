@@ -3,8 +3,8 @@ import React from 'react'
 import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuItem } from '../menuitem/MenuItem'
-import { showCardSubMenu, } from '../../actions'
-import { cardSubMenuActiveSelector, subMenuItemsSelector } from '../../selectors'
+import { showCardSubMenu, } from '../../redux/actions'
+import { cardSubMenuActiveSelector, subMenuItemsSelector } from '../../redux/selectors'
 
 export const SubMenuCard = ({ anchorEl, id }) => {
     const cardOffsetY = -40;

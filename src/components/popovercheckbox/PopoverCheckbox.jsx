@@ -10,7 +10,7 @@ export const PopoverCheckbox = ({ className, checkBox, title, element }) => {
 
     const location = useLocation()
     const params = new URLSearchParams(location.search);
-    const activeItemId = params.get(element);
+    const activeItemId = params.get(element) || 1;
 
     const [anchorEl, setAnchorEl] = useState(null);
 

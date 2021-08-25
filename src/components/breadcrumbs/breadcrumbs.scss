@@ -1,0 +1,14 @@
+.breadcrubms {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .breadcrubms-link {
+        color: black;
+        font-size: 0.8rem;
+        &:hover {
+            color: rgb(252, 133, 7);
+        }
+    }
+}
+.breadcrubms-link:not(:last-of-type)::after {
+    content: "->";
+}

@@ -3,7 +3,7 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
-import { setIdActiveMenu, setIsMenuActive } from '../../actions'
+import { setIdActiveMenu, setIsMenuActive } from '../../redux/actions'
 import { MenuItem } from '../menuitem/MenuItem';
 
 export const MenuButton = ({ id, path, name }) => {

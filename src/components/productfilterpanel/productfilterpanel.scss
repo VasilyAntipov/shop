@@ -1,0 +1,17 @@
+.product-filter-panel {
+   
+    margin-right: 5px;
+    padding: 15px;
+    height: 80px;
+    display: block;
+    font-size: 14px;
+    .popover {
+        
+        float: left;
+        display: block;
+        width: 300px;
+        margin: 2px;
+        cursor: pointer;
+        
+    }
+}

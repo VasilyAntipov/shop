@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './submenu.scss'
 import { Paper } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { setIsMenuActive, showCardSubMenu } from '../../actions'
+import { setIsMenuActive, showCardSubMenu } from '../../redux/actions'
 import { MenuItem } from '../menuitem/MenuItem'
 import { SubMenuCard } from '../submenucard/SubMenuCard'
 import {
@@ -10,7 +10,7 @@ import {
     menuHaveChildSelector,
     isMenuActiveSelector,
     idActiveMenuSelector
-} from '../../selectors'
+} from '../../redux/selectors'
 
 export const SubMenu = () => {
 

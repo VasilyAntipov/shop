@@ -26,7 +26,9 @@ export const addSearchToUrl = (location, search, element) => {
         })
         if (element === 'filters') {
             resultArray = resultArray
-                .filter(item => item.type !== 'brandId' && item.type !== 'countryId')
+                .filter(item => item.type !== 'brandId'
+                    && item.type !== 'countryId'
+                    && item.type !== 'page')
             search.forEach(item => {
                 resultArray.push(item)
             })

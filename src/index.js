@@ -5,13 +5,13 @@ import { Router } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
 import store from './store/store'
-import Shop from './components/shop/Shop';
+import App from './App';
 const history = createBrowserHistory()
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
-            <Shop />
+            <App />
         </Router>
     </Provider>
     ,

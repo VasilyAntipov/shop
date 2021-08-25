@@ -1,0 +1,38 @@
+import './productfilterpanel.scss'
+import React from 'react'
+import { Paper } from '@material-ui/core'
+import { PopoverCheckbox } from '../popovercheckbox/PopoverCheckbox'
+import { useSelector } from 'react-redux'
+import { orderListSelector, groupListSelector, filterIsLoadedSelector } from '../../redux/selectors'
+
+export const ProductFilterPanel = () => {
+    const orderList = useSelector(orderListSelector)
+    const groupList = useSelector(groupListSelector)
+    const filterIsLoaded = useSelector(filterIsLoadedSelector)
+
+    if (!filterIsLoaded) {
+        return (
+            <div>
+                Loading
+            </div>
+        )
+    }
+
+    return (
+        <Paper className="product-filter-panel">
+            <PopoverCheckbox
+                element="order"
+                checkBox={orderList}
+                className="popover sort"
+                title="сортировка: "
+            />
+
+            <PopoverCheckbox
+                element="group"
+                checkBox={groupList}
+                className="popover group"
+                title="группировка: "
+            />
+        </Paper>
+    )
+}
