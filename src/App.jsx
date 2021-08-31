@@ -1,7 +1,7 @@
 import './app.scss';
 import React, { useEffect } from 'react';
-import { BrowserRouter, withRouter ,Switch, Route, Redirect } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux'
+import { BrowserRouter, withRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { initMenu, } from './redux/actions';
 import {
     ABOUT_ROUTE,
@@ -22,7 +22,7 @@ import { HomePage } from "./pages/homepage/HomePage";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/navbar/Navbar";
 import { isAdminSelector, isAuthSelector } from "./redux/selectors";
-import { AuthLogin } from './components/authLogin/AuthLogin';
+import { AuthDialog } from './components/authdialog/AuthDialog';
 
 const App = () => {
     const isAdmin = useSelector(isAdminSelector)
@@ -46,7 +46,7 @@ const App = () => {
                 <Route path={PROFILE_ROUTE} component={ProfilePage} />
                 <Redirect to={HOMEPAGE_ROUTE} />
             </Switch>
-            <Route component={AuthLogin} />
+            <Route component={AuthDialog} />
             <Route component={Footer} />
         </BrowserRouter>
     );

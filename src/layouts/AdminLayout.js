@@ -10,7 +10,7 @@ import {
     ADMIN_CATALOG_ROUTE
 } from "../utils/constants";
 import { Route, Redirect ,Switch} from 'react-router-dom'
-import { DrawerPanel } from "../components/drawerPanel/DrawerPanel";
+import { DrawerPanel } from "../components/drawerpanel/DrawerPanel";
 
 export const AdminLayout = () => {
     return (
