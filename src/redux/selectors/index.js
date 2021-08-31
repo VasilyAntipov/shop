@@ -68,3 +68,4 @@ export const productCountSelector = (state) => productSelector(state).countItems
 export const userSelector = (state) => state.user
 export const isAuthSelector = (state) => userSelector(state).isAuth
 export const isAdminSelector = (state) => userSelector(state).isAdmin
+export const authDialogOpenSelector = (state) => userSelector(state).authDialogOpen

@@ -19,6 +19,7 @@ import {
     CHANGE_FILTER_MARK,
     CLEAR_FILTERS_ALL,
     INIT_ORDER_GROUP_LIST_SUCCESS,
+    AUTH_DIALOG_OPEN
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -79,3 +80,6 @@ export const changeFilterMark = createAction(CHANGE_FILTER_MARK)
 export const clearFilters = createAction(CLEAR_FILTERS)
 export const clearFiltersAll = createAction(CLEAR_FILTERS_ALL)
 export const initOrderGroupListSuccess = createAction(INIT_ORDER_GROUP_LIST_SUCCESS)
+
+
+export const openAuthDialog = createAction(AUTH_DIALOG_OPEN)

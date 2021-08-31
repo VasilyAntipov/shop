@@ -1,25 +1,28 @@
 import './navbar.scss'
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link, useHistory } from 'react-router-dom';
-import { ABOUT_ROUTE, ADMIN_ROUTE, HOMEPAGE_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE } from '../../utils/constants';
-import { useSelector } from 'react-redux';
+import { ABOUT_ROUTE, ADMIN_ROUTE, HOMEPAGE_ROUTE, PROFILE_ROUTE } from '../../utils/constants';
+import { useSelector, useDispatch } from 'react-redux';
 import { isAdminSelector, isAuthSelector } from '../../redux/selectors'
 import ListAltIcon from '@material-ui/icons/ListAlt';
+import { openAuthDialog } from '../../redux/actions';
 
 export const Navbar = () => {
     const isAuth = useSelector(isAuthSelector)
     const isAdmin = useSelector(isAdminSelector)
     const history = useHistory()
+    const dispatch = useDispatch()
 
     const handleProfileMenuOpen = () => {
-        isAuth
-            ? history.push(PROFILE_ROUTE)
-            : history.push(LOGIN_ROUTE)
+        if (isAuth) {
+            history.push(PROFILE_ROUTE)
+        } else {
+             dispatch(openAuthDialog(true))
+        }
     }
 
     const handleAdminPageOpen = () => {
@@ -51,7 +54,6 @@ export const Navbar = () => {
                                 isAdmin
                                     ? <IconButton
                                         onClick={handleAdminPageOpen}
-                                        color="inherit"
                                     >
                                         <ListAltIcon />
                                     </IconButton>
@@ -59,7 +61,6 @@ export const Navbar = () => {
                             }
                             <IconButton
                                 onClick={handleProfileMenuOpen}
-                                color="inherit"
                             >
                                 <AccountCircle />
                             </IconButton>

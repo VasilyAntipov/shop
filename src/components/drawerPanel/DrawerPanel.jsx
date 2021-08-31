@@ -2,28 +2,30 @@ import './drawerpanel.scss'
 import React from 'react';
 import { Drawer, List, ListItem } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { drawerItems } from '../../utils/constants';
 
-export const DrawerPanel = ({ name }) => {
-    const adminItems = ['Обзор', 'Каталог', 'Справочники', 'Товары'];
+
+export const DrawerPanel = () => {
+
     const history = useHistory()
-    const handleOpenAdminMenu = () => {
-        
+    const handleOpenAdminMenu = (route) => {
+        history.push(route)
     }
-    
+
     return (
         <div className="admin-drawer">
             <Drawer
                 variant="permanent"
             >
                 <List className="admin-menu">
-                    {adminItems.map((text, index) => (
+                    {drawerItems.map((item) => (
                         <ListItem
-                            button key={text}
-                            onClick={handleOpenAdminMenu}
+                            button key={item.name}
+                            onClick={() => handleOpenAdminMenu(item.route)}
                         >
-                            {text}
+                            {item.name}
                         </ListItem>
-                    ))}
+                    ))} 
                 </List>
             </Drawer>
         </div>
