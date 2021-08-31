@@ -3,7 +3,7 @@ import React from 'react'
 import List from '@material-ui/core/List';
 import { mdiWashingMachine } from '@mdi/js';
 import { MenuButton } from '../menubutton/MenuButton'
-import { Paper } from '@material-ui/core';
+import { Paper , CircularProgress} from '@material-ui/core';
 import { useSelector } from 'react-redux'
 import { mainMenuItemsSelector, menuIsLoadedSelector } from '../../redux/selectors';
 
@@ -13,7 +13,7 @@ export const MenuList = () => {
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
     
     if (!menuIsLoaded)
-        return <div>Loading menu</div>
+        return <CircularProgress />
 
     return (
         <Paper className="menu-wrap">

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { urlParse } from '../../utils';
+import { urlParse } from '../../utils/func';
 import {
     INIT_MENU_SUCCESS,
     INIT_MENU_FAIL,

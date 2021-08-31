@@ -1,5 +1,6 @@
 import './productspage.scss'
 import React, { useEffect, useCallback } from 'react'
+import { CircularProgress } from '@material-ui/core'
 import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
 import { ProductFilter } from '../../components/productfilter/ProductFilter'
 import { ProductFilterPanel } from '../../components/productfilterpanel/ProductFilterPanel'
@@ -36,9 +37,8 @@ export const ProductsPage = () => {
 
     if (!menuIsLoaded || !productIsLoaded) {
         return (
-            <div className="loader">
-                <img src="/img/loader.gif" alt='картинка' />
-                <p>LOADING PRODUCTS...</p>
+            <div>
+                <CircularProgress/> 
             </div>
         );
     }

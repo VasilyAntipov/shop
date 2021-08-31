@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const AuthPage = () => {
+export const AuthRegistration = () => {
     return (
         <div>
-            аутентификация
+            регистрилка
         </div>
     )
 }

@@ -7,34 +7,35 @@ import { subMenuItemsSelector, mainMenuItemsSelector } from '../../redux/selecto
 export const Catalog = () => {
     const mainItems = useSelector(mainMenuItemsSelector)
     const subItems = useSelector(subMenuItemsSelector)
-    const params = useParams()
+    const { id } = useParams()
 
-    if (params.id === undefined)
+    if (id === undefined)
         return (
             <div className="catalog">
                 {mainItems.map((item) =>
-                    <CatalogCard id={item.id}
-                     name={item.name} 
-                     key={item.id} 
-                     img={item.img} />
+                    <CatalogCard
+                        id={item.id}
+                        name={item.name}
+                        key={item.id}
+                        img={item.img} />
                 )}
             </div>
         )
 
     return (
         <div className="catalog">
-            {subItems.map((item) => {
-                if (item.parentId === Number(params.id)) {
+            {subItems
+                .filter(({ parentId }) => parentId === Number(id))
+                .map((item) => {
                     return (
-                        <CatalogCard id={item.id} 
-                        name={item.name} 
-                        key={item.id} 
-                        img={item.img} />
+                        <CatalogCard
+                            id={item.id}
+                            name={item.name}
+                            key={item.id}
+                            img={item.img}
+                        />
                     )
-                } else
-                    return null
-
-            })}
+                })}
         </div>
     )
 

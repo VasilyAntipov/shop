@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { showFilterFlag } from '../../redux/actions'
 import { filterApplyButtonSelector, filtersToArraySelector } from '../../redux/selectors'
-import { addSearchToUrl } from '../../utils'
+import { addSearchToUrl } from '../../utils/func'
 export const ProductFilterFlag = () => {
 
     const location = useLocation()

@@ -1,7 +1,7 @@
-import React from 'react'
 import './catalogcard.scss'
+import React from 'react'
 import { Paper } from '@material-ui/core'
-import { CATALOG_PATH, PRODUCTS_PATH, IMAGES_URL } from '../../utils/constants'
+import { IMAGES_URL, CATALOG_ROUTE, PRODUCTS_ROUTE } from '../../utils/constants'
 import { useSelector } from 'react-redux'
 import { menuHaveChildSelector } from '../../redux/selectors'
 import { Link as RouterLink } from 'react-router-dom'
@@ -12,8 +12,8 @@ export const CatalogCard = ({ id, name, img }) => {
 
     const menuHaveChild = useSelector(state => menuHaveChildSelector(state))
     const path = menuHaveChild(id)
-        ? CATALOG_PATH
-        : PRODUCTS_PATH
+        ? CATALOG_ROUTE
+        : PRODUCTS_ROUTE
 
     return (
         <Link
@@ -21,13 +21,13 @@ export const CatalogCard = ({ id, name, img }) => {
             component={RouterLink}
             color={'textPrimary'}
             underline={'none'}
-            to={{ pathname: `${path}${id}` }}
+            to={path + `/${id}`}
         >
             <Paper className="catalog-card">
                 <div className="catalog-card-content">
                     <div className="img-container">
                         <img
-                            src={IMAGES_URL + img}
+                            src={IMAGES_URL + `/${img}`}
                             alt={img}
                         ></img>
                     </div>

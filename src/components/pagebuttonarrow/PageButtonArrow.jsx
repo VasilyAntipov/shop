@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { addSearchToUrl } from '../../utils'
+import { addSearchToUrl } from '../../utils/func'
 import { useLocation } from 'react-router'
 import { IconButton } from '@material-ui/core'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';

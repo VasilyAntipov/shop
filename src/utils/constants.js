@@ -1,13 +1,17 @@
 export const ABOUT_ROUTE = '/about'
 export const ADMIN_ROUTE = '/admin'
 export const AUTH_ROUTE = '/auth'
-export const LOGIN_ROUTE = '/login'
-export const REGISTRATION_ROUTE = '/registration'
+export const LOGIN_ROUTE = `${AUTH_ROUTE}/login`
+export const REGISTRATION_ROUTE = `${AUTH_ROUTE}/registration`
 export const BASKET_ROUTE = '/basket'
 export const CATALOG_ROUTE = '/catalog'
 export const HOMEPAGE_ROUTE = '/homepage'
 export const PRODUCTS_ROUTE = '/products'
-
+export const PROFILE_ROUTE = '/profile'
+export const ADMIN_CATALOG_ROUTE = `${ADMIN_ROUTE}/catalog`
+export const ADMIN_REFERENCE_ROUTE = `${ADMIN_ROUTE}/reference`
+export const ADMIN_PRODUCTS_ROUTE = `${ADMIN_ROUTE}/products`
+export const ADMIN_OVERVIEW_ROUTE = `${ADMIN_ROUTE}/overview`
 
 export const SERVER = 'http://localhost:5000'
 export const PRODUCTS_PATH = '/products/'

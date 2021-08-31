@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const AdminPage = () => {
+export const AuthLogin = () => {
     return (
         <div>
-            админка
+            логинка
         </div>
     )
 }

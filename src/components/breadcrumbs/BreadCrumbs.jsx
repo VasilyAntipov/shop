@@ -2,26 +2,31 @@ import React from 'react'
 import './breadcrumbs.scss'
 import { Link, NavLink, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { CATALOG_PATH, PRODUCTS_PATH } from '../../utils/constants'
+import { CATALOG_ROUTE, PRODUCTS_ROUTE } from '../../utils/constants'
 import {
     navItemsSelector,
     menuHaveChildSelector,
     menuIsLoadedSelector
 } from '../../redux/selectors';
+import { CircularProgress } from '@material-ui/core';
 
 export const BreadCrumbs = () => {
-    const params = useParams()
+    const { id } = useParams()
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
     const menuHaveChild = useSelector(state => menuHaveChildSelector(state))
     const navItems = useSelector(state => navItemsSelector(state))
 
-    const getLink = (itemId) => {
-        const path = menuHaveChild(itemId) ? CATALOG_PATH : PRODUCTS_PATH;
-        return path + itemId;
+    const getLink = (id) => {
+        const path = menuHaveChild(id) ? CATALOG_ROUTE : PRODUCTS_ROUTE;
+        return path + `/${id}`;
     };
 
     if (!menuIsLoaded) {
-        return <div>Loading</div>
+        return (
+            <div>
+                <CircularProgress />
+            </div>
+        )
     }
 
     return (
@@ -32,11 +37,11 @@ export const BreadCrumbs = () => {
             >
                 Каталог
             </NavLink>
-            {navItems(params.id).map(item => {
+            {navItems(id).map(item => {
                 return (
                     <Link
-                        key = {item.id}
                         className='breadcrubms-link'
+                        key={item.id}
                         to={getLink(item.id)}
                     >
                         {item.name}
