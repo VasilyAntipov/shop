@@ -27,3 +27,6 @@ export const INIT_USER = 'INIT_USER';
 export const INIT_USER_SUCCESS = 'INIT_USER_SUCCESS';
 export const INIT_USER_FAIL = 'INIT_USER_FAIL';
 export const USER_LOGOUT = 'USER_LOGOUT'
+
+
+export const LOAD_CATALOG_TABLE_DATA = 'LOAD_CATALOG_TABLE_DATA'

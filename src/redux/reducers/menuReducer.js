@@ -4,7 +4,8 @@ import {
     INIT_MENU_SUCCESS,
     SET_ID_ACTIVE_MENU,
     SET_IS_MENU_ACTIVE,
-    SHOW_CARD_SUB_MENU
+    SHOW_CARD_SUB_MENU,
+    LOAD_CATALOG_TABLE_DATA
 } from '../constants'
 
 const initState = {
@@ -14,6 +15,7 @@ const initState = {
     isLoaded: false,
     items: [],
     cardSubMenuActive: false,
+    admCatalogTableData : [],
     error: null,
 }
 
@@ -51,6 +53,11 @@ export const menuReducer = (state = initState, action) => {
             return {
                 ...state,
                 cardSubMenuActive: action.payload
+            }
+        case LOAD_CATALOG_TABLE_DATA:
+            return {
+                ...state,
+                admCatalogTableData: action.payload
             }
         default:
             return state

@@ -3,27 +3,37 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import {
+    Table,
+    Link,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+    TableSortLabel,
+    Toolbar,
+    Typography,
+    Paper,
+    Checkbox,
+    IconButton,
+    Tooltip,
+    FormControlLabel,
+    Switch
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { useSelector } from 'react-redux'
-import { mainMenuItemsSelector } from '../../../redux/selectors/menuSelectors'
 import EditIcon from '@material-ui/icons/Edit';
+
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    admCatalogTableDataSelector,
+    mainMenuItemsSelector,
+    menuHaveChildSelector,
+    getMenuItemByIdSelector
+} from '../../../redux/selectors/menuSelectors'
+import { loadCatalogTableData } from '../../../redux/actions';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -208,7 +218,17 @@ const useStyles = makeStyles((theme) => ({
 
 export function AdminCatalog() {
 
-    let rows = useSelector(mainMenuItemsSelector)
+    const dispatch = useDispatch()
+    const mainMenuItems = useSelector(mainMenuItemsSelector)
+    const menuHaveChild = useSelector((state) => menuHaveChildSelector(state))
+    const getMenuItemById = useSelector((state) => getMenuItemByIdSelector(state))
+
+    useEffect(() => {
+        dispatch(loadCatalogTableData(mainMenuItems))
+    })
+
+    let rows = useSelector(admCatalogTableDataSelector)
+
     const classes = useStyles();
 
     const [order, setOrder] = useState('asc');
@@ -270,6 +290,12 @@ export function AdminCatalog() {
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+    const handleClickMenuItem = (id) => {
+        if (menuHaveChild(id)) {
+            dispatch(loadCatalogTableData(getMenuItemById(id)))
+        }
+    }
+
     return (
         <div className={classes.root + ' admin-page catalog'}>
             <Paper className={classes.paper}>
@@ -300,7 +326,6 @@ export function AdminCatalog() {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
@@ -309,6 +334,7 @@ export function AdminCatalog() {
                                         >
                                             <TableCell padding="checkbox">
                                                 <Checkbox
+                                                    onChange={(event) => handleClick(event, row.name)}
                                                     checked={isItemSelected}
                                                     inputProps={{ 'aria-labelledby': labelId }}
                                                 />
@@ -316,7 +342,13 @@ export function AdminCatalog() {
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.id}
                                             </TableCell>
-                                            <TableCell align="left">{row.name}</TableCell>
+                                            <TableCell align="left">
+                                                <Link
+                                                // onClick={() => handleClickMenuItem(row.id)}
+                                                >
+                                                    {row.name}
+                                                </Link>
+                                            </TableCell>
                                             <TableCell align="left">{row.parentId}</TableCell>
                                             <TableCell align="left">{row.img}</TableCell>
                                         </TableRow>

@@ -26,7 +26,8 @@ import {
     INIT_USER_FAIL,
     INIT_USER_SUCCESS,
     LOAD_USER,
-    USER_LOGOUT
+    USER_LOGOUT,
+    LOAD_CATALOG_TABLE_DATA
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -35,6 +36,7 @@ export const initMenu = createAction(INIT_MENU)
 export const setIdActiveMenu = createAction(SET_ID_ACTIVE_MENU)
 export const setIsMenuActive = createAction(SET_IS_MENU_ACTIVE)
 export const showCardSubMenu = createAction(SHOW_CARD_SUB_MENU)
+export const loadCatalogTableData = createAction(LOAD_CATALOG_TABLE_DATA)
 
 export const isProduct = createAction(IS_PRODUCT)
 export const initProducts = createAction(INIT_PRODUCTS)
@@ -96,3 +98,4 @@ export const setIsAuth = createAction(IS_AUTH)
 export const setIsAdmin = createAction(IS_ADMIN)
 export const loadUserData = createAction(LOAD_USER)
 export const userLogout = createAction(USER_LOGOUT)
+
