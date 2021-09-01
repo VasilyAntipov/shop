@@ -1,29 +1,21 @@
 import './authdialog.scss'
 import React, { useState } from 'react'
 import {
-    Button,
     Dialog,
-    DialogTitle,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    TextField,
     AppBar,
     Tabs,
     Typography,
     Box,
     Tab
-
-
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { openAuthDialog } from '../../redux/actions'
-import { authDialogOpenSelector } from '../../redux/selectors'
+import { authDialogOpenSelector } from '../../redux/selectors/userSelectors'
 import { LoginForm } from '../loginform/LoginForm'
 import { RegForm } from '../regform/RegForm'
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index} = props;
 
     return (
         <div hidden={value !== index}>

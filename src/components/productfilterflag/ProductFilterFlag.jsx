@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { showFilterFlag } from '../../redux/actions'
-import { filterApplyButtonSelector, filtersToArraySelector } from '../../redux/selectors'
+import { filterApplyButtonSelector, filtersToArraySelector } from '../../redux/selectors/filterSelectors'
 import { addSearchToUrl } from '../../utils/func'
 export const ProductFilterFlag = () => {
 

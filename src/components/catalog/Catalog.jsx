@@ -3,7 +3,7 @@ import './catalog.scss'
 import { CatalogCard } from '../catalogcard/CatalogCard'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { subMenuItemsSelector, mainMenuItemsSelector } from '../../redux/selectors'
+import { subMenuItemsSelector, mainMenuItemsSelector } from '../../redux/selectors/menuSelectors'
 export const Catalog = () => {
     const mainItems = useSelector(mainMenuItemsSelector)
     const subItems = useSelector(subMenuItemsSelector)

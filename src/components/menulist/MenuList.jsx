@@ -5,7 +5,7 @@ import { mdiWashingMachine } from '@mdi/js';
 import { MenuButton } from '../menubutton/MenuButton'
 import { Paper , CircularProgress} from '@material-ui/core';
 import { useSelector } from 'react-redux'
-import { mainMenuItemsSelector, menuIsLoadedSelector } from '../../redux/selectors';
+import { mainMenuItemsSelector, menuIsLoadedSelector } from '../../redux/selectors/menuSelectors';
 
 export const MenuList = () => {
 

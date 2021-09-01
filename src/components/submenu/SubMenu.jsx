@@ -10,7 +10,7 @@ import {
     menuHaveChildSelector,
     isMenuActiveSelector,
     idActiveMenuSelector
-} from '../../redux/selectors'
+} from '../../redux/selectors/menuSelectors'
 
 export const SubMenu = () => {
 

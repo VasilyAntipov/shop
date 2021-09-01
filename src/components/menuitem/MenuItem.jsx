@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { CATALOG_PATH, PRODUCTS_PATH, ARROW } from '../../utils/constants'
-import { menuHaveChildSelector } from '../../redux/selectors'
+import { menuHaveChildSelector } from '../../redux/selectors/menuSelectors'
 
 export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', showArrow = false }) => {
     let path;

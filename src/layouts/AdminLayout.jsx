@@ -1,3 +1,4 @@
+import './adminlayout.scss'
 import { AdminCatalog } from "../pages/adminpages/catalog/AdminCatalog";
 import { AdminOverview } from "../pages/adminpages/overview/AdminOverview";
 import { AdminProducts } from "../pages/adminpages/products/AdminProducts";
@@ -14,8 +15,8 @@ import { DrawerPanel } from "../components/drawerpanel/DrawerPanel";
 
 export const AdminLayout = () => {
     return (
-        <div>
-            <Route component={DrawerPanel} />
+        <div className="admin-container">
+            <Route component={DrawerPanel}/>
             <Switch>
                 <Route path={ADMIN_OVERVIEW_ROUTE} exact component={AdminOverview} />
                 <Route path={ADMIN_CATALOG_ROUTE} exact component={AdminCatalog} />

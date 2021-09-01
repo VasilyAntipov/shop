@@ -2,7 +2,8 @@ import './app.scss';
 import React, { useEffect } from 'react';
 import { BrowserRouter, withRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { initMenu, } from './redux/actions';
+import { initMenu, initUser } from './redux/actions';
+import { CircularProgress } from '@material-ui/core';
 import {
     ABOUT_ROUTE,
     ADMIN_ROUTE,
@@ -21,16 +22,23 @@ import { ProfilePage } from "./pages/profilepage/ProfilePage";
 import { HomePage } from "./pages/homepage/HomePage";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/navbar/Navbar";
-import { isAdminSelector, isAuthSelector } from "./redux/selectors";
+import { isAdminSelector, isAuthSelector, userIsLoadedSelector } from "./redux/selectors/userSelectors.js";
 import { AuthDialog } from './components/authdialog/AuthDialog';
-
 const App = () => {
+
     const isAdmin = useSelector(isAdminSelector)
     const isAuth = useSelector(isAuthSelector)
+    const userIsLoaded = useSelector(userIsLoadedSelector)
     const dispatch = useDispatch();
+
     useEffect(() => {
-        dispatch(initMenu())
+        dispatch(initMenu());
+        dispatch(initUser());
     }, []);
+
+    if (!userIsLoaded)
+        return <CircularProgress />
+
 
     return (
         <BrowserRouter>

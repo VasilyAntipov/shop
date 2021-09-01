@@ -1,6 +1,6 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
 import { getMenu, getProducts, getFilters, } from '../api'
-import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, } from '../redux/constants';
+import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER, } from '../redux/constants';
 import {
     initMenuSuccess,
     initMenuFail,
@@ -9,7 +9,11 @@ import {
     initFiltersSuccess,
     initFiltersFail,
     initOrderGroupListSuccess,
+    initUserFail,
+    initUserSuccess,
 } from '../redux/actions'
+
+import {auth} from '../http/userApi'
 
 function* initMenu() {
     try {
@@ -36,9 +40,17 @@ function* initFilters(action) {
         const { filters, orderList, groupList } = yield getFilters(id);
         yield put(initOrderGroupListSuccess({ orderList, groupList }));
         yield put(initFiltersSuccess({ filters, search }));
-
     } catch (e) {
         yield put(initFiltersFail('COULD NOT GET FILTERS'));
+    }
+}
+
+function* initUser() {
+    try {
+        const data = yield auth();
+        yield put(initUserSuccess(data));
+    } catch (e) {
+        yield put(initUserFail());
     }
 }
 
@@ -47,5 +59,6 @@ export function* rootSaga() {
         takeLatest(INIT_MENU, initMenu),
         takeLatest(INIT_PRODUCTS, initProducts),
         takeLatest(INIT_FILTERS, initFilters),
+        takeLatest(INIT_USER, initUser),
     ]);
 }

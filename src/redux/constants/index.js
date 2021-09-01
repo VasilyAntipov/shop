@@ -19,8 +19,11 @@ export const SHOW_FILTER_FLAG = 'SHOW_FILTER_FLAG'
 export const CHANGE_FILTER_MARK = 'CHANGE_FILTER_MARK'
 export const INIT_ORDER_GROUP_LIST_SUCCESS = 'INIT_ORDER_GROUP_LIST_SUCCESS'
 
-export const SET_AUTH = 'SET_AUTH'
-export const SET_ADMIN = 'SET_ADMIN'
+export const IS_AUTH = 'IS_AUTH'
+export const IS_ADMIN = 'IS_ADMIN'
 export const AUTH_DIALOG_OPEN = 'AUTH_DIALOG_OPEN'
-
-
+export const LOAD_USER = 'LOAD_USER'
+export const INIT_USER = 'INIT_USER';
+export const INIT_USER_SUCCESS = 'INIT_USER_SUCCESS';
+export const INIT_USER_FAIL = 'INIT_USER_FAIL';
+export const USER_LOGOUT = 'USER_LOGOUT'

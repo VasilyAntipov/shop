@@ -9,11 +9,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     getMenuItemByIdSelector,
     menuIsLoadedSelector,
+} from '../../redux/selectors/menuSelectors'
+import {
     productIsLoadedSelector,
-    productCountSelector,
-} from '../../redux/selectors'
+    productCountSelector
+} from '../../redux/selectors/productSelectors'
 import { ProductCard } from '../../components/productcard/ProductCard'
-import { productItemsSelector } from '../../redux/selectors'
+import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
 import { PagePanel } from '../../components/pagepanel/PagePanel'
 
@@ -38,7 +40,7 @@ export const ProductsPage = () => {
     if (!menuIsLoaded || !productIsLoaded) {
         return (
             <div>
-                <CircularProgress/> 
+                <CircularProgress />
             </div>
         );
     }

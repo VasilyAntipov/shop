@@ -1,6 +1,6 @@
 .header-container {
     position: relative;
-    z-index: 999999;
+    z-index: 500;
     height: 100px;
     .header-top {
         height: 33px;
@@ -21,6 +21,9 @@
         .buttons-bar {
             justify-content: space-between;
             width: 100%;
+        }
+        .profile-menu {
+            z-index: 1000;
         }
     }
 }

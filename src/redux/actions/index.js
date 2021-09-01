@@ -19,7 +19,14 @@ import {
     CHANGE_FILTER_MARK,
     CLEAR_FILTERS_ALL,
     INIT_ORDER_GROUP_LIST_SUCCESS,
-    AUTH_DIALOG_OPEN
+    AUTH_DIALOG_OPEN,
+    IS_AUTH,
+    IS_ADMIN,
+    INIT_USER,
+    INIT_USER_FAIL,
+    INIT_USER_SUCCESS,
+    LOAD_USER,
+    USER_LOGOUT
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -33,10 +40,8 @@ export const isProduct = createAction(IS_PRODUCT)
 export const initProducts = createAction(INIT_PRODUCTS)
 export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
-
 export const initFilters = createAction(INIT_FILTERS)
 export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (payload) => {
-
     const { filters, search } = payload;
     let filtersChecked = urlParse(search);
     try {
@@ -82,4 +87,12 @@ export const clearFiltersAll = createAction(CLEAR_FILTERS_ALL)
 export const initOrderGroupListSuccess = createAction(INIT_ORDER_GROUP_LIST_SUCCESS)
 
 
+export const initUserSuccess = createAction(INIT_USER_SUCCESS)
+export const initUserFail = createAction(INIT_USER_FAIL)
+export const initUser = createAction(INIT_USER)
+
 export const openAuthDialog = createAction(AUTH_DIALOG_OPEN)
+export const setIsAuth = createAction(IS_AUTH)
+export const setIsAdmin = createAction(IS_ADMIN)
+export const loadUserData = createAction(LOAD_USER)
+export const userLogout = createAction(USER_LOGOUT)

@@ -7,7 +7,7 @@ import {
     navItemsSelector,
     menuHaveChildSelector,
     menuIsLoadedSelector
-} from '../../redux/selectors';
+} from '../../redux/selectors/menuSelectors';
 import { CircularProgress } from '@material-ui/core';
 
 export const BreadCrumbs = () => {

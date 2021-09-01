@@ -2,7 +2,7 @@ import React from 'react'
 
 export const AdminProducts = () => {
     return (
-        <div>
+        <div className="admin-page products">
             продукты админки
         </div>
     )
