@@ -15,6 +15,8 @@ export const menuHaveChildSelector =
 
 export const getMenuItemByIdSelector =
     (state) => (id) => menuItemsSelector(state).find(item => item.id === id);
+export const getMenuItemsByParentIdSelector =
+    (state) => (id) => menuItemsSelector(state).filter(item => item.parentId === id);
 
 export const navItemsSelector =
     (state) => (childId) => {

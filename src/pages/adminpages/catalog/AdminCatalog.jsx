@@ -1,196 +1,33 @@
 import './admincatalog.scss'
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { EnhancedTableToolbar } from './components/EnhancedTableToolbar'
+import { EnhancedTableHead } from './components/EnhancedTableHead'
+import { getComparator, descendingComparator, stableSort } from './utils.js'
+import { makeStyles } from '@material-ui/core/styles';
+
 import {
     Table,
     Link,
     TableBody,
     TableCell,
     TableContainer,
-    TableHead,
     TablePagination,
     TableRow,
-    TableSortLabel,
-    Toolbar,
-    Typography,
     Paper,
     Checkbox,
-    IconButton,
-    Tooltip,
     FormControlLabel,
     Switch
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import EditIcon from '@material-ui/icons/Edit';
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
     admCatalogTableDataSelector,
     mainMenuItemsSelector,
     menuHaveChildSelector,
+    getMenuItemsByParentIdSelector,
     getMenuItemByIdSelector
 } from '../../../redux/selectors/menuSelectors'
 import { loadCatalogTableData } from '../../../redux/actions';
-
-function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
-
-function getComparator(order, orderBy) {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-    { id: 'id', numeric: true, disablePadding: true, label: 'Id' },
-    { id: 'name', numeric: false, disablePadding: false, label: 'Название' },
-    { id: 'parentId', numeric: true, disablePadding: false, label: 'Id родителя' },
-    { id: 'img', numeric: true, disablePadding: false, label: 'Картинка' },
-];
-
-function EnhancedTableHead(props) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-    const createSortHandler = (property) => (event) => {
-        onRequestSort(event, property);
-    };
-
-    return (
-        <TableHead>
-            <TableRow>
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{ 'aria-label': 'select all desserts' }}
-                    />
-                </TableCell>
-                {headCells.map((headCell) => (
-                    <TableCell
-                        key={headCell.id}
-                        align={'left'}
-                        padding={headCell.disablePadding ? 'none' : 'normal'}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
-                        >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <span className={classes.visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </span>
-                            ) : null}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
-            </TableRow>
-        </TableHead>
-    );
-}
-
-EnhancedTableHead.propTypes = {
-    classes: PropTypes.object.isRequired,
-    numSelected: PropTypes.number.isRequired,
-    onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
-    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-    orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired,
-};
-
-const useToolbarStyles = makeStyles((theme) => ({
-    root: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(1),
-    },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-            : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
-    title: {
-        flex: '1 1 100%',
-    },
-}));
-
-const EnhancedTableToolbar = (props) => {
-    const classes = useToolbarStyles();
-    const { numSelected } = props;
-
-    return (
-        <Toolbar
-            className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
-            })}
-        >
-            {numSelected > 0 ? (
-                <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-                    {numSelected} выбрано
-                </Typography>
-            ) : (
-                <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                    Каталог
-                </Typography>
-            )}
-
-            {numSelected === 1 && (
-                <Tooltip title="Редактировать">
-                    <IconButton aria-label="edit">
-                        <EditIcon />
-                    </IconButton>
-                </Tooltip>
-            )}
-
-            {numSelected > 0 ? (
-                <Tooltip title="Удалить">
-                    <IconButton aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton aria-label="filter list">
-                        <FilterListIcon />
-                    </IconButton>
-                </Tooltip>
-            )}
-
-
-        </Toolbar>
-    );
-};
-
-EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -216,18 +53,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function AdminCatalog() {
+export const AdminCatalog = () => {
 
     const dispatch = useDispatch()
     const mainMenuItems = useSelector(mainMenuItemsSelector)
     const menuHaveChild = useSelector((state) => menuHaveChildSelector(state))
-    const getMenuItemById = useSelector((state) => getMenuItemByIdSelector(state))
+    const getItemsByParentId = useSelector((state) => getMenuItemsByParentIdSelector(state))
+    const getMenuItemById = useSelector(getMenuItemByIdSelector)
+    const rows = useSelector(admCatalogTableDataSelector)
 
     useEffect(() => {
         dispatch(loadCatalogTableData(mainMenuItems))
-    })
+    }, [])
 
-    let rows = useSelector(admCatalogTableDataSelector)
+    const initialParent = { name: 'Каталог', id: 0 }
+
 
     const classes = useStyles();
 
@@ -237,6 +77,7 @@ export function AdminCatalog() {
     const [page, setPage] = useState(0);
     const [dense, setDense] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [parent, setParent] = useState(initialParent)
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -292,14 +133,18 @@ export function AdminCatalog() {
 
     const handleClickMenuItem = (id) => {
         if (menuHaveChild(id)) {
-            dispatch(loadCatalogTableData(getMenuItemById(id)))
+            dispatch(loadCatalogTableData(getItemsByParentId(id)))
+            setParent(getMenuItemById(id))
         }
     }
 
     return (
         <div className={classes.root + ' admin-page catalog'}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar
+                    numSelected={selected.length}
+                    tableTitle={parent.name}
+                />
                 <TableContainer>
                     <Table
                         className={classes.table}
@@ -344,7 +189,7 @@ export function AdminCatalog() {
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Link
-                                                // onClick={() => handleClickMenuItem(row.id)}
+                                                    onClick={() => handleClickMenuItem(row.id)}
                                                 >
                                                     {row.name}
                                                 </Link>
