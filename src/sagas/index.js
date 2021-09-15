@@ -1,6 +1,6 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
 import { getMenu, getProducts, getFilters, } from '../api'
-import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER, } from '../redux/constants';
+import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER,LOAD_CATALOG_TABLE_DATA } from '../redux/constants';
 import {
     initMenuSuccess,
     initMenuFail,
@@ -11,13 +11,15 @@ import {
     initOrderGroupListSuccess,
     initUserFail,
     initUserSuccess,
+    loadCatalogTableData,
 } from '../redux/actions'
 
-import {auth} from '../http/userApi'
+import { auth } from '../http/userApi'
+import {getCategories} from  '../http/categoryApi'
 
 function* initMenu() {
     try {
-        const menu = yield getMenu();
+        const menu = yield getCategories();
         yield put(initMenuSuccess(menu));
     } catch (e) {
         yield put(initMenuFail('COULD NOT GET MENU'));

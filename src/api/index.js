@@ -4,6 +4,7 @@ export const getMenu = async () => {
     try {
         const response = await fetch(`${API_URL}/category`);
         const menu = await response.json();
+        console.log(menu)
         return menu;
     } catch (e) {
         console.log(e);

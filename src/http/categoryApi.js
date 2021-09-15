@@ -5,17 +5,17 @@ export const createCategory = async (category) => {
     return data
 }
 
+export const updateCategory = async (category) => {
+    const { data } = await $authHost.put('api/category', category)
+    return data
+}
+
 export const getCategories = async () => {
     const { data } = await $host.get('api/category')
     return data
 }
 
-export const getGlobalCategories = async () => {
-    const { data } = await $host.get('api/category/top')
-    return data
-}
-
-export const getCategoryById = async () => {
-    const { data } = await $host.get('api/category/id')
+export const deleteCategory = async (id) => {
+    const { data } = await $authHost.delete(`api/category/${id}`)
     return data
 }

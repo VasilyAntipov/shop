@@ -29,4 +29,4 @@ export const navItemsSelector =
         }
         return res;
     }
-export const admCatalogTableDataSelector = (state) => menuSelector(state).admCatalogTableData
+export const admCatalogTableParentSelector = (state) => menuSelector(state).admCatalogTableParent

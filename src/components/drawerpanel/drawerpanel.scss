@@ -1,7 +1,11 @@
-.admin-drawer {
+.admin-drawer-container {
     display: block;
     position: absolute;
     height: 100vh;
+    .admin-drawer-component {
+        position: sticky;
+        top: 0;
+    }
     .MuiDrawer-docked {
         height: 100%;
     }
@@ -9,7 +13,8 @@
         width: 150px;
     }
     .MuiPaper-elevation0 {
-        margin-top: 100px;
+       position: sticky;
+       top: 100px;
         z-index: 100;
         .MuiListItem-button {
             margin-top: 10px;

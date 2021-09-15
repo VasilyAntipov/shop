@@ -5,7 +5,11 @@ import {
     SET_ID_ACTIVE_MENU,
     SET_IS_MENU_ACTIVE,
     SHOW_CARD_SUB_MENU,
-    LOAD_CATALOG_TABLE_DATA
+    LOAD_CATALOG_TABLE_DATA,
+    SET_CATALOG_TABLE_PARENT,
+    CHANGE_ONE_CATEGORY,
+    ADD_CATEGORY,
+    DELETE_CATEGORY
 } from '../constants'
 
 const initState = {
@@ -15,7 +19,7 @@ const initState = {
     isLoaded: false,
     items: [],
     cardSubMenuActive: false,
-    admCatalogTableData : [],
+    admCatalogTableParent: { id: null, name: 'Каталог', parentId: null },
     error: null,
 }
 
@@ -54,11 +58,42 @@ export const menuReducer = (state = initState, action) => {
                 ...state,
                 cardSubMenuActive: action.payload
             }
-        case LOAD_CATALOG_TABLE_DATA:
+        case SET_CATALOG_TABLE_PARENT: {
+            if (action.payload)
+                return {
+                    ...state,
+                    admCatalogTableParent: action.payload
+                }
             return {
                 ...state,
-                admCatalogTableData: action.payload
+                admCatalogTableParent: initState.admCatalogTableParent
             }
+        }
+        case CHANGE_ONE_CATEGORY:
+            return {
+                ...state,
+                items: state.items.map(item => {
+                    if (item.id === action.payload.id) {
+                        return action.payload
+                    }
+                    return item
+                })
+            }
+        case ADD_CATEGORY:
+            return {
+                ...state,
+                items: [
+                    ...state.items,
+                    action.payload
+                ]
+            }
+        case DELETE_CATEGORY:
+            return {
+                ...state,
+                items: state.items.filter(item => item.id !== action.payload)
+            }
+
+
         default:
             return state
     }

@@ -13,8 +13,8 @@ export const DrawerPanel = () => {
     }
 
     return (
-        <div className="admin-drawer">
-            <Drawer
+        <div className="admin-drawer-container">
+            <Drawer className="admin-drawer-component"
                 variant="permanent"
             >
                 <List className="admin-menu">
