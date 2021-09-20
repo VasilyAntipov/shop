@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import {
     Button,
     TextField,
-} from '@material-ui/core'
+} from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { openAuthDialog, loadUserData, setIsAuth } from '../../redux/actions'
 import { registration } from '../../http/userApi'
@@ -54,7 +54,7 @@ export const RegForm = () => {
                     fullWidth
                     variant="outlined"
                     value={password}
-                    data  onChange={e => setPassword(e.target.value)}
+                    data onChange={e => setPassword(e.target.value)}
                 />
                 <p className={
                     message === 'Вы успешно зарегистрировались'

@@ -1,6 +1,6 @@
 import './pagepanel.scss'
 import React from 'react'
-import { Paper, } from '@material-ui/core'
+import { Paper, } from '@mui/material'
 import { productCountSelector } from '../../redux/selectors/productSelectors'
 import { useSelector } from 'react-redux'
 import { PRODUCT_LIMIT, COUNT_BUTTONS } from '../../utils/constants'

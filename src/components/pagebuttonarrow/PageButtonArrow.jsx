@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { addSearchToUrl } from '../../utils/func'
 import { useLocation } from 'react-router'
-import { IconButton } from '@material-ui/core'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { IconButton } from '@mui/material'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 export const PageButtonArrow = ({ direction, count, activePage }) => {
     const location = useLocation()

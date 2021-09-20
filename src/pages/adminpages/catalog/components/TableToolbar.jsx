@@ -1,38 +1,13 @@
 import React from 'react'
-
-import { CategoryDialog } from './CategoryDialog'
-import clsx from 'clsx'
-import DeleteIcon from '@material-ui/icons/Delete'
-import {GlobalFilter} from './GlobalFilter'
-import IconButton from '@material-ui/core/IconButton'
-import { lighten, makeStyles } from '@material-ui/core/styles'
-import PropTypes from 'prop-types'
-import { Toolbar, Typography, Tooltip } from '@material-ui/core/'
-import { useSelector } from 'react-redux'
-import { admCatalogTableParentSelector } from '../../../../redux/selectors/menuSelectors'
-
-const useToolbarStyles = makeStyles(theme => ({
-    root: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(1),
-    },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-            : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
-    title: {
-        flex: '1 1 100%',
-    },
-}))
+import './styles/tabletoolbar.scss'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import AddIcon from '@mui/icons-material/Add'
+import { GlobalFilter } from './GlobalFilter'
+import IconButton from '@mui/material/IconButton'
+import { Toolbar, Typography, Tooltip } from '@mui/material/'
 
 export const TableToolbar = props => {
-    const classes = useToolbarStyles()
     const {
         numSelected,
         addCategoryHandler,
@@ -41,47 +16,34 @@ export const TableToolbar = props => {
         preGlobalFilteredRows,
         setGlobalFilter,
         globalFilter,
-        selectedFlatRows
     } = props
-
-    const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
-
-    const addCategoryData = {
-        name: '',
-        parentId: admCatalogTableParent.id,
-        img: null,
-    }
 
     return (
         <Toolbar
-            className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
-            })}
+            className="table-toolbar"
         >
             {numSelected > 0
                 ? (
                     <Typography
-                        className={classes.title}
+                        className="title"
                         color="inherit"
                         variant="subtitle1"
                     >
                         {numSelected} selected
                     </Typography>
                 )
-                : (<div className={classes.title}>
+                : (<div className="title">
                     <GlobalFilter
                         preGlobalFilteredRows={preGlobalFilteredRows}
                         globalFilter={globalFilter}
                         setGlobalFilter={setGlobalFilter}
                     /></div>)}
-            {numSelected === 1 && selectedFlatRows.length > 0 ? (
+            {numSelected === 1 ? (
                 <>
                     <Tooltip title="Edit">
-                        <CategoryDialog
-                            actionCategoryHandler={editCategoryHandler}
-                            dataOriginal={selectedFlatRows[0].original}
-                            dialogType='Edit'
-                        />
+                        <IconButton aria-label="edit" onClick={editCategoryHandler}>
+                            <EditIcon />
+                        </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
                         <IconButton aria-label="delete" onClick={deleteCategoryHandler}>
@@ -91,25 +53,12 @@ export const TableToolbar = props => {
                 </>
             ) :
                 <Tooltip title="Add">
-                    <CategoryDialog
-                        actionCategoryHandler={addCategoryHandler}
-                        dataOriginal={addCategoryData}
-                        dialogType='Add'
-                    />
+                    <IconButton aria-label="add" onClick={addCategoryHandler}>
+                        <AddIcon />
+                    </IconButton>
                 </Tooltip>
             }
         </Toolbar>
     )
 }
-
-// TableToolbar.propTypes = {
-//     numSelected: PropTypes.number.isRequired,
-//     addCategoryHandler: PropTypes.func.isRequired,
-//     editCategoryHandler: PropTypes.func.isRequired,
-//     deleteCategoryHandler: PropTypes.func.isRequired,
-//     setGlobalFilter: PropTypes.func.isRequired,
-//     preGlobalFilteredRows: PropTypes.array.isRequired,
-//     globalFilter: PropTypes.string.isRequired,
-// }
-
 

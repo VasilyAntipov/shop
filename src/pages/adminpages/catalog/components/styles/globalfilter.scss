@@ -1,0 +1,14 @@
+.search {
+    position: relative;
+    border-radius: 20%;
+    background-color: white;
+    margin-left: 2px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    
+    .searchicon {
+        width: 7px;
+        height: 100%;
+    }
+}

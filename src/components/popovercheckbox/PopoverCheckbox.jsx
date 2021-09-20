@@ -1,6 +1,6 @@
 import './popovercheckbox.scss'
 import React, { useState } from 'react'
-import { Popover, Link } from '@material-ui/core'
+import { Popover, Link } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import { addSearchToUrl } from '../../utils/func'
@@ -33,7 +33,7 @@ export const PopoverCheckbox = ({ className, checkBox, title, element }) => {
         <div className={className}>
             <span className="sort">{title}</span>
             <Link onClick={(e) => handleClick(e)}>
-                {checkBox[activeItemId-1].title}
+                {checkBox[activeItemId - 1].title}
             </Link>
             <Popover
                 open={open}

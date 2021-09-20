@@ -1,6 +1,6 @@
 import './menubutton.scss'
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
+import ListItem from '@mui/material/ListItem';
 import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
 import { setIdActiveMenu, setIsMenuActive } from '../../redux/actions'

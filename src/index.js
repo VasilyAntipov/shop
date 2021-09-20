@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
-
 import store from './store/store'
 import App from './App';
+
+
 const history = createBrowserHistory()
 
 ReactDOM.render(

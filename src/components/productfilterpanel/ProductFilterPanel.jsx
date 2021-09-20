@@ -1,6 +1,6 @@
 import './productfilterpanel.scss'
 import React from 'react'
-import { Paper } from '@material-ui/core'
+import { Paper } from '@mui/material'
 import { PopoverCheckbox } from '../popovercheckbox/PopoverCheckbox'
 import { useSelector } from 'react-redux'
 import { orderListSelector, groupListSelector, filterIsLoadedSelector } from '../../redux/selectors/filterSelectors'

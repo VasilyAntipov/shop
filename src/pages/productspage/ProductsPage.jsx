@@ -1,6 +1,6 @@
 import './productspage.scss'
 import React, { useEffect, useCallback } from 'react'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@mui/material'
 import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
 import { ProductFilter } from '../../components/productfilter/ProductFilter'
 import { ProductFilterPanel } from '../../components/productfilterpanel/ProductFilterPanel'

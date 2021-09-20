@@ -1,6 +1,6 @@
 import './drawerpanel.scss'
 import React from 'react';
-import { Drawer, List, ListItem } from '@material-ui/core';
+import { Drawer, List, ListItem } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { drawerItems } from '../../utils/constants';
 
@@ -25,7 +25,7 @@ export const DrawerPanel = () => {
                         >
                             {item.name}
                         </ListItem>
-                    ))} 
+                    ))}
                 </List>
             </Drawer>
         </div>

@@ -1,6 +1,6 @@
 import './submenucard.scss'
 import React from 'react'
-import { Paper } from '@material-ui/core'
+import { Paper } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuItem } from '../menuitem/MenuItem'
 import { showCardSubMenu, } from '../../redux/actions'

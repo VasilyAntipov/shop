@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './submenu.scss'
-import { Paper } from '@material-ui/core'
+import { Paper } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsMenuActive, showCardSubMenu } from '../../redux/actions'
 import { MenuItem } from '../menuitem/MenuItem'

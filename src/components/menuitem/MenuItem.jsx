@@ -1,5 +1,5 @@
 import './menuitem.scss'
-import { Link } from '@material-ui/core'
+import { Link } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import React from 'react'
 import { useSelector } from 'react-redux'

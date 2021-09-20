@@ -69,16 +69,25 @@ export const menuReducer = (state = initState, action) => {
                 admCatalogTableParent: initState.admCatalogTableParent
             }
         }
-        case CHANGE_ONE_CATEGORY:
+        case CHANGE_ONE_CATEGORY: {
+            const { name, parentId, index, updatedAt } = action.payload
             return {
                 ...state,
                 items: state.items.map(item => {
                     if (item.id === action.payload.id) {
-                        return action.payload
+                        return {
+                            ...item,
+                            name: name,
+                            parentId: parentId,
+                            index: index,
+                            updatedAt
+                        }
                     }
                     return item
                 })
             }
+        }
+
         case ADD_CATEGORY:
             return {
                 ...state,
@@ -92,8 +101,6 @@ export const menuReducer = (state = initState, action) => {
                 ...state,
                 items: state.items.filter(item => item.id !== action.payload)
             }
-
-
         default:
             return state
     }

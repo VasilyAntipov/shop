@@ -1,6 +1,6 @@
 import './pagebutton.scss'
 import React from 'react'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import { addSearchToUrl } from '../../utils/func'

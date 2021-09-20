@@ -1,6 +1,6 @@
 import React from 'react'
 import './productfilter.scss'
-import { Paper, Link } from '@material-ui/core'
+import { Paper, Link } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { ProductFilterAccordion } from '../productfilteraccordion/ProductFilterAccordion'
 import { ProductFilterFlag } from '../productfilterflag/ProductFilterFlag'

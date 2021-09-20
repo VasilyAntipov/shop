@@ -1,12 +1,12 @@
 import './navbar.scss'
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Menu, MenuItem } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import { AppBar, Toolbar, IconButton, Menu, MenuItem } from '@mui/material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link, useHistory } from 'react-router-dom';
 import { ABOUT_ROUTE, ADMIN_ROUTE, HOMEPAGE_ROUTE } from '../../utils/constants';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAdminSelector, isAuthSelector } from '../../redux/selectors/userSelectors'
-import ListAltIcon from '@material-ui/icons/ListAlt';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { openAuthDialog, userLogout } from '../../redux/actions';
 
 export const Navbar = () => {
@@ -39,7 +39,7 @@ export const Navbar = () => {
     const handleUserLogout = () => {
         dispatch(userLogout())
         localStorage.removeItem('token')
-        handleProfileClose()    
+        handleProfileClose()
     }
 
     return (

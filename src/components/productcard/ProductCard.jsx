@@ -1,8 +1,8 @@
 import React from 'react'
 import './productcard.scss'
-import { Paper } from '@material-ui/core'
-import { Button } from '@material-ui/core'
-import { IMAGES_URL} from '../../utils/constants'
+import { Paper } from '@mui/material'
+import { Button } from '@mui/material'
+import { IMAGES_URL } from '../../utils/constants'
 
 export const ProductCard = ({ name, img, price, brand, country }) => {
     return (

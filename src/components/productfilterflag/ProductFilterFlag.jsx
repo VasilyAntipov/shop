@@ -1,6 +1,6 @@
 import React from 'react'
 import './productfilterflag.scss'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { showFilterFlag } from '../../redux/actions'

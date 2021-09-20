@@ -1,18 +1,19 @@
 import React
-, { forwardRef, useRef, useEffect } from 'react'
+, { forwardRef, useRef, useEffect, useState } from 'react'
+import { CategoryDialog } from './CategoryDialog';
 import { confirmAlert } from 'react-confirm-alert'
 import "react-confirm-alert/src/react-confirm-alert.css";
-import Checkbox from '@material-ui/core/Checkbox'
-import MaUTable from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableFooter from '@material-ui/core/TableFooter'
-import TableHead from '@material-ui/core/TableHead'
-import TablePagination from '@material-ui/core/TablePagination'
-import TablePaginationActions from './TablePaginationActions'
-import TableRow from '@material-ui/core/TableRow'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
+import Checkbox from '@mui/material/Checkbox'
+import MaUTable from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableFooter from '@mui/material/TableFooter'
+import TableHead from '@mui/material/TableHead'
+import TablePagination from '@mui/material/TablePagination'
+import {TablePaginationActions} from './TablePaginationActions'
+import TableRow from '@mui/material/TableRow'
+import TableSortLabel from '@mui/material/TableSortLabel'
 import { TableToolbar } from './TableToolbar'
 import {
     useGlobalFilter,
@@ -24,8 +25,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { admCatalogTableParentSelector, getMenuItemByIdSelector, getMenuItemsByParentIdSelector } from '../../../../redux/selectors/menuSelectors'
 import { setCatalogTableParent, addCategory, changeOneCategory, deleteCategoryAction } from '../../../../redux/actions'
-import { Button, Tooltip, IconButton } from '@material-ui/core'
-import ReplyIcon from '@material-ui/icons/Reply';
+import { Button, Tooltip, IconButton } from '@mui/material'
+import ReplyIcon from '@mui/icons-material/Reply';
 import { createCategory, deleteCategory, updateCategory } from '../../../../http/categoryApi'
 
 
@@ -38,7 +39,7 @@ const IndeterminateCheckbox = forwardRef(
             resolvedRef.current.indeterminate = indeterminate
         }, [resolvedRef, indeterminate])
 
-        return (
+        return (    
             <>
                 <Checkbox ref={resolvedRef} {...rest}
                 />
@@ -47,22 +48,18 @@ const IndeterminateCheckbox = forwardRef(
     }
 )
 
-export const EnhancedTable = ({
-    columns,
-    data,
-    skipPageReset,
-}) => {
+export const EnhancedTable = ({ columns, data, skipPageReset }) => {
     const {
+        selectedFlatRows,
         getTableProps,
         headerGroups,
         prepareRow,
         page,
         gotoPage,
         setPageSize,
-        selectedFlatRows,
         preGlobalFilteredRows,
         setGlobalFilter,
-        state: { pageIndex, pageSize, selectedRowIds, globalFilter, selectedRow },
+        state: { pageIndex, pageSize, selectedRowIds, globalFilter },
     } = useTable(
         {
             columns,
@@ -102,9 +99,15 @@ export const EnhancedTable = ({
         }
     )
 
-    const dispatch = useDispatch()
     const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
+    const [category, setCategory] = useState({})
+    const [open, setOpen] = useState(false)
+
+
+    const dispatch = useDispatch()
+
     const getMenuItemById = useSelector(getMenuItemByIdSelector)
+
     const handleChangePage = (event, newPage) => {
         gotoPage(newPage)
     }
@@ -114,10 +117,10 @@ export const EnhancedTable = ({
     }
 
     const deleteCategoryHandler = event => {
-        const id = selectedFlatRows[0].values.id
+        const { id, name } = selectedFlatRows[0].values
         confirmAlert({
-            title: "Confirm to submit",
-            message: "Are you sure to do this.",
+            title: "Подтвердите удаление",
+            message: `Вы уверены, что хотите удалить ${name}`,
             buttons: [
                 {
                     label: "Yes",
@@ -134,29 +137,32 @@ export const EnhancedTable = ({
         });
     }
 
-    const addCategoryHandler = category => {
-        const formData = new FormData()
-        formData.append('name', category.name)
-        formData.append('img', category.file)
-        if (category.parentId) formData.append('parentId', category.parentId)
-        if (category.index) formData.append('index', category.index)
-        createCategory(formData)
-            .then(data => {
-                dispatch(addCategory(data))
-            })
+    const addCategoryHandler = () => {
+        setCategory({ parentId: admCatalogTableParent.id })
+        setOpen(true)
     }
 
-    const editCategoryHandler = category => {
+    const editCategoryHandler = () => {
+        setCategory(selectedFlatRows[0].values)
+        setOpen(true)
+    }
+
+    const actionFetchData = () => {
         const formData = new FormData()
-        formData.append('id', category.id)
-        formData.append('name', category.name)
-        if (category.parentId) formData.append('parentId', category.parentId)
-        if (category.file) formData.append('img', category.file)
-        if (category.index) formData.append('index', category.index)
-        updateCategory(formData)
-            .then(data => {
-                dispatch(changeOneCategory(data))
-            })
+        for (let key in category) {
+            formData.append(key, category[key])
+        }
+        if (category.hasOwnProperty('id')) {
+            updateCategory(formData)
+                .then(data => {
+                    dispatch(changeOneCategory(data))
+                })
+        } else {
+            createCategory(formData)
+                .then(data => {
+                    dispatch(addCategory(data))
+                })
+        }
     }
 
     const rowClickHandler = (row) => {
@@ -171,9 +177,15 @@ export const EnhancedTable = ({
 
     return (
         <TableContainer>
+            <CategoryDialog
+                actionFetchData={actionFetchData}
+                category={category}
+                setCategory={setCategory}
+                open={open}
+                setOpen={setOpen}
+            />
             <TableToolbar
                 numSelected={Object.keys(selectedRowIds).length}
-                selectedFlatRows={selectedFlatRows}
                 deleteCategoryHandler={deleteCategoryHandler}
                 editCategoryHandler={editCategoryHandler}
                 addCategoryHandler={addCategoryHandler}
@@ -188,6 +200,7 @@ export const EnhancedTable = ({
                             <TableRow {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map(column => (
                                     <TableCell
+                                        key={column.id}
                                         {...(column.id === 'selection'
                                             ? column.getHeaderProps()
                                             : column.getHeaderProps(column.getSortByToggleProps()))}
@@ -222,13 +235,16 @@ export const EnhancedTable = ({
                 <TableBody useSortBy='index'>
                     {page.map((row, i) => {
                         prepareRow(row)
+                        console.log(row.id)
                         return (
-                            <TableRow {...row.getRowProps()}>
+                            <TableRow {...row.getRowProps()} key={row.id}>
                                 {row.cells.map(cell => {
                                     if (cell.column.id === 'name') {
                                         return (
-                                            <TableCell {...cell.getCellProps()}>
+                                            <TableCell {...cell.getCellProps()}
+                                            >
                                                 <Button
+                                                    // color="black"
                                                     style={{ textTransform: 'none' }}
                                                     onClick={(e) => rowClickHandler(row)}
                                                 >
@@ -274,8 +290,8 @@ export const EnhancedTable = ({
                                 inputProps: { 'aria-label': 'rows per page' },
                                 native: true,
                             }}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
                             ActionsComponent={TablePaginationActions}
                         />
                     </TableRow>
