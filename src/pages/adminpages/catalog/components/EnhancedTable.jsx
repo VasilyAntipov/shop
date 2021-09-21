@@ -11,7 +11,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableFooter from '@mui/material/TableFooter'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
-import {TablePaginationActions} from './TablePaginationActions'
+import { TablePaginationActions } from './TablePaginationActions'
 import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import { TableToolbar } from './TableToolbar'
@@ -23,7 +23,7 @@ import {
     useTable,
 } from 'react-table'
 import { useDispatch, useSelector } from 'react-redux'
-import { admCatalogTableParentSelector, getMenuItemByIdSelector, getMenuItemsByParentIdSelector } from '../../../../redux/selectors/menuSelectors'
+import { admCatalogTableParentSelector, getMenuItemByIdSelector } from '../../../../redux/selectors/menuSelectors'
 import { setCatalogTableParent, addCategory, changeOneCategory, deleteCategoryAction } from '../../../../redux/actions'
 import { Button, Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
@@ -39,7 +39,7 @@ const IndeterminateCheckbox = forwardRef(
             resolvedRef.current.indeterminate = indeterminate
         }, [resolvedRef, indeterminate])
 
-        return (    
+        return (
             <>
                 <Checkbox ref={resolvedRef} {...rest}
                 />
@@ -102,6 +102,7 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
     const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
     const [category, setCategory] = useState({})
     const [open, setOpen] = useState(false)
+
 
 
     const dispatch = useDispatch()
@@ -193,7 +194,7 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                 setGlobalFilter={setGlobalFilter}
                 globalFilter={globalFilter}
             />
-            <MaUTable {...getTableProps()} isSorted={'index'}>
+            <MaUTable {...getTableProps()}>
                 <TableHead>
                     {headerGroups.map(headerGroup => {
                         return (
@@ -217,7 +218,7 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                             </TableRow>
                         )
                     })}
-                    {admCatalogTableParent.id &&
+                    {admCatalogTableParent.id > 0 &&
                         <TableRow>
                             <TableCell colSpan={6}>
                                 <Tooltip title="на верхний уровень">
@@ -232,16 +233,16 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                         </TableRow>
                     }
                 </TableHead>
-                <TableBody useSortBy='index'>
+                <TableBody >
                     {page.map((row, i) => {
                         prepareRow(row)
-                        console.log(row.id)
                         return (
-                            <TableRow {...row.getRowProps()} key={row.id}>
-                                {row.cells.map(cell => {
+                            <TableRow {...row.getRowProps()} key={i}>
+                                {row.cells.map((cell, index) => {
                                     if (cell.column.id === 'name') {
                                         return (
                                             <TableCell {...cell.getCellProps()}
+                                                key={`${index}-${i}`}
                                             >
                                                 <Button
                                                     // color="black"
@@ -256,14 +257,18 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
 
                                     if (cell.column.id === 'selection') {
                                         return (
-                                            <TableCell {...cell.getCellProps()}>
+                                            <TableCell {...cell.getCellProps()}
+                                                key={`${index}-${i}`}
+                                            >
                                                 {cell.render('Cell')}
                                             </TableCell>
                                         )
                                     }
 
                                     return (
-                                        <TableCell {...cell.getCellProps()}>
+                                        <TableCell {...cell.getCellProps()}
+                                            key={`${index}-${i}`}
+                                        >
                                             {cell.value}
                                         </TableCell>
                                     )

@@ -1,6 +1,6 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
-import { getMenu, getProducts, getFilters, } from '../api'
-import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER,LOAD_CATALOG_TABLE_DATA } from '../redux/constants';
+import {  getProducts, getFilters, } from '../api'
+import { INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER } from '../redux/constants';
 import {
     initMenuSuccess,
     initMenuFail,
@@ -11,7 +11,6 @@ import {
     initOrderGroupListSuccess,
     initUserFail,
     initUserSuccess,
-    loadCatalogTableData,
 } from '../redux/actions'
 
 import { auth } from '../http/userApi'

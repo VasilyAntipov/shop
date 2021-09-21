@@ -5,7 +5,6 @@ import {
     SET_ID_ACTIVE_MENU,
     SET_IS_MENU_ACTIVE,
     SHOW_CARD_SUB_MENU,
-    LOAD_CATALOG_TABLE_DATA,
     SET_CATALOG_TABLE_PARENT,
     CHANGE_ONE_CATEGORY,
     ADD_CATEGORY,
@@ -19,7 +18,7 @@ const initState = {
     isLoaded: false,
     items: [],
     cardSubMenuActive: false,
-    admCatalogTableParent: { id: null, name: 'Каталог', parentId: null },
+    admCatalogTableParent: { id: 0, name: 'Каталог', parentId: null },
     error: null,
 }
 
@@ -70,18 +69,11 @@ export const menuReducer = (state = initState, action) => {
             }
         }
         case CHANGE_ONE_CATEGORY: {
-            const { name, parentId, index, updatedAt } = action.payload
             return {
                 ...state,
                 items: state.items.map(item => {
                     if (item.id === action.payload.id) {
-                        return {
-                            ...item,
-                            name: name,
-                            parentId: parentId,
-                            index: index,
-                            updatedAt
-                        }
+                        return action.payload
                     }
                     return item
                 })

@@ -31,10 +31,9 @@ export const ProductsPage = () => {
     const dispatch = useDispatch()
 
 
-    useEffect(useCallback(() => {
+    useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
         dispatch(initProducts({ id: params.id, search: location.search }));
         dispatch(initFilters({ id: params.id, search: location.search }));
-
     }), [dispatch, params, location.search]);
 
     if (!menuIsLoaded || !productIsLoaded) {

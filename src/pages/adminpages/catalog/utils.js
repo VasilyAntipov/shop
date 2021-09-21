@@ -12,8 +12,8 @@ export const columns = [
         accessor: 'name',
     },
     {
-        Header: 'ID родителя',
-        accessor: 'parentId',
+        Header: 'Количество товаров',
+        accessor: 'productsCount',
     },
     {
         Header: 'Image',

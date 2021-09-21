@@ -33,7 +33,8 @@ const App = () => {
 
     useEffect(() => {
         dispatch(initMenu());
-        dispatch(initUser());
+        dispatch(initUser());   
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (!userIsLoaded)

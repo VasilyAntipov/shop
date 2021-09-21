@@ -31,6 +31,7 @@ export const CategoryDialog = props => {
 
     const handleChange = name => ({ target: { value } }) => {
         setCategory({ ...category, [name]: value })
+        
     }
 
     return (
@@ -65,6 +66,7 @@ export const CategoryDialog = props => {
                     <ComboBox
                         category={category}
                         setCategory={setCategory}
+                        value={category.parentId}
                     />
                     <TextField
                         margin="dense"
