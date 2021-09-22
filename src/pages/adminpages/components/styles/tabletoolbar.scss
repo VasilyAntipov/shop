@@ -1,0 +1,13 @@
+.table-toolbar {
+    .parent-name {
+        color: rgb(105, 105, 105);
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .title {
+        flex: 1 1 100%;
+    }
+    .selected {
+        flex: 1 1 10%;
+    }
+}

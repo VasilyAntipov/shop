@@ -1,5 +1,6 @@
 import React
-, { forwardRef, useRef, useEffect, useState } from 'react'
+, { forwardRef, useRef, useEffect, useState, Fragment } from 'react'
+import './styles/enhancedtable.scss'
 import { CategoryDialog } from './CategoryDialog';
 import { confirmAlert } from 'react-confirm-alert'
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -23,12 +24,12 @@ import {
     useTable,
 } from 'react-table'
 import { useDispatch, useSelector } from 'react-redux'
-import { admCatalogTableParentSelector, getMenuItemByIdSelector } from '../../../../redux/selectors/menuSelectors'
-import { setCatalogTableParent, addCategory, changeOneCategory, deleteCategoryAction } from '../../../../redux/actions'
-import { Button, Tooltip, IconButton } from '@mui/material'
+import { admCatalogTableParentSelector, getMenuItemByIdSelector } from '../../../redux/selectors/menuSelectors'
+import { setCatalogTableParent, addCategory, changeOneCategory, deleteCategoryAction } from '../../../redux/actions'
+import { Button, Tooltip, IconButton, Typography } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
-import { createCategory, deleteCategory, updateCategory } from '../../../../http/categoryApi'
-
+import { createCategory, deleteCategory, updateCategory } from '../../../http/categoryApi'
+import { sortHeaders } from '../utils'
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -48,7 +49,14 @@ const IndeterminateCheckbox = forwardRef(
     }
 )
 
-export const EnhancedTable = ({ columns, data, skipPageReset }) => {
+export const EnhancedTable = ({
+    columns,
+    data,
+    skipPageReset,
+    editable,
+    handleRowDelete,
+    actionFetchData,
+}) => {
     const {
         selectedFlatRows,
         getTableProps,
@@ -102,11 +110,10 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
     const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
     const [category, setCategory] = useState({})
     const [open, setOpen] = useState(false)
-
+    const numSelected = Object.keys(selectedRowIds).length
 
 
     const dispatch = useDispatch()
-
     const getMenuItemById = useSelector(getMenuItemByIdSelector)
 
     const handleChangePage = (event, newPage) => {
@@ -117,7 +124,7 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
         setPageSize(Number(event.target.value))
     }
 
-    const deleteCategoryHandler = event => {
+    const questionDeleteRow = event => {
         const { id, name } = selectedFlatRows[0].values
         confirmAlert({
             title: "Подтвердите удаление",
@@ -125,10 +132,7 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
             buttons: [
                 {
                     label: "Yes",
-                    onClick: () => deleteCategory(id)
-                        .then(() => {
-                            dispatch(deleteCategoryAction(id))
-                        })
+                    onClick: () => handleRowDelete(id)
                 },
                 {
                     label: "No"
@@ -148,23 +152,7 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
         setOpen(true)
     }
 
-    const actionFetchData = () => {
-        const formData = new FormData()
-        for (let key in category) {
-            formData.append(key, category[key])
-        }
-        if (category.hasOwnProperty('id')) {
-            updateCategory(formData)
-                .then(data => {
-                    dispatch(changeOneCategory(data))
-                })
-        } else {
-            createCategory(formData)
-                .then(data => {
-                    dispatch(addCategory(data))
-                })
-        }
-    }
+    
 
     const rowClickHandler = (row) => {
         dispatch(setCatalogTableParent(row.values))
@@ -178,23 +166,33 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
 
     return (
         <TableContainer>
-            <CategoryDialog
-                actionFetchData={actionFetchData}
-                category={category}
-                setCategory={setCategory}
-                open={open}
-                setOpen={setOpen}
-            />
-            <TableToolbar
-                numSelected={Object.keys(selectedRowIds).length}
-                deleteCategoryHandler={deleteCategoryHandler}
-                editCategoryHandler={editCategoryHandler}
-                addCategoryHandler={addCategoryHandler}
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                setGlobalFilter={setGlobalFilter}
-                globalFilter={globalFilter}
-            />
-            <MaUTable {...getTableProps()}>
+            {
+                editable &&
+                <Fragment>
+                    <CategoryDialog
+                        actionFetchData={actionFetchData}
+                        category={category}
+                        setCategory={setCategory}
+                        open={open}
+                        setOpen={setOpen}
+                    />
+                    <TableToolbar
+                        questionDeleteRow={questionDeleteRow}
+                        editCategoryHandler={editCategoryHandler}
+                        addCategoryHandler={addCategoryHandler}
+                        preGlobalFilteredRows={preGlobalFilteredRows}
+                        setGlobalFilter={setGlobalFilter}
+                        globalFilter={globalFilter}
+                        numSelected={numSelected}
+                        title={admCatalogTableParent.name}
+                    />
+                </Fragment>
+            }
+
+
+            <MaUTable {...getTableProps()}
+                sx={{ minWidth: 650 }} size="small" aria-label="a dense table"
+            >
                 <TableHead>
                     {headerGroups.map(headerGroup => {
                         return (
@@ -202,17 +200,20 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                                 {headerGroup.headers.map(column => (
                                     <TableCell
                                         key={column.id}
-                                        {...(column.id === 'selection'
-                                            ? column.getHeaderProps()
-                                            : column.getHeaderProps(column.getSortByToggleProps()))}
+                                        {...(sortHeaders.includes(column.id)
+                                            ? column.getHeaderProps(column.getSortByToggleProps())
+                                            : column.getHeaderProps())
+                                        }
                                     >
                                         {column.render('Header')}
-                                        {column.id !== 'selection' ? (
-                                            <TableSortLabel
-                                                active={column.isSorted}
-                                                direction={column.isSortedDesc ? 'desc' : 'asc'}
-                                            />
-                                        ) : null}
+                                        {sortHeaders.includes(column.id)
+                                            ? (
+                                                <TableSortLabel
+                                                    active={column.isSorted}
+                                                    direction={column.isSortedDesc ? 'desc' : 'asc'}
+                                                />
+                                            )
+                                            : null}
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -220,15 +221,17 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                     })}
                     {admCatalogTableParent.id > 0 &&
                         <TableRow>
-                            <TableCell colSpan={6}>
+                            <TableCell colSpan={columns.length + 1}
+                                onClick={backToUpHandler}
+                            >
                                 <Tooltip title="на верхний уровень">
                                     <IconButton size="small"
-                                        onClick={backToUpHandler}
+
                                     >
-                                        {`к ${admCatalogTableParent.name}`}
                                         <ReplyIcon />
                                     </IconButton>
                                 </Tooltip>
+                                {admCatalogTableParent.name}
                             </TableCell>
                         </TableRow>
                     }
@@ -244,13 +247,12 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                                             <TableCell {...cell.getCellProps()}
                                                 key={`${index}-${i}`}
                                             >
-                                                <Button
-                                                    // color="black"
-                                                    style={{ textTransform: 'none' }}
+                                                <div
+                                                    className="button-open-catalog"
                                                     onClick={(e) => rowClickHandler(row)}
                                                 >
                                                     {cell.value}
-                                                </Button>
+                                                </div>
                                             </TableCell>
                                         )
                                     }
@@ -278,30 +280,35 @@ export const EnhancedTable = ({ columns, data, skipPageReset }) => {
                     })}
                 </TableBody>
 
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[
-                                5,
-                                10,
-                                25,
-                                { label: 'All', value: data.length },
-                            ]}
-                            colSpan={6}
-                            count={data.length}
-                            rowsPerPage={pageSize}
-                            page={pageIndex}
-                            SelectProps={{
-                                inputProps: { 'aria-label': 'rows per page' },
-                                native: true,
-                            }}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
+                {editable &&
+                    <TableFooter>
+                        <TableRow className="table-footer">
+                            {numSelected > 0 &&
+                                <p className="num-selected">{`выбрано ${numSelected} п.`}</p>
+                            }
+                            <TablePagination
+                                rowsPerPageOptions={[
+                                    5,
+                                    10,
+                                    25,
+                                    { label: 'All', value: data.length },
+                                ]}
+                                colSpan={columns.length + 1}
+                                count={data.length}
+                                rowsPerPage={pageSize}
+                                page={pageIndex}
+                                SelectProps={{
+                                    inputProps: { 'aria-label': 'rows per page' },
+                                    native: true,
+                                }}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                            />
+                        </TableRow>
+                    </TableFooter>
+                }
             </MaUTable>
-        </TableContainer>
+        </TableContainer >
     )
 }

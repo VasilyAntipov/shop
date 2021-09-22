@@ -5,39 +5,33 @@ import EditIcon from '@mui/icons-material/Edit'
 import AddIcon from '@mui/icons-material/Add'
 import { GlobalFilter } from './GlobalFilter'
 import IconButton from '@mui/material/IconButton'
-import { Toolbar, Typography, Tooltip } from '@mui/material/'
+import { Toolbar, Tooltip } from '@mui/material/'
 
 export const TableToolbar = props => {
     const {
         numSelected,
         addCategoryHandler,
         editCategoryHandler,
-        deleteCategoryHandler,
+        questionDeleteRow,
         preGlobalFilteredRows,
         setGlobalFilter,
         globalFilter,
+        title
     } = props
 
     return (
         <Toolbar
             className="table-toolbar"
         >
+            <div className="parent-name title">{title}</div>
             {numSelected > 0
-                ? (
-                    <Typography
-                        className="title"
-                        color="inherit"
-                        variant="subtitle1"
-                    >
-                        {numSelected} selected
-                    </Typography>
-                )
-                : (<div className="title">
+                ? null
+                : (
                     <GlobalFilter
                         preGlobalFilteredRows={preGlobalFilteredRows}
                         globalFilter={globalFilter}
                         setGlobalFilter={setGlobalFilter}
-                    /></div>)}
+                    />)}
             {numSelected === 1 ? (
                 <>
                     <Tooltip title="Edit">
@@ -46,7 +40,7 @@ export const TableToolbar = props => {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                        <IconButton aria-label="delete" onClick={deleteCategoryHandler}>
+                        <IconButton aria-label="delete" onClick={questionDeleteRow}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>

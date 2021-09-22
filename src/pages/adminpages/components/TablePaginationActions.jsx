@@ -6,8 +6,9 @@ import IconButton from '@mui/material/IconButton'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import LastPageIcon from '@mui/icons-material/LastPage'
+import { Typography } from '@mui/material'
 
-export const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
+export const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange, numSelected }) => {
 
     const handleFirstPageButtonClick = event => {
         onPageChange(event, 0)
@@ -26,7 +27,7 @@ export const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange 
     }
 
     return (
-        <div className='table-pagination'>
+        <div className='table-pagination-actions'>
             <IconButton
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 0}

@@ -16,7 +16,24 @@ export const columns = [
         accessor: 'productsCount',
     },
     {
+        Header: 'Id родителя',
+        accessor: 'parentId',
+    },
+    {
         Header: 'Image',
         accessor: 'img',
     }
+]
+
+export const sortHeaders = ['id', 'index', 'name']
+
+export const columnsForProducts = [
+    {
+        Header: 'ID',
+        accessor: 'id',
+    },
+    {
+        Header: 'Название',
+        accessor: 'name',
+    },
 ]
