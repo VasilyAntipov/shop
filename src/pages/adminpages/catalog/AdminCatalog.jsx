@@ -2,44 +2,52 @@ import React, { useState } from 'react'
 import { EnhancedTable } from '../components/EnhancedTable'
 import './admincatalog.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { getMenuItemsByParentIdSelector, menuIsLoadedSelector } from '../../../redux/selectors/menuSelectors'
+import {
+    getMenuItemsByParentIdSelector,
+    menuIsLoadedSelector,
+    admCatalogTableParentSelector
+} from '../../../redux/selectors/menuSelectors'
 import { columns } from '../utils'
 import { Checkbox, CircularProgress, FormControlLabel, FormGroup } from '@mui/material'
 import { deleteCategory } from '../../../http/categoryApi'
-import { deleteCategoryAction } from '../../../redux/actions'
+import { setCatalogTableParent, addCategory, changeOneCategory, deleteCategoryAction } from '../../../redux/actions'
+import { updateCategory, createCategory } from '../../../http/categoryApi'
+import { CatalogTable } from '../components/CatalogTable'
+import { ProductTable } from '../components/ProductTable'
+import { getProductsByCatId } from '../../../http/productApi'
+import { initProductsSuccess } from '../../../redux/actions'
+import { productItemsSelector, productIsLoadedSelector } from '../../../redux/selectors/productSelectors'
+
 export const AdminCatalog = () => {
-    const dispatch = useDispatch()
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
-    const data = useSelector(getMenuItemsByParentIdSelector)
     const [checked, setChecked] = useState(false)
+    const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
+    const [loading, setLoading] = useState(true)
+    const [showProducts, setShowProducts] = useState(false)
+    const dispatch = useDispatch()
+    const prodItems = useSelector(productItemsSelector)
+    const prodIsLoaded = useSelector(productIsLoadedSelector)
 
-    const handleCategoryDelete = (id) => {
-        deleteCategory(id)
-            .then(() => {
-                dispatch(deleteCategoryAction(id))
+
+    const fetchData = () => {
+        getProductsByCatId(admCatalogTableParent.id)
+            .then(data => {
+                if (data.count === 0) {
+                    setShowProducts(false)
+                } else {
+                    dispatch(initProductsSuccess(data))
+                    setShowProducts(true)
+                }
             })
+            .finally(setLoading(false))
     }
 
-    const handleProductDelete = () => {
-        alert('delete product')
-    }
+    const checkedHandle = () => {
+        setLoading(true)
+        setChecked(old => !old)
+        if (!checked)
+            fetchData()
 
-    const actionFetchData = () => {
-        const formData = new FormData()
-        for (let key in category) {
-            formData.append(key, category[key])
-        }
-        if (category.hasOwnProperty('id')) {
-            updateCategory(formData)
-                .then(data => {
-                    dispatch(changeOneCategory(data))
-                })
-        } else {
-            createCategory(formData)
-                .then(data => {
-                    dispatch(addCategory(data))
-                })
-        }
     }
 
     if (!menuIsLoaded)
@@ -47,31 +55,42 @@ export const AdminCatalog = () => {
 
     return (
         <div className="admin-page catalog">
-            <EnhancedTable
-                actionFetchData={actionFetchData}
-                editable={true}
-                columns={columns}
-                data={data}
-                handleRowDelete={handleCategoryDelete}
+            <CatalogTable
+                checked={checked}
+                fetchData={fetchData}
             />
             <FormGroup>
                 <FormControlLabel
                     control={<Checkbox defaultChecked />}
                     label="Отображать товары"
-                    onChange={() => setChecked(old => !old)}
+                    onChange={() => checkedHandle()}
                     checked={checked}
                 />
             </FormGroup>
-            <div
-                hidden={!checked}
-            >
-                <EnhancedTable
-                    editable={true}
-                    columns={columns}
-                    data={data}
-                    handleRowDelete={handleProductDelete}
-                />
-            </div>
+            {
+                checked &&
+                <div>
+                    {loading
+                        ? <CircularProgress />
+                        :
+                        <div>
+                            {showProducts ?
+                                <div>
+                                    {prodItems.map(item => {
+                                        return (
+                                            <div>
+                                                {item.name}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                :
+                                <div>найн товаров</div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
         </div>
     )
 }

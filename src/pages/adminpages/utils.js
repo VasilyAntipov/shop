@@ -1,4 +1,7 @@
-export const columns = [
+export const CATALOG = 'CATALOG'
+export const PRODUCT = 'PRODUCT'
+
+export const columnsCatalog = [
     {
         Header: 'ID',
         accessor: 'id',
@@ -25,9 +28,9 @@ export const columns = [
     }
 ]
 
-export const sortHeaders = ['id', 'index', 'name']
+export const sortHeadersCatalog = ['id', 'index', 'name']
 
-export const columnsForProducts = [
+export const columnsProducts = [
     {
         Header: 'ID',
         accessor: 'id',

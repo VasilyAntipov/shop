@@ -10,8 +10,8 @@ import { Toolbar, Tooltip } from '@mui/material/'
 export const TableToolbar = props => {
     const {
         numSelected,
-        addCategoryHandler,
-        editCategoryHandler,
+        addRowHandler,
+        editRowHandler,
         questionDeleteRow,
         preGlobalFilteredRows,
         setGlobalFilter,
@@ -35,7 +35,7 @@ export const TableToolbar = props => {
             {numSelected === 1 ? (
                 <>
                     <Tooltip title="Edit">
-                        <IconButton aria-label="edit" onClick={editCategoryHandler}>
+                        <IconButton aria-label="edit" onClick={editRowHandler}>
                             <EditIcon />
                         </IconButton>
                     </Tooltip>
@@ -47,7 +47,7 @@ export const TableToolbar = props => {
                 </>
             ) :
                 <Tooltip title="Add">
-                    <IconButton aria-label="add" onClick={addCategoryHandler}>
+                    <IconButton aria-label="add" onClick={addRowHandler}>
                         <AddIcon />
                     </IconButton>
                 </Tooltip>

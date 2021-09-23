@@ -5,19 +5,12 @@ export const createProduct = async (product) => {
     return data
 }
 
-export const fetchProducts = async () => {
-    const {data} = await $host.get('api/device', {params: {
-            typeId, brandId, page, limit
-        }})
+export const getProductsByCatId = async (catId) => {
+    const {data} = await $host.get('api/product/all/' + catId)
     return data
 }
 
-export const fetchOneProduct = async (id) => {
-    const {data} = await $host.get('api/product/' + id)
+export const getOneProduct = async (id) => {
+    const {data} = await $host.get('api/product/one/' + id)
     return data
-}
-
-export const fetchProductCountsGroupCategory = async () => {
-    const {counts} = await $authHost.get('api/product/couns')
-    return counts
 }

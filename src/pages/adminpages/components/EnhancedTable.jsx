@@ -1,7 +1,7 @@
 import React
 , { forwardRef, useRef, useEffect, useState, Fragment } from 'react'
 import './styles/enhancedtable.scss'
-import { CategoryDialog } from './CategoryDialog';
+import { EditDialog } from './EditDialog';
 import { confirmAlert } from 'react-confirm-alert'
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Checkbox from '@mui/material/Checkbox'
@@ -25,11 +25,9 @@ import {
 } from 'react-table'
 import { useDispatch, useSelector } from 'react-redux'
 import { admCatalogTableParentSelector, getMenuItemByIdSelector } from '../../../redux/selectors/menuSelectors'
-import { setCatalogTableParent, addCategory, changeOneCategory, deleteCategoryAction } from '../../../redux/actions'
-import { Button, Tooltip, IconButton, Typography } from '@mui/material'
+import { setCatalogTableParent } from '../../../redux/actions'
+import { Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
-import { createCategory, deleteCategory, updateCategory } from '../../../http/categoryApi'
-import { sortHeaders } from '../utils'
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -41,22 +39,26 @@ const IndeterminateCheckbox = forwardRef(
         }, [resolvedRef, indeterminate])
 
         return (
-            <>
-                <Checkbox ref={resolvedRef} {...rest}
-                />
-            </>
+            <Checkbox ref={resolvedRef} {...rest}
+            />
         )
     }
 )
 
-export const EnhancedTable = ({
-    columns,
-    data,
-    skipPageReset,
-    editable,
-    handleRowDelete,
-    actionFetchData,
-}) => {
+export const EnhancedTable = (props) => {
+    const {
+        columns,
+        data,
+        skipPageReset,
+        handleRowDelete,
+        actionFetchData,
+        editableData,
+        setEditableData,
+        type,
+        sortHeaders,
+        backToUpHandler,
+        rowClickHandler
+    } = props
     const {
         selectedFlatRows,
         getTableProps,
@@ -107,11 +109,9 @@ export const EnhancedTable = ({
         }
     )
 
-    const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
-    const [category, setCategory] = useState({})
     const [open, setOpen] = useState(false)
     const numSelected = Object.keys(selectedRowIds).length
-
+    const admParent = useSelector(admCatalogTableParentSelector)
 
     const dispatch = useDispatch()
     const getMenuItemById = useSelector(getMenuItemByIdSelector)
@@ -131,63 +131,49 @@ export const EnhancedTable = ({
             message: `Вы уверены, что хотите удалить ${name}`,
             buttons: [
                 {
-                    label: "Yes",
+                    label: "Да",
                     onClick: () => handleRowDelete(id)
                 },
                 {
-                    label: "No"
-                    // onClick: () => alert("Click No")
+                    label: "Нет"
                 }
             ]
         });
     }
 
-    const addCategoryHandler = () => {
-        setCategory({ parentId: admCatalogTableParent.id })
+    const addRowHandler = () => {
+        setEditableData({ parentId: admParent.id })
         setOpen(true)
     }
 
-    const editCategoryHandler = () => {
-        setCategory(selectedFlatRows[0].values)
+    const editRowHandler = () => {
+        setEditableData(selectedFlatRows[0].values)
         setOpen(true)
     }
 
-    
-
-    const rowClickHandler = (row) => {
-        dispatch(setCatalogTableParent(row.values))
-    }
-
-    const backToUpHandler = () => {
-        const id = admCatalogTableParent.parentId
-        dispatch(setCatalogTableParent(getMenuItemById(id)))
-    }
 
 
     return (
         <TableContainer>
-            {
-                editable &&
-                <Fragment>
-                    <CategoryDialog
-                        actionFetchData={actionFetchData}
-                        category={category}
-                        setCategory={setCategory}
-                        open={open}
-                        setOpen={setOpen}
-                    />
-                    <TableToolbar
-                        questionDeleteRow={questionDeleteRow}
-                        editCategoryHandler={editCategoryHandler}
-                        addCategoryHandler={addCategoryHandler}
-                        preGlobalFilteredRows={preGlobalFilteredRows}
-                        setGlobalFilter={setGlobalFilter}
-                        globalFilter={globalFilter}
-                        numSelected={numSelected}
-                        title={admCatalogTableParent.name}
-                    />
-                </Fragment>
-            }
+            <Fragment>
+                <EditDialog
+                    actionFetchData={actionFetchData}
+                    editableData={editableData}
+                    setEditableData={setEditableData}
+                    open={open}
+                    setOpen={setOpen}
+                />
+                <TableToolbar
+                    questionDeleteRow={questionDeleteRow}
+                    editRowHandler={editRowHandler}
+                    addRowHandler={addRowHandler}
+                    preGlobalFilteredRows={preGlobalFilteredRows}
+                    setGlobalFilter={setGlobalFilter}
+                    globalFilter={globalFilter}
+                    numSelected={numSelected}
+                    title={admParent.name}
+                />
+            </Fragment>
 
 
             <MaUTable {...getTableProps()}
@@ -219,19 +205,17 @@ export const EnhancedTable = ({
                             </TableRow>
                         )
                     })}
-                    {admCatalogTableParent.id > 0 &&
+                    {admParent.id > 0 &&
                         <TableRow>
                             <TableCell colSpan={columns.length + 1}
                                 onClick={backToUpHandler}
                             >
                                 <Tooltip title="на верхний уровень">
-                                    <IconButton size="small"
-
-                                    >
+                                    <IconButton size="small">
                                         <ReplyIcon />
                                     </IconButton>
                                 </Tooltip>
-                                {admCatalogTableParent.name}
+                                {admParent.name}
                             </TableCell>
                         </TableRow>
                     }
@@ -280,34 +264,32 @@ export const EnhancedTable = ({
                     })}
                 </TableBody>
 
-                {editable &&
-                    <TableFooter>
-                        <TableRow className="table-footer">
-                            {numSelected > 0 &&
-                                <p className="num-selected">{`выбрано ${numSelected} п.`}</p>
-                            }
-                            <TablePagination
-                                rowsPerPageOptions={[
-                                    5,
-                                    10,
-                                    25,
-                                    { label: 'All', value: data.length },
-                                ]}
-                                colSpan={columns.length + 1}
-                                count={data.length}
-                                rowsPerPage={pageSize}
-                                page={pageIndex}
-                                SelectProps={{
-                                    inputProps: { 'aria-label': 'rows per page' },
-                                    native: true,
-                                }}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                ActionsComponent={TablePaginationActions}
-                            />
-                        </TableRow>
-                    </TableFooter>
-                }
+                <TableFooter>
+                    <TableRow className="table-footer">
+                        {numSelected > 0 &&
+                            <p className="num-selected">{`выбрано ${numSelected} п.`}</p>
+                        }
+                        <TablePagination
+                            rowsPerPageOptions={[
+                                5,
+                                10,
+                                25,
+                                { label: 'All', value: data.length },
+                            ]}
+                            colSpan={columns.length + 1}
+                            count={data.length}
+                            rowsPerPage={pageSize}
+                            page={pageIndex}
+                            SelectProps={{
+                                inputProps: { 'aria-label': 'rows per page' },
+                                native: true,
+                            }}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            ActionsComponent={TablePaginationActions}
+                        />
+                    </TableRow>
+                </TableFooter>
             </MaUTable>
         </TableContainer >
     )

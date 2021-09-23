@@ -6,9 +6,15 @@ import IconButton from '@mui/material/IconButton'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import LastPageIcon from '@mui/icons-material/LastPage'
-import { Typography } from '@mui/material'
 
-export const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange, numSelected }) => {
+export const TablePaginationActions = (
+    {
+        count,
+        page,
+        rowsPerPage,
+        onPageChange,
+    }
+) => {
 
     const handleFirstPageButtonClick = event => {
         onPageChange(event, 0)
