@@ -37,9 +37,7 @@ export const CatalogTable = (
     }
     const rowClickHandler = (row) => {
         dispatch(setCatalogTableParent(row.values))
-        if (checked) {
-            fetchData()
-        }
+        dispatch(admParent.id)
     }
 
     const actionFetchData = () => {
