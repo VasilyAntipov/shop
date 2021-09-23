@@ -31,13 +31,9 @@ export const CatalogTable = (
     const backToUpHandler = () => {
         const id = admParent.parentId
         dispatch(setCatalogTableParent(getMenuItemById(id)))
-        if (checked) {
-            fetchData()
-        }
     }
     const rowClickHandler = (row) => {
         dispatch(setCatalogTableParent(row.values))
-        dispatch(admParent.id)
     }
 
     const actionFetchData = () => {

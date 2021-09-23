@@ -43,9 +43,9 @@ export const AdminCatalog = () => {
     }
 
     const checkedHandle = () => {
-        setChecked(old => !old)
         if (!checked)
             fetchData()
+        setChecked(old => !old)
     }
 
     if (!menuIsLoaded)
@@ -68,8 +68,8 @@ export const AdminCatalog = () => {
             {
                 checked &&
                 <div>
-                    {!prod.isLoaded
-                        ? <CircularProgress />
+                    {prod.items.length === 0
+                        ? <div>Товаров нет</div>
                         :
                         <div>
                             {prodItems.map(item => {
