@@ -11,9 +11,7 @@ import { deleteCategory, updateCategory, createCategory } from '../../../http/ca
 import { addCategory, changeOneCategory, deleteCategoryAction, setCatalogTableParent } from '../../../redux/actions'
 import { sortHeadersCatalog } from '../utils'
 
-export const CatalogTable = (
-    { checked, fetchData }
-) => {
+export const CatalogTable = () => {
 
     const dispatch = useDispatch()
     const data = useSelector(getMenuItemsByParentIdSelector)

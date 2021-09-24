@@ -29,6 +29,7 @@ export const columnsCatalog = [
 ]
 
 export const sortHeadersCatalog = ['id', 'index', 'name']
+export const sortHeadersProduct= ['id', 'name']
 
 export const columnsProducts = [
     {
@@ -36,7 +37,24 @@ export const columnsProducts = [
         accessor: 'id',
     },
     {
+        Header: 'Цена',
+        accessor: 'price',
+    },
+    {
         Header: 'Название',
         accessor: 'name',
+    },
+ 
+    {
+        Header: 'Производитель',
+        accessor: 'brandId',
+    },
+    {
+        Header: 'Страна',
+        accessor: 'countryId',
+    },
+    {
+        Header: 'Фото',
+        accessor: 'img',
     },
 ]

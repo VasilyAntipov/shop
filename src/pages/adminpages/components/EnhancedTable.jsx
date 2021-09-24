@@ -28,6 +28,7 @@ import { admCatalogTableParentSelector, getMenuItemByIdSelector } from '../../..
 import { setCatalogTableParent } from '../../../redux/actions'
 import { Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
+import { CATALOG } from '../utils';
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -112,9 +113,6 @@ export const EnhancedTable = (props) => {
     const [open, setOpen] = useState(false)
     const numSelected = Object.keys(selectedRowIds).length
     const admParent = useSelector(admCatalogTableParentSelector)
-
-    const dispatch = useDispatch()
-    const getMenuItemById = useSelector(getMenuItemByIdSelector)
 
     const handleChangePage = (event, newPage) => {
         gotoPage(newPage)
@@ -205,7 +203,7 @@ export const EnhancedTable = (props) => {
                             </TableRow>
                         )
                     })}
-                    {admParent.id > 0 &&
+                    {admParent.id > 0 && type===CATALOG &&
                         <TableRow>
                             <TableCell colSpan={columns.length + 1}
                                 onClick={backToUpHandler}
