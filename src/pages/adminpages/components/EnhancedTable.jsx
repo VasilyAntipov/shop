@@ -23,9 +23,8 @@ import {
     useSortBy,
     useTable,
 } from 'react-table'
-import { useDispatch, useSelector } from 'react-redux'
-import { admCatalogTableParentSelector, getMenuItemByIdSelector } from '../../../redux/selectors/menuSelectors'
-import { setCatalogTableParent } from '../../../redux/actions'
+import {  useSelector } from 'react-redux'
+import { admCatalogTableParentSelector } from '../../../redux/selectors/menuSelectors'
 import { Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
 import { CATALOG } from '../utils';
@@ -40,7 +39,7 @@ const IndeterminateCheckbox = forwardRef(
         }, [resolvedRef, indeterminate])
 
         return (
-            <Checkbox ref={resolvedRef} {...rest}
+            <Checkbox ref={resolvedRef} {...rest} size="small"
             />
         )
     }
@@ -149,8 +148,6 @@ export const EnhancedTable = (props) => {
         setOpen(true)
     }
 
-
-
     return (
         <TableContainer>
             <Fragment>
@@ -161,7 +158,7 @@ export const EnhancedTable = (props) => {
                     open={open}
                     setOpen={setOpen}
                 />
-                <TableToolbar
+                {type === CATALOG && <TableToolbar
                     questionDeleteRow={questionDeleteRow}
                     editRowHandler={editRowHandler}
                     addRowHandler={addRowHandler}
@@ -170,7 +167,7 @@ export const EnhancedTable = (props) => {
                     globalFilter={globalFilter}
                     numSelected={numSelected}
                     title={admParent.name}
-                />
+                />}
             </Fragment>
 
 
@@ -180,7 +177,10 @@ export const EnhancedTable = (props) => {
                 <TableHead>
                     {headerGroups.map(headerGroup => {
                         return (
-                            <TableRow {...headerGroup.getHeaderGroupProps()}>
+                            <TableRow
+                                className="tablehead-top"
+                                {...headerGroup.getHeaderGroupProps()}
+                            >
                                 {headerGroup.headers.map(column => (
                                     <TableCell
                                         key={column.id}
@@ -203,7 +203,7 @@ export const EnhancedTable = (props) => {
                             </TableRow>
                         )
                     })}
-                    {admParent.id > 0 && type===CATALOG &&
+                    {admParent.id > 0 && type === CATALOG &&
                         <TableRow>
                             <TableCell colSpan={columns.length + 1}
                                 onClick={backToUpHandler}
@@ -213,7 +213,6 @@ export const EnhancedTable = (props) => {
                                         <ReplyIcon />
                                     </IconButton>
                                 </Tooltip>
-                                {admParent.name}
                             </TableCell>
                         </TableRow>
                     }
@@ -222,23 +221,15 @@ export const EnhancedTable = (props) => {
                     {page.map((row, i) => {
                         prepareRow(row)
                         return (
-                            <TableRow {...row.getRowProps()} key={i}>
+                            <TableRow
+                                {...row.getRowProps()}
+                                key={i}
+                                className="button-open-catalog"
+                                onClick={(e) => {
+                                    rowClickHandler(e, row)
+                                }}
+                            >
                                 {row.cells.map((cell, index) => {
-                                    if (cell.column.id === 'name') {
-                                        return (
-                                            <TableCell {...cell.getCellProps()}
-                                                key={`${index}-${i}`}
-                                            >
-                                                <div
-                                                    className="button-open-catalog"
-                                                    onClick={(e) => rowClickHandler(row)}
-                                                >
-                                                    {cell.value}
-                                                </div>
-                                            </TableCell>
-                                        )
-                                    }
-
                                     if (cell.column.id === 'selection') {
                                         return (
                                             <TableCell {...cell.getCellProps()}

@@ -1,5 +1,8 @@
 .button-open-catalog {
     cursor: pointer;
+    &:hover {
+        background: #c5eaff; color: #fff;
+    }
 }
 .table-footer {
     .num-selected {

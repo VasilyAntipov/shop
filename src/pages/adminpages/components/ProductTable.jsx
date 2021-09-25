@@ -40,8 +40,13 @@ export const ProductTable = () => {
         // }
     }
 
+    const rowClickHandler = (e,row) => {
+        console.log(e)
+    }
+
     return (
         <EnhancedTable
+            rowClickHandler={rowClickHandler}
             editableData={product}
             setEditableData={setProduct}
             actionFetchData={actionFetchData}

@@ -2,11 +2,23 @@
     width: 1100px;
     height: 500px;
     padding: 1rem;
+    .parent-name {
+        color: rgb(105, 105, 105);
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .checkboxes {
+        display: flex;
+        flex-direction: inherit;
+    }
     table {
         table-layout: fixed;
         width: 100%;
-        // border-collapse: collapse;
-        // border: 3px solid purple;
+        border-collapse: collapse;
+        border: 2px solid purple;
+        .tablehead-top {
+            background-color:rgb(142, 245, 142);
+        }
         th {
             &:nth-child(1) {
                 width: 10%;

@@ -30,23 +30,29 @@ export const AdminCatalog = () => {
 
     return (
         <div className="admin-page catalog">
+            {
+                hiddenCatalog &&
+                <div className='parent-name'>{admCatalogTableParent.name}</div>
+            }
             <div hidden={hiddenCatalog}>
                 <CatalogTable />
             </div>
-            <FormGroup>
+            <FormGroup className='checkboxes'>
                 <FormControlLabel
                     control={<Checkbox defaultChecked />}
                     label="Отображать товары"
                     onChange={() => checkedHandle()}
                     checked={checked}
                 />
-                <FormControlLabel
-                    
-                    control={<Checkbox defaultChecked />}
-                    label="Спрятать каталог"
-                    onChange={() => setHiddenCatalog(old => !old)}
-                    checked={hiddenCatalog}
-                />
+                {prod.items.length > 0 &&
+                    <FormControlLabel
+
+                        control={<Checkbox defaultChecked />}
+                        label="Спрятать каталог"
+                        onChange={() => setHiddenCatalog(old => !old)}
+                        checked={hiddenCatalog}
+                    />
+                }
             </FormGroup>
             {
                 checked &&

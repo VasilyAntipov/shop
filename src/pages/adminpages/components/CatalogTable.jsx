@@ -30,8 +30,11 @@ export const CatalogTable = () => {
         const id = admParent.parentId
         dispatch(setCatalogTableParent(getMenuItemById(id)))
     }
-    const rowClickHandler = (row) => {
-        dispatch(setCatalogTableParent(row.values))
+    const rowClickHandler = (e, row) => {
+        const { cellIndex } = e.target
+        if (Number(cellIndex)) {
+            dispatch(setCatalogTableParent(row.values))
+        }
     }
 
     const actionFetchData = () => {
