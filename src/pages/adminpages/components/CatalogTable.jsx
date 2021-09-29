@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './styles/catalogtable.scss'
 import { EnhancedTable } from './EnhancedTable'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -36,6 +37,7 @@ export const CatalogTable = () => {
             dispatch(setCatalogTableParent(row.values))
         }
     }
+    
 
     const actionFetchData = () => {
         const formData = new FormData()
@@ -57,6 +59,7 @@ export const CatalogTable = () => {
 
     return (
         <EnhancedTable
+            classes="catalog-table"
             editableData={category}
             setEditableData={setCategory}
             actionFetchData={actionFetchData}
@@ -67,7 +70,6 @@ export const CatalogTable = () => {
             sortHeaders={sortHeadersCatalog}
             rowClickHandler={rowClickHandler}
             backToUpHandler={backToUpHandler}
-
         />
     )
 }

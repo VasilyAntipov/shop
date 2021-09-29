@@ -47,11 +47,11 @@ export const columnsProducts = [
  
     {
         Header: 'Производитель',
-        accessor: 'brandId',
+        accessor: 'brand.name',
     },
     {
         Header: 'Страна',
-        accessor: 'countryId',
+        accessor: 'country.name',
     },
     {
         Header: 'Фото',

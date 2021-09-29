@@ -1,0 +1,39 @@
+.product-table {
+    table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid purple;
+        .tablehead-top {
+            background-color: rgb(142, 245, 236);
+        }
+        th {
+            &:nth-child(1) {
+                width: 5%;
+            }
+            &:nth-child(2) {
+                width: 5%;
+            }
+            &:nth-child(3) {
+                width: 5%;
+            }
+            &:nth-child(4) {
+                width: 30%;
+            }
+            &:nth-child(5) {
+                width: 15%;
+            }
+            &:nth-child(6) {
+                width: 15%;
+            }
+            &:nth-child(7) {
+                width: 20%;
+            }
+        }
+        td {
+            &:nth-child(1) {
+                height: 50%;
+            }
+        }
+    }
+}

@@ -1,7 +1,8 @@
 import React
 , { forwardRef, useRef, useEffect, useState, Fragment } from 'react'
 import './styles/enhancedtable.scss'
-import { EditDialog } from './EditDialog';
+import { EditCatalog } from './EditCatalog';
+import { EditProduct } from './EditProduct';
 import { confirmAlert } from 'react-confirm-alert'
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Checkbox from '@mui/material/Checkbox'
@@ -23,11 +24,11 @@ import {
     useSortBy,
     useTable,
 } from 'react-table'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { admCatalogTableParentSelector } from '../../../redux/selectors/menuSelectors'
 import { Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
-import { CATALOG } from '../utils';
+import { CATALOG, PRODUCT } from '../utils';
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -57,7 +58,8 @@ export const EnhancedTable = (props) => {
         type,
         sortHeaders,
         backToUpHandler,
-        rowClickHandler
+        rowClickHandler,
+        classes
     } = props
     const {
         selectedFlatRows,
@@ -122,7 +124,7 @@ export const EnhancedTable = (props) => {
     }
 
     const questionDeleteRow = event => {
-        const { id, name } = selectedFlatRows[0].values
+        const { id, name } = selectedFlatRows[0].original
         confirmAlert({
             title: "Подтвердите удаление",
             message: `Вы уверены, что хотите удалить ${name}`,
@@ -139,26 +141,41 @@ export const EnhancedTable = (props) => {
     }
 
     const addRowHandler = () => {
-        setEditableData({ parentId: admParent.id })
+        if (type === CATALOG) {
+            setEditableData({ parentId: admParent.id })
+        }
         setOpen(true)
     }
 
     const editRowHandler = () => {
-        setEditableData(selectedFlatRows[0].values)
+        setEditableData(selectedFlatRows[0].original)
         setOpen(true)
     }
 
+
+    const propsEditDialog =
+    {
+        actionFetchData,
+        editableData,
+        setEditableData,
+        open,
+        setOpen,
+    }
+
     return (
-        <TableContainer>
+        <TableContainer
+            className={classes}>
             <Fragment>
-                <EditDialog
-                    actionFetchData={actionFetchData}
-                    editableData={editableData}
-                    setEditableData={setEditableData}
-                    open={open}
-                    setOpen={setOpen}
-                />
-                {type === CATALOG && <TableToolbar
+                {type === CATALOG &&
+                    <EditCatalog
+                        {...propsEditDialog}
+                    />}
+                {type === PRODUCT &&
+                    <EditProduct
+                        {...propsEditDialog}
+                    />
+                }
+                {<TableToolbar
                     questionDeleteRow={questionDeleteRow}
                     editRowHandler={editRowHandler}
                     addRowHandler={addRowHandler}

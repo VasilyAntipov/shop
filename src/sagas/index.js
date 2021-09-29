@@ -2,7 +2,8 @@ import { put, all, takeLatest, select } from 'redux-saga/effects';
 import { getProducts, getFilters, } from '../api'
 import {
     INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER,
-    SET_CATALOG_TABLE_PARENT
+    SET_CATALOG_TABLE_PARENT,
+    INIT_REFERENCES
 } from '../redux/constants';
 import {
     initMenuSuccess,
@@ -14,12 +15,14 @@ import {
     initOrderGroupListSuccess,
     initUserFail,
     initUserSuccess,
+    initReferencesFail,
+    initReferencesSuccess
 } from '../redux/actions'
 
 import { auth } from '../http/userApi'
 import { getCategories } from '../http/categoryApi'
 import { getProductsByCatId } from '../http/productApi';
-
+import { fetchBrands, fetchCountries } from '../http/referenceApi';
 function* initMenu() {
     try {
         const menu = yield getCategories();
@@ -70,12 +73,23 @@ function* initUser() {
     }
 }
 
+function* initReferences() {
+    try {
+        const brands = yield fetchBrands();
+        const countries = yield fetchCountries();
+        yield put(initReferencesSuccess({ brands, countries }));
+    } catch (e) {
+        yield put(initReferencesFail('COULD NOT GET MENU'));
+    }
+}
+
 export function* rootSaga() {
     yield all([
         takeLatest(INIT_MENU, initMenu),
         takeLatest(INIT_PRODUCTS, initProducts),
         takeLatest(INIT_FILTERS, initFilters),
         takeLatest(INIT_USER, initUser),
-        takeLatest(SET_CATALOG_TABLE_PARENT, setCatalogTableParent)
+        takeLatest(SET_CATALOG_TABLE_PARENT, setCatalogTableParent),
+        takeLatest(INIT_REFERENCES, initReferences)
     ]);
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './styles/producttable.scss'
 import { EnhancedTable } from './EnhancedTable'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -40,12 +41,13 @@ export const ProductTable = () => {
         // }
     }
 
-    const rowClickHandler = (e,row) => {
+    const rowClickHandler = (e, row) => {
         console.log(e)
     }
 
     return (
         <EnhancedTable
+            classes="product-table"
             rowClickHandler={rowClickHandler}
             editableData={product}
             setEditableData={setProduct}

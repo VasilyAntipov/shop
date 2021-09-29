@@ -30,7 +30,10 @@ import {
     SET_CATALOG_TABLE_PARENT,
     CHANGE_ONE_CATEGORY,
     ADD_CATEGORY,
-    DELETE_CATEGORY
+    DELETE_CATEGORY,
+    INIT_REFERENCES,
+    INIT_REFERENCES_FAIL,
+    INIT_REFERENCES_SUCCESS,
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -104,3 +107,8 @@ export const setIsAuth = createAction(IS_AUTH)
 export const setIsAdmin = createAction(IS_ADMIN)
 export const loadUserData = createAction(LOAD_USER)
 export const userLogout = createAction(USER_LOGOUT)
+
+
+export const initReferences = createAction(INIT_REFERENCES)
+export const initReferencesFail = createAction(INIT_REFERENCES_FAIL)
+export const initReferencesSuccess = createAction(INIT_REFERENCES_SUCCESS)

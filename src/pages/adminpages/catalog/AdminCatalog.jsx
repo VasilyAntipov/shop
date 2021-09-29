@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './admincatalog.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -6,7 +6,7 @@ import {
     admCatalogTableParentSelector
 } from '../../../redux/selectors/menuSelectors'
 import { Checkbox, CircularProgress, FormControlLabel, FormGroup } from '@mui/material'
-import { initProducts } from '../../../redux/actions'
+import { initProducts, initReferences } from '../../../redux/actions'
 import { CatalogTable } from '../components/CatalogTable'
 import { ProductTable } from '../components/ProductTable'
 import { productSelector } from '../../../redux/selectors/productSelectors'
@@ -24,6 +24,10 @@ export const AdminCatalog = () => {
             dispatch(initProducts(admCatalogTableParent.id))
         setChecked(old => !old)
     }
+
+    useEffect(() => {
+        dispatch(initReferences())
+    }, [])
 
     if (!menuIsLoaded)
         return <CircularProgress />
@@ -46,7 +50,6 @@ export const AdminCatalog = () => {
                 />
                 {prod.items.length > 0 &&
                     <FormControlLabel
-
                         control={<Checkbox defaultChecked />}
                         label="Спрятать каталог"
                         onChange={() => setHiddenCatalog(old => !old)}
