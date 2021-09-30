@@ -1,5 +1,4 @@
 import { put, all, takeLatest, select } from 'redux-saga/effects';
-import { getProducts, getFilters, } from '../api'
 import {
     INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER,
     SET_CATALOG_TABLE_PARENT,
@@ -23,6 +22,7 @@ import { auth } from '../http/userApi'
 import { getCategories } from '../http/categoryApi'
 import { getProductsByCatId } from '../http/productApi';
 import { fetchBrands, fetchCountries } from '../http/referenceApi';
+import {getFilters} from '../http/filterApi'
 function* initMenu() {
     try {
         const menu = yield getCategories();
@@ -32,7 +32,7 @@ function* initMenu() {
     }
 }
 
-function* setCatalogTableParent(action) {
+function* setCatalogTableParent() {
     try {
         const menu = yield select(state => state.menu)
         const id = menu.admCatalogTableParent.id
@@ -46,7 +46,7 @@ function* setCatalogTableParent(action) {
 
 function* initProducts(action) {
     try {
-        const products = yield getProducts(action.payload);
+        const products = yield getProductsByCatId(Number(action.payload));
         yield put(initProductsSuccess(products));
     } catch (e) {
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));

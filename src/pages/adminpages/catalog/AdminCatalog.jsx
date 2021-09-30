@@ -14,10 +14,11 @@ import { productSelector } from '../../../redux/selectors/productSelectors'
 export const AdminCatalog = () => {
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
     const [checked, setChecked] = useState(false)
+    const [hiddenCatalog, setHiddenCatalog] = useState(false)
     const admCatalogTableParent = useSelector(admCatalogTableParentSelector)
     const dispatch = useDispatch()
     const prod = useSelector(productSelector)
-    const [hiddenCatalog, setHiddenCatalog] = useState(false)
+
 
     const checkedHandle = () => {
         if (!checked)
@@ -26,7 +27,7 @@ export const AdminCatalog = () => {
     }
 
     useEffect(() => {
-        dispatch(initReferences())
+        dispatch(initReferences())// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (!menuIsLoaded)

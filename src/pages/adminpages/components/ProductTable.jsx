@@ -6,6 +6,7 @@ import {
     productItemsSelector,
 } from '../../../redux/selectors/productSelectors'
 import { columnsProducts, PRODUCT, sortHeadersProduct } from '../utils'
+import { createProduct, updateProduct } from '../../../http/productApi'
 
 export const ProductTable = () => {
 
@@ -23,26 +24,31 @@ export const ProductTable = () => {
     }
 
     const actionFetchData = () => {
-        // const formData = new FormData()
-        console.log('actionfetch')
-        // for (let key in category) {
-        //     formData.append(key, category[key])
-        // }
-        // if (category.hasOwnProperty('id')) {
-        //     updateCategory(formData)
-        //         .then(data => {
-        //             dispatch(changeOneCategory(data))
-        //         })
-        // } else {
-        //     createCategory(formData)
-        //         .then(data => {
-        //             dispatch(addCategory(data))
-        //         })
-        // }
+        console.log(product)
+        const formData = new FormData()
+        formData.append('name', product.name)
+        formData.append('price', product.price)
+        formData.append('brandId', product.brandId)
+        formData.append('countryId', product.countryId)
+        formData.append('categoryId', product.categoryId)
+        formData.append('file', product.file)
+
+        if (product.hasOwnProperty('id')) {
+            formData.append('id', product.id)
+            updateProduct(formData)
+                // .then(data => {
+                //     dispatch(changeOneCategory(data))
+                // })
+        } else {
+            createProduct(formData)
+                // .then(data => {
+                //     dispatch(addCategory(data))
+                // })
+        }
     }
 
     const rowClickHandler = (e, row) => {
-        console.log(e)
+        // console.log(e)
     }
 
     return (

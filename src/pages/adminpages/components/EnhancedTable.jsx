@@ -144,6 +144,9 @@ export const EnhancedTable = (props) => {
         if (type === CATALOG) {
             setEditableData({ parentId: admParent.id })
         }
+        if (type === PRODUCT) {
+            setEditableData({ categoryId: admParent.id })
+        }
         setOpen(true)
     }
 
@@ -272,8 +275,13 @@ export const EnhancedTable = (props) => {
 
                 <TableFooter>
                     <TableRow className="table-footer">
+
                         {numSelected > 0 &&
-                            <p className="num-selected">{`выбрано ${numSelected} п.`}</p>
+                            <td>
+                                <p className="num-selected">
+                                    {`выбрано ${numSelected} п.`}
+                                </p>
+                            </td>
                         }
                         <TablePagination
                             rowsPerPageOptions={[

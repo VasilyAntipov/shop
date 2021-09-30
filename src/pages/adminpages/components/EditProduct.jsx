@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import { Autocomplete } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { menuItemsSelector, admCatalogTableParentSelector } from '../../../redux/selectors/menuSelectors'
-import { brandsSelector, countriesSelector, referenceItems } from '../../../redux/selectors/referenceSelector'
+import { brandsSelector, countriesSelector } from '../../../redux/selectors/referenceSelector'
 export const EditProduct = props => {
     const {
         actionFetchData,
@@ -27,21 +27,13 @@ export const EditProduct = props => {
             ? ['Изменение продукта', 'Внесите изменения в выбранный продукт', 'Изменить']
             : ['Добавление продукта', 'Внесите данные для добавления продукта', 'Добавить']
 
+
     const menuItems = useSelector(menuItemsSelector)
     const admParent = useSelector(admCatalogTableParentSelector)
-    // const brandItems = useSelector(referenceItems)
-    const NULL_CATEGORY = { id: 0, name: 'Отсутствует' }
-    const categories = menuItems.map(item => {
-        return { id: item.id, name: item.name }
-    })
-    categories.push(NULL_CATEGORY)
-
-    const defaultCategory = admParent.id === 0
-        ? NULL_CATEGORY
-        : { id: admParent.id, name: admParent.name }
 
     const brands = useSelector(brandsSelector)
     const countries = useSelector(countriesSelector)
+
 
     const defaultBrand = brands.find(item => item.id === editableData.brandId)
     const defaultCountry = countries.find(item => item.id === editableData.countryId)
@@ -83,7 +75,7 @@ export const EditProduct = props => {
                     <TextField
                         margin="dense"
                         label="Цена"
-                        type="float"
+                        type="number"
                         fullWidth
                         value={editableData.price}
                         onChange={handleChange('price')}
@@ -91,9 +83,9 @@ export const EditProduct = props => {
                     <Autocomplete
                         id="category-combo-box"
                         isOptionEqualToValue={(option, value) => option.id === value.id}
-                        options={categories}
+                        options={menuItems}
                         getOptionLabel={option => option.id + ' ' + option.name}
-                        defaultValue={defaultCategory}
+                        value={admParent}
                         style={{ width: 300 }}
                         renderInput={params => (
                             <TextField {...params} label="Категория" variant="outlined" />
@@ -108,13 +100,16 @@ export const EditProduct = props => {
                     />
                     <Autocomplete
                         id="brand-combo-box"
-                        // isOptionEqualToValue={(option, value) => option.id === value.id}
                         options={brands}
                         getOptionLabel={option => option.name}
-                        defaultValue={defaultBrand}
+                        disableClearable
                         style={{ width: 300 }}
+                        value={defaultBrand}
                         renderInput={params => (
-                            <TextField {...params} label="Производитель" variant="outlined" />
+                            <TextField {...params}
+                                label="Производитель"
+                                variant="outlined"
+                            />
                         )}
                         onChange={(event, newValue) => {
                             setEditableData({ ...editableData, brandId: newValue.id })
@@ -122,10 +117,11 @@ export const EditProduct = props => {
                     />
                     <Autocomplete
                         id="country-combo-box"
-                        // isOptionEqualToValue={(option, value) => option.id === value.id}
+                        isOptionEqualToValue={(option, value) => option.id === value.id}
                         options={countries}
                         getOptionLabel={option => option.name}
-                        defaultValue={defaultCountry}
+                        value={defaultCountry}
+                        disableClearable
                         style={{ width: 300 }}
                         renderInput={params => (
                             <TextField {...params} label="Страна производства" variant="outlined" />

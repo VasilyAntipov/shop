@@ -29,15 +29,6 @@ export const EditCatalog = props => {
 
     const menuItems = useSelector(menuItemsSelector)
     const admParent = useSelector(admCatalogTableParentSelector)
-    const NULL_OPTION = { id: 0, name: 'Отсутствует' }
-    const options = menuItems.map(item => {
-        return { id: item.id, name: item.name }
-    })
-    options.push(NULL_OPTION)
-
-    const defaultValue = admParent.id === 0
-        ? NULL_OPTION
-        : { id: admParent.id, name: admParent.name }
 
 
     const handleClose = () => {
@@ -86,9 +77,9 @@ export const EditCatalog = props => {
                     <Autocomplete
                         id="combo-box"
                         isOptionEqualToValue={(option, value) => option.id === value.id}
-                        options={options}
+                        options={menuItems}
                         getOptionLabel={option => option.id + ' ' + option.name}
-                        defaultValue={defaultValue}
+                        value={admParent}
                         style={{ width: 300 }}
                         renderInput={params => (
                             <TextField {...params} label="Категория" variant="outlined" />

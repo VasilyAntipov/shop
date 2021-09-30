@@ -5,6 +5,11 @@ export const createProduct = async (product) => {
     return data
 }
 
+export const updateProduct = async (product) => {
+    const {data} = await $authHost.put('api/product', product)
+    return data
+}
+
 export const getProductsByCatId = async (catId) => {
     const {data} = await $host.get('api/product/all/' + catId)
     return data
