@@ -12,7 +12,7 @@ export const TableToolbar = props => {
         numSelected,
         addRowHandler,
         editRowHandler,
-        questionDeleteRow,
+        deleteRowHandler,
         preGlobalFilteredRows,
         setGlobalFilter,
         globalFilter,
@@ -40,7 +40,7 @@ export const TableToolbar = props => {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                        <IconButton aria-label="delete" onClick={questionDeleteRow}>
+                        <IconButton aria-label="delete" onClick={deleteRowHandler}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>

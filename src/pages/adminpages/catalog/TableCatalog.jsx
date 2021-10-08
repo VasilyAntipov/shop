@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import './styles/catalogtable.scss'
-import { EnhancedTable } from './EnhancedTable'
+import './styles/tablecatalog.scss'
+import { EnhancedTable } from '../components/EnhancedTable'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     admCatalogTableParentSelector,
@@ -11,35 +11,44 @@ import { columnsCatalog, CATALOG } from '../utils'
 import { deleteCategory, updateCategory, createCategory } from '../../../http/categoryApi'
 import { addCategory, changeOneCategory, deleteCategoryAction, setCatalogTableParent } from '../../../redux/actions'
 import { sortHeadersCatalog } from '../utils'
-
-export const CatalogTable = () => {
+import {labels} from './utils/constants'
+export const TableCatalog = () => {
 
     const dispatch = useDispatch()
-    const data = useSelector(getMenuItemsByParentIdSelector)
+    const menuItems = useSelector(getMenuItemsByParentIdSelector)
     const [category, setCategory] = useState({})
+    const [optionsDialog,setOptionsDialog] = useState({})
     const admParent = useSelector(admCatalogTableParentSelector)
     const getMenuItemById = useSelector(getMenuItemByIdSelector)
 
-    const handleCategoryDelete = (id) => {
+    const navigateLevelUpCategory = () => {
+        const id = admParent.parentId
+        dispatch(setCatalogTableParent(getMenuItemById(id)))
+    }
+
+    const navigateEnterCategory = (e, row) => {
+        const { cellIndex } = e.target
+        if (Number(cellIndex)) {
+            dispatch(setCatalogTableParent(row.values))
+        }
+    }
+
+    const addCategory = () => {
+        setOptionsDialog()
+    }
+    const editCategory = () => {
+        setOptionsDialog()
+    }
+
+
+    const fetchDeleteCategory = (id) => {
         deleteCategory(id)
             .then(() => {
                 dispatch(deleteCategoryAction(id))
             })
     }
 
-    const backToUpHandler = () => {
-        const id = admParent.parentId
-        dispatch(setCatalogTableParent(getMenuItemById(id)))
-    }
-    const rowClickHandler = (e, row) => {
-        const { cellIndex } = e.target
-        if (Number(cellIndex)) {
-            dispatch(setCatalogTableParent(row.values))
-        }
-    }
-    
-
-    const actionFetchData = () => {
+    const fetchCategory = () => {
         const formData = new FormData()
         for (let key in category) {
             formData.append(key, category[key])
@@ -60,16 +69,19 @@ export const CatalogTable = () => {
     return (
         <EnhancedTable
             classes="catalog-table"
-            editableData={category}
-            setEditableData={setCategory}
-            actionFetchData={actionFetchData}
             type={CATALOG}
+            data={menuItems}
             columns={columnsCatalog}
-            data={data}
-            handleRowDelete={handleCategoryDelete}
             sortHeaders={sortHeadersCatalog}
-            rowClickHandler={rowClickHandler}
-            backToUpHandler={backToUpHandler}
+            addRow={addCategory}
+            editRow={editCategory}
+            deleteRow={fetchDeleteCategory}
+            navigateEnterHandler={navigateEnterCategory}
+            navigateLevelUpHandler={navigateLevelUpCategory}
+            fetchData={category}
+            setFetchData={setCategory}
+            fetchDataAction={fetchCategory}
+            optionsDialog
         />
     )
 }

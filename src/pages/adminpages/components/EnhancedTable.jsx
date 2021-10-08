@@ -1,8 +1,7 @@
 import React
 , { forwardRef, useRef, useEffect, useState, Fragment } from 'react'
 import './styles/enhancedtable.scss'
-import { EditCatalog } from './EditCatalog';
-import { EditProduct } from './EditProduct';
+import { DialogForm, DialogFrom } from './DialogForm';
 import { confirmAlert } from 'react-confirm-alert'
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Checkbox from '@mui/material/Checkbox'
@@ -50,17 +49,20 @@ export const EnhancedTable = (props) => {
     const {
         columns,
         data,
+        fetchDataAction,
+        setFetchData,
         skipPageReset,
-        handleRowDelete,
-        actionFetchData,
-        editableData,
-        setEditableData,
-        type,
+        deleteRow,
         sortHeaders,
-        backToUpHandler,
-        rowClickHandler,
-        classes
+        navigateLevelUpHandler,
+        navigateEnterHandler,
+        classes,
+        typeTable,
+        optionsDialog,
+        addRow,
+        editRow
     } = props
+
     const {
         selectedFlatRows,
         getTableProps,
@@ -123,7 +125,7 @@ export const EnhancedTable = (props) => {
         setPageSize(Number(event.target.value))
     }
 
-    const questionDeleteRow = event => {
+    const deleteRowHandler = event => {
         const { id, name } = selectedFlatRows[0].original
         confirmAlert({
             title: "Подтвердите удаление",
@@ -131,7 +133,7 @@ export const EnhancedTable = (props) => {
             buttons: [
                 {
                     label: "Да",
-                    onClick: () => handleRowDelete(id)
+                    onClick: () => deleteRow(id)
                 },
                 {
                     label: "Нет"
@@ -141,45 +143,31 @@ export const EnhancedTable = (props) => {
     }
 
     const addRowHandler = () => {
-        if (type === CATALOG) {
-            setEditableData({ parentId: admParent.id })
-        }
-        if (type === PRODUCT) {
-            setEditableData({ categoryId: admParent.id })
-        }
+        addRow();
         setOpen(true)
     }
 
     const editRowHandler = () => {
-        setEditableData(selectedFlatRows[0].original)
+        editRow();
         setOpen(true)
     }
 
-
-    const propsEditDialog =
-    {
-        actionFetchData,
-        editableData,
-        setEditableData,
-        open,
-        setOpen,
-    }
 
     return (
         <TableContainer
             className={classes}>
             <Fragment>
-                {type === CATALOG &&
-                    <EditCatalog
-                        {...propsEditDialog}
-                    />}
-                {type === PRODUCT &&
-                    <EditProduct
-                        {...propsEditDialog}
-                    />
-                }
+                <DialogForm
+                    open
+                    setOpen
+                    optionsDialog
+                    data={fetchData}
+                    setData={setFetchData}
+                    saveDialogAction={fetchDataAction}
+                />
+
                 {<TableToolbar
-                    questionDeleteRow={questionDeleteRow}
+                    deleteRowHandler={deleteRowHandler}
                     editRowHandler={editRowHandler}
                     addRowHandler={addRowHandler}
                     preGlobalFilteredRows={preGlobalFilteredRows}
@@ -223,10 +211,10 @@ export const EnhancedTable = (props) => {
                             </TableRow>
                         )
                     })}
-                    {admParent.id > 0 && type === CATALOG &&
+                    {admParent?.id > 0 && typeTable === CATALOG &&
                         <TableRow>
                             <TableCell colSpan={columns.length + 1}
-                                onClick={backToUpHandler}
+                                onClick={navigateLevelUpHandler}
                             >
                                 <Tooltip title="на верхний уровень">
                                     <IconButton size="small">
@@ -246,7 +234,7 @@ export const EnhancedTable = (props) => {
                                 key={i}
                                 className="button-open-catalog"
                                 onClick={(e) => {
-                                    rowClickHandler(e, row)
+                                    navigateEnterHandler(e, row)
                                 }}
                             >
                                 {row.cells.map((cell, index) => {
@@ -270,12 +258,10 @@ export const EnhancedTable = (props) => {
                                 })}
                             </TableRow>
                         )
-                    })}
+                    })}entryFields
                 </TableBody>
-
                 <TableFooter>
                     <TableRow className="table-footer">
-
                         {numSelected > 0 &&
                             <td>
                                 <p className="num-selected">

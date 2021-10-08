@@ -27,11 +27,11 @@ export const columnsCatalog = [
         accessor: 'img',
     }
 ]
-
 export const sortHeadersCatalog = ['id', 'index', 'name']
-export const sortHeadersProduct = ['id', 'name']
 
-export const columnsProducts = [
+
+
+export const columnsProduct = [
     {
         Header: 'ID',
         accessor: 'id',
@@ -44,7 +44,7 @@ export const columnsProducts = [
         Header: 'Название',
         accessor: 'name',
     },
-
+ 
     {
         Header: 'Производитель',
         accessor: 'brand.name',
@@ -58,8 +58,46 @@ export const columnsProducts = [
         accessor: 'img',
     },
 ]
+export const sortHeadersProduct= ['id', 'name']
+export const dialogDataProduct = [
+    {
+        typeField: "TEXT",
+        itemName: "name",
+        label: "Название",
+    },
+    {
+        typeField: "TEXT",
+        itemName: "price",
+        label: "Цена",
+    },
+    {
+        typeField: "COMBO",
+        options: menuItems,
+        optionLabel: option => option.id + ' ' + option.name,
+        itemName: "categoryId",
+        label: "Категория",
+    },
+    {
+        typeField: 'COMBO',
+        options: brands,
+        optionLabel: option => option.name,
+        itemName: "brandId",
+        label: "Производитель",
+    },
+    {
+        typeField: "COMBO",
+        options: countries,
+        optionLabel: option => option.name,
+        itemName: "countryId",
+        label: "Страна",
+    },
+    {
+        typeField: "FILE",
+        itemName: "file",
+    }
+]
 
-export const dialogLabels = {
+export const labels = {
     editProduct: {
         title: 'Изменение продукта',
         context: 'Внесите изменения в выбранный продукт',
@@ -81,3 +119,4 @@ export const dialogLabels = {
         button: 'Добавить'
     }
 }
+

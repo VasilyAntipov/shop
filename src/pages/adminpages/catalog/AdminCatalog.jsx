@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './admincatalog.scss'
+import './styles/admincatalog.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     menuIsLoadedSelector,
@@ -7,9 +7,9 @@ import {
 } from '../../../redux/selectors/menuSelectors'
 import { Checkbox, CircularProgress, FormControlLabel, FormGroup } from '@mui/material'
 import { initProducts, initReferences } from '../../../redux/actions'
-import { CatalogTable } from '../components/CatalogTable'
-import { ProductTable } from '../components/ProductTable'
 import { productSelector } from '../../../redux/selectors/productSelectors'
+import { TableCatalog } from './TableCatalog'
+import { TableProduct } from './TableProduct'
 
 export const AdminCatalog = () => {
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
@@ -40,7 +40,7 @@ export const AdminCatalog = () => {
                 <div className='parent-name'>{admCatalogTableParent.name}</div>
             }
             <div hidden={hiddenCatalog}>
-                <CatalogTable />
+                <TableCatalog />
             </div>
             <FormGroup className='checkboxes'>
                 <FormControlLabel
@@ -49,24 +49,24 @@ export const AdminCatalog = () => {
                     onChange={() => checkedHandle()}
                     checked={checked}
                 />
-                {prod.items.length > 0 &&
+                {/* {prod.items.length > 0 &&
                     <FormControlLabel
                         control={<Checkbox defaultChecked />}
                         label="Спрятать каталог"
                         onChange={() => setHiddenCatalog(old => !old)}
                         checked={hiddenCatalog}
                     />
-                }
+                } */}
             </FormGroup>
-            {
+            {/* {
                 checked &&
                 <div>
                     {prod.items.length === 0
                         ? <div>Товаров нет</div>
-                        : <ProductTable />
+                        : <TableProduct />
                     }
                 </div>
-            }
+            } */}
         </div>
     )
 }
