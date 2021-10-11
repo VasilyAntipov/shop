@@ -44,21 +44,21 @@ export const AdminCatalog = () => {
             </div>
             <FormGroup className='checkboxes'>
                 <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={<Checkbox />}
                     label="Отображать товары"
                     onChange={() => checkedHandle()}
                     checked={checked}
                 />
-                {/* {prod.items.length > 0 &&
+                {prod.items.length > 0 &&
                     <FormControlLabel
-                        control={<Checkbox defaultChecked />}
+                        control={<Checkbox />}
                         label="Спрятать каталог"
                         onChange={() => setHiddenCatalog(old => !old)}
                         checked={hiddenCatalog}
                     />
-                } */}
+                }
             </FormGroup>
-            {/* {
+            {
                 checked &&
                 <div>
                     {prod.items.length === 0
@@ -66,7 +66,7 @@ export const AdminCatalog = () => {
                         : <TableProduct />
                     }
                 </div>
-            } */}
+            }
         </div>
     )
 }

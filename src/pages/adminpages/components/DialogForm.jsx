@@ -11,20 +11,18 @@ import { useSelector } from 'react-redux'
 import { menuItemsSelector, admCatalogTableParentSelector } from '../../../redux/selectors/menuSelectors'
 import { brandsSelector, countriesSelector } from '../../../redux/selectors/referenceSelector'
 import { EntryField } from './EntryField'
-import { COMBO, TEXT, FILE, dialogLabels } from './utils/constants'
-import { CATALOG } from '../utils'
 
 export const DialogForm = props => {
     const {
         open,
         setOpen,
-        labelsDialog,
-        entryFields,
-        data,
-        setData,
-        saveDialogAction
+        options,
+        fetchData,
+        setFetchData,
+        fetchDataAction,
     } = props
 
+    const { labels, fields} = options
     // const disabled =
     //     !editableData?.categoryId
     //     || !editableData?.countryId
@@ -33,20 +31,14 @@ export const DialogForm = props => {
     //     || !editableData?.name
     //     || !editableData?.price
 
-    const menuItems = useSelector(menuItemsSelector)
-    const brands = useSelector(brandsSelector)
-    const countries = useSelector(countriesSelector)
-
     const handleClose = () => {
         setOpen(false)
     }
 
     const handleSaveData = event => {
-        saveDialogAction()
+        fetchDataAction()
         setOpen(false)
     }
-
-
 
     return (
         <div>
@@ -56,19 +48,19 @@ export const DialogForm = props => {
                 aria-labelledby="form-dialog-title"
             >
                 <DialogTitle id="form-dialog-title">
-                    {labelsDialog.title}
+                    {labels.title}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {labelsDialog.context}
+                        {labels.context}
                     </DialogContentText>
-                    {entryFields.map((props, index) => {
+                    {fields.map((props, index) => {
                         return (
                             <EntryField
                                 {...props}
                                 key={index}
-                                data={data}
-                                setData={setData}
+                                data={fetchData}
+                                setData={setFetchData}
                             />
                         )
                     })}
@@ -82,7 +74,7 @@ export const DialogForm = props => {
                         color="primary"
                     // disabled={disabled}
                     >
-                        {labelsDialog.buttonName}
+                        {labels.button}
                     </Button>
                 </DialogActions>
             </Dialog>

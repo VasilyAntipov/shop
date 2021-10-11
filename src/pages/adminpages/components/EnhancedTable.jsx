@@ -1,7 +1,7 @@
 import React
 , { forwardRef, useRef, useEffect, useState, Fragment } from 'react'
 import './styles/enhancedtable.scss'
-import { DialogForm, DialogFrom } from './DialogForm';
+import { DialogForm } from './DialogForm';
 import { confirmAlert } from 'react-confirm-alert'
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Checkbox from '@mui/material/Checkbox'
@@ -27,7 +27,7 @@ import { useSelector } from 'react-redux'
 import { admCatalogTableParentSelector } from '../../../redux/selectors/menuSelectors'
 import { Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
-import { CATALOG, PRODUCT } from '../utils';
+import { CATALOG, PRODUCT } from '../catalog/utils/constants';
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -49,8 +49,6 @@ export const EnhancedTable = (props) => {
     const {
         columns,
         data,
-        fetchDataAction,
-        setFetchData,
         skipPageReset,
         deleteRow,
         sortHeaders,
@@ -58,9 +56,12 @@ export const EnhancedTable = (props) => {
         navigateEnterHandler,
         classes,
         typeTable,
-        optionsDialog,
         addRow,
-        editRow
+        editRow,
+        dialogOptions,
+        fetchData,
+        setFetchData,
+        fetchDataAction,
     } = props
 
     const {
@@ -125,7 +126,7 @@ export const EnhancedTable = (props) => {
         setPageSize(Number(event.target.value))
     }
 
-    const deleteRowHandler = event => {
+    const deleteRowHandler = () => {
         const { id, name } = selectedFlatRows[0].original
         confirmAlert({
             title: "Подтвердите удаление",
@@ -143,12 +144,12 @@ export const EnhancedTable = (props) => {
     }
 
     const addRowHandler = () => {
-        addRow();
+        addRow()
         setOpen(true)
     }
 
     const editRowHandler = () => {
-        editRow();
+        editRow(selectedFlatRows[0].original)
         setOpen(true)
     }
 
@@ -158,12 +159,12 @@ export const EnhancedTable = (props) => {
             className={classes}>
             <Fragment>
                 <DialogForm
-                    open
-                    setOpen
-                    optionsDialog
-                    data={fetchData}
-                    setData={setFetchData}
-                    saveDialogAction={fetchDataAction}
+                    open={open}
+                    setOpen={setOpen}
+                    options={dialogOptions}
+                    fetchData={fetchData}
+                    setFetchData={setFetchData}
+                    fetchDataAction={fetchDataAction}
                 />
 
                 {<TableToolbar
@@ -234,7 +235,8 @@ export const EnhancedTable = (props) => {
                                 key={i}
                                 className="button-open-catalog"
                                 onClick={(e) => {
-                                    navigateEnterHandler(e, row)
+                                    if (typeTable === CATALOG)
+                                        navigateEnterHandler(e, row)
                                 }}
                             >
                                 {row.cells.map((cell, index) => {
@@ -258,7 +260,7 @@ export const EnhancedTable = (props) => {
                                 })}
                             </TableRow>
                         )
-                    })}entryFields
+                    })}
                 </TableBody>
                 <TableFooter>
                     <TableRow className="table-footer">

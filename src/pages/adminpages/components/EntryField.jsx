@@ -1,5 +1,4 @@
 import React from 'react'
-import { TEXT, COMBO, FILE } from './utils/constants'
 import TextField from '@mui/material/TextField'
 import { Autocomplete } from '@mui/material'
 
@@ -13,16 +12,16 @@ export const EntryField = (props) => {
         setData,
         label,
         itemName,
-        type
+        type,
+        autoFocus
     } = props
-
 
     const handleChange = (name, value) => {
         setData({ ...data, [name]: value })
     }
 
 
-    if (typeField === COMBO)
+    if (typeField === "autocomplete")
         return (
             <Autocomplete
                 id={`${label}-combo-box`}
@@ -38,25 +37,25 @@ export const EntryField = (props) => {
             />
         )
 
-    if (typeField === TEXT)
+    if (typeField === "textfield")
         return (
             <TextField
                 id={`${label}-textfield`}
-                autoFocus
+                autoFocus={autoFocus}
                 margin="dense"
                 label={label}
                 type={type}
                 fullWidth
-                value={data[itemName]}
+                value={data[itemName] || ''}
                 onChange={(e) => handleChange(itemName, e.target.value)}
             />
         )
 
-    if (typeField === FILE)
+    if (typeField === "file")
         return (
             <TextField
                 margin="dense"
-                type="file"
+                type={"file"}
                 fullWidth
                 onChange={(e) => handleChange(itemName, e.target.files[0])}
             />
