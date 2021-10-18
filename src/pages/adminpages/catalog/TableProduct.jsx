@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import './styles/tableproduct.scss'
-import { EnhancedTable } from '../components/EnhancedTable'
+import { EnhancedTable } from './components/EnhancedTable'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     productItemsSelector,
 } from '../../../redux/selectors/productSelectors'
 import { columnsProduct, PRODUCT, sortHeadersProduct } from './utils/constants'
-import { createProduct, updateProduct } from '../../../http/productApi'
+import { createProduct, deleteProduct, updateProduct } from '../../../http/productApi'
 import { admCatalogTableParentSelector, getMenuItemsByParentIdSelector, menuItemsSelector } from '../../../redux/selectors/menuSelectors'
 import { brandsSelector, countriesSelector } from '../../../redux/selectors/referenceSelector'
 import { labelsProduct } from './utils/constants'
+import { addProductAction, deleteProductAction, updateProductAction } from '../../../redux/actions'
 export const TableProduct = () => {
 
     const dispatch = useDispatch()
@@ -84,40 +85,35 @@ export const TableProduct = () => {
     }
 
     const fetchDeleteProduct = (id) => {
-        console.log('delete product ' + id)
-        // deleteProduct(id)
-        //     .then(() => {
-        //         dispatch(deleteCategoryAction(id))
-        //     })
+        deleteProduct(id)
+            .then(() => {
+                dispatch(deleteProductAction(id))
+            })
     }
 
     const fetchProduct = () => {
-        console.log('fetch product')
-        console.log(product)
-        // const formData = new FormData()
-        // formData.append('name', product.name)
-        // formData.append('price', product.price)
-        // formData.append('brandId', product.brandId)
-        // formData.append('countryId', product.countryId)
-        // formData.append('categoryId', product.categoryId)
-        // formData.append('file', product.file)
+        const formData = new FormData()
+        formData.append('name', product.name)
+        formData.append('price', product.price)
+        formData.append('brandId', product.brandId)
+        formData.append('countryId', product.countryId)
+        formData.append('categoryId', product.categoryId)
+        formData.append('file', product.file)
 
-        // if (product.hasOwnProperty('id')) {
-        //     formData.append('id', product.id)
-        //     updateProduct(formData)
-        //         // .then(data => {
-        //         //     dispatch(changeOneCategory(data))
-        //         // })
-        // } else {
-        //     createProduct(formData)
-        //         // .then(data => {
-        //         //     dispatch(addCategory(data))
-        //         // })
-        // }
-    }
-
-    const rowClickHandler = (e, row) => {
-        // console.log(e)
+        if (product.hasOwnProperty('id')) {
+            formData.append('id', product.id)
+            updateProduct(formData)
+                .then(data => {
+                    console.log(data)
+                    dispatch(updateProductAction(data))
+                })
+        } else {
+            createProduct(formData)
+                .then(data => {
+                    console.log(data)
+                    dispatch(addProductAction(data))
+                })
+        }
     }
 
     return (

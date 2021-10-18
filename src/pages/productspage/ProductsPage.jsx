@@ -30,7 +30,6 @@ export const ProductsPage = () => {
     const productIsLoaded = useSelector(productIsLoadedSelector)
     const dispatch = useDispatch()
 
-
     useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
         dispatch(initProducts({ id: params.id, search: location.search }));
         dispatch(initFilters({ id: params.id, search: location.search }));

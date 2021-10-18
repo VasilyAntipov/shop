@@ -22,13 +22,11 @@ export const AdminCatalog = () => {
 
     const checkedHandle = () => {
         if (!checked)
-            dispatch(initProducts(admCatalogTableParent.id))
+            dispatch(initProducts({id:admCatalogTableParent.id}))
         setChecked(old => !old)
     }
 
-    useEffect(() => {
-        dispatch(initReferences())// eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+
 
     if (!menuIsLoaded)
         return <CircularProgress />

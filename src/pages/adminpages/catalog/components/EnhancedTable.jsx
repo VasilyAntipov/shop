@@ -24,10 +24,10 @@ import {
     useTable,
 } from 'react-table'
 import { useSelector } from 'react-redux'
-import { admCatalogTableParentSelector } from '../../../redux/selectors/menuSelectors'
+import { admCatalogTableParentSelector } from '../../../../redux/selectors/menuSelectors'
 import { Tooltip, IconButton } from '@mui/material'
 import ReplyIcon from '@mui/icons-material/Reply';
-import { CATALOG, PRODUCT } from '../catalog/utils/constants';
+import { CATALOG, PRODUCT } from '../../catalog/utils/constants';
 
 const IndeterminateCheckbox = forwardRef(
     ({ indeterminate, ...rest }, ref) => {

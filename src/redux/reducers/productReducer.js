@@ -3,6 +3,9 @@ import {
     INIT_PRODUCTS,
     INIT_PRODUCTS_FAIL,
     INIT_PRODUCTS_SUCCESS,
+    ADD_PRODUCT,
+    UPDATE_PRODUCT,
+    DELETE_PRODUCT
 } from "../constants"
 
 const initState = {
@@ -42,6 +45,29 @@ export const productReducer = (state = initState, action) => {
                 isProduct: action.payload
             }
 
+        case ADD_PRODUCT:
+            return {
+                ...state,
+                items: [
+                    ...state.items,
+                    action.payload
+                ]
+            }
+        case UPDATE_PRODUCT:
+            return {
+                ...state,
+                items: state.items.map(item => {
+                    if (item.id === action.payload.id) {
+                        return action.payload
+                    }
+                    return item
+                })
+            }
+        case DELETE_PRODUCT:
+            return {
+                ...state,
+                items: state.items.filter(item => item.id !== action.payload)
+            }
         default:
             return state
     }

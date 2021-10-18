@@ -23,6 +23,7 @@ import { getCategories } from '../http/categoryApi'
 import { getProductsByCatId } from '../http/productApi';
 import { fetchBrands, fetchCountries } from '../http/referenceApi';
 import {getFilters} from '../http/filterApi'
+
 function* initMenu() {
     try {
         const menu = yield getCategories();
@@ -36,7 +37,7 @@ function* setCatalogTableParent() {
     try {
         const menu = yield select(state => state.menu)
         const id = menu.admCatalogTableParent.id
-        const products = yield getProductsByCatId(id);
+        const products = yield getProductsByCatId({id});
         yield put(initProductsSuccess(products));
     } catch (e) {
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));
@@ -46,7 +47,7 @@ function* setCatalogTableParent() {
 
 function* initProducts(action) {
     try {
-        const products = yield getProductsByCatId(Number(action.payload));
+        const products = yield getProductsByCatId(action.payload);
         yield put(initProductsSuccess(products));
     } catch (e) {
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));
@@ -79,7 +80,7 @@ function* initReferences() {
         const countries = yield fetchCountries();
         yield put(initReferencesSuccess({ brands, countries }));
     } catch (e) {
-        yield put(initReferencesFail('COULD NOT GET MENU'));
+        yield put(initReferencesFail('COULD NOT GET REFERENCES'));
     }
 }
 

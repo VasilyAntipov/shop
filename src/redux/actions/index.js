@@ -34,6 +34,9 @@ import {
     INIT_REFERENCES,
     INIT_REFERENCES_FAIL,
     INIT_REFERENCES_SUCCESS,
+    ADD_PRODUCT,
+    UPDATE_PRODUCT,
+    DELETE_PRODUCT
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -51,6 +54,11 @@ export const isProduct = createAction(IS_PRODUCT)
 export const initProducts = createAction(INIT_PRODUCTS)
 export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
+export const addProductAction = createAction(ADD_PRODUCT)
+export const updateProductAction = createAction(UPDATE_PRODUCT)
+export const deleteProductAction = createAction(DELETE_PRODUCT)
+
+
 export const initFilters = createAction(INIT_FILTERS)
 export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (payload) => {
     const { filters, search } = payload;

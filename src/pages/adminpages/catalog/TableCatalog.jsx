@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './styles/tablecatalog.scss'
-import { EnhancedTable } from '../components/EnhancedTable'
+import { EnhancedTable } from './components/EnhancedTable'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     admCatalogTableParentSelector,
