@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material'
 
 
 export const TabPanel = (props) => {
-    const { children, value, index, ...other } = props;
+    const { children, value, index, addRow, ...other } = props;
     return (
         <div
             role="tabpanel"
@@ -15,6 +16,12 @@ export const TabPanel = (props) => {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
+                    <Button
+                        onClick={addRow}
+                        color="secondary"
+                    >
+                        Добавить запись
+                    </Button>
                     <Typography>{children}</Typography>
                 </Box>
             )}

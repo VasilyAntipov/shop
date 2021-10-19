@@ -1,14 +1,15 @@
 import React from 'react'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
+import TextField from '@mui/material/TextField'
+import SaveIcon from '@mui/icons-material/Save'
 
+export const ListBox = (props) => {
+    const { list, editHandler, deleteHandler } = props
 
-export const ListBox = ({ list }) => {
-    console.log(list)
     return (
         <List
             sx={{
@@ -25,9 +26,16 @@ export const ListBox = ({ list }) => {
             {list.map((item) => {
                 return (
                     <ListItem key={item.id}>
-                        <Checkbox>
-                        </Checkbox>
-                        <ListItemText>{item.name}</ListItemText>
+                        <TextField
+                            value={item.name}
+                            onChange={() => { }}
+                        />
+                        <IconButton onClick={() => { }}>
+                            <SaveIcon />
+                        </IconButton>
+                        <IconButton onClick={() => { }}>
+                            <DeleteIcon />
+                        </IconButton>
                     </ListItem>
                 )
             })}

@@ -5,10 +5,11 @@ import { brandsSelector, countriesSelector, referenceIsLoadedSelector } from '..
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TabPanel } from './components/TabPanel'
 import { ListBox } from './components/ListBox'
-
+import { createBrand } from '../../../http/referenceApi';
 
 const a11yProps = (index) => {
     return {
@@ -23,10 +24,19 @@ export const AdminReference = () => {
     const countries = useSelector(countriesSelector)
     const referenceIsLoaded = useSelector(referenceIsLoadedSelector)
     const references = [
-        { ref: brands, name: 'Производители' },
-        { ref: countries, name: 'Страны' }
+        { id: 0, ref: brands, name: 'Производители' },
+        { id: 1, ref: countries, name: 'Страны' }
     ]
 
+    const addRow = (item) => {
+    }
+
+    const editRow = () => {
+    }
+
+    const deleteRow = () => {
+
+    }
 
 
     const handleChange = (event, newValue) => {
@@ -59,9 +69,13 @@ export const AdminReference = () => {
                                 value={value}
                                 index={i}
                                 key={i}
+                                addRow={() => addRow(item)}
                             >
+                                <Button />
                                 <ListBox
                                     list={item.ref}
+                                    editRow={editRow}
+                                    deleteRow={deleteRow}
                                 />
                             </TabPanel>
                         )
