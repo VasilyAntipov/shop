@@ -16,12 +16,6 @@ export const TabPanel = (props) => {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Button
-                        onClick={addRow}
-                        color="secondary"
-                    >
-                        Добавить запись
-                    </Button>
                     <Typography>{children}</Typography>
                 </Box>
             )}

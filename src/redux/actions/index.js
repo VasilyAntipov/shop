@@ -36,7 +36,10 @@ import {
     INIT_REFERENCES_SUCCESS,
     ADD_PRODUCT,
     UPDATE_PRODUCT,
-    DELETE_PRODUCT
+    DELETE_PRODUCT,
+    UPDATE_REFERENCE,
+    CREATE_REFERENCE,
+    DELETE_REFERENCE
 } from '../constants'
 
 export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -120,3 +123,6 @@ export const userLogout = createAction(USER_LOGOUT)
 export const initReferences = createAction(INIT_REFERENCES)
 export const initReferencesFail = createAction(INIT_REFERENCES_FAIL)
 export const initReferencesSuccess = createAction(INIT_REFERENCES_SUCCESS)
+export const updateReferenceAction = createAction(UPDATE_REFERENCE)
+export const createReferenceAction = createAction(CREATE_REFERENCE)
+export const deleteReferenceAction  = createAction(DELETE_REFERENCE)

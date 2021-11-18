@@ -1,13 +1,19 @@
 import {
     INIT_REFERENCES,
     INIT_REFERENCES_FAIL,
-    INIT_REFERENCES_SUCCESS
+    INIT_REFERENCES_SUCCESS,
+    UPDATE_REFERENCE,
+    CREATE_REFERENCE,
+    DELETE_REFERENCE
 } from "../constants"
 
 const initState = {
     isLoading: false,
     isLoaded: false,
-    items: {},
+    items: {
+        brands: [],
+        countries: []
+    },
     error: null,
 }
 
@@ -31,6 +37,45 @@ export const referenceReducer = (state = initState, action) => {
                 isLoaded: true,
                 error: action.payload
             }
+        case UPDATE_REFERENCE:
+            {
+                const { refName, data } = action.payload
+                return {
+                    ...state,
+                    items: {
+                        ...state.items,
+                        [refName]: state.items[refName].map(item => {
+                            if (item.id === data.id) {
+                                return data
+                            }
+                            return item
+                        })
+                    }
+                }
+            }
+
+        case CREATE_REFERENCE:
+            {
+                const { refName, data } = action.payload
+                return {
+                    ...state,
+                    items: {
+                        ...state.items,
+                        [refName]: [...state.items[refName], data]
+                    }
+                }
+            }
+
+        case DELETE_REFERENCE: {
+            const { refName, id } = action.payload
+            return {
+                ...state,
+                items: {
+                    ...state.items,
+                    [refName]: state.items[refName].filter(item => item.id !== +id)
+                }
+            }
+        }
         default:
             return state
     }

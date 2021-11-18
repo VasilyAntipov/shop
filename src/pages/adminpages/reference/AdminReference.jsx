@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { brandsSelector, countriesSelector, referenceIsLoadedSelector } from '../../../redux/selectors/referenceSelector'
 
@@ -9,7 +9,9 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TabPanel } from './components/TabPanel'
 import { ListBox } from './components/ListBox'
-import { createBrand } from '../../../http/referenceApi';
+import { createBrand, createCountry, updateBrand, updateCountry, deleteBrand, deleteCountry } from '../../../http/referenceApi';
+import { useDispatch } from 'react-redux'
+import { createReferenceAction, updateReferenceAction, deleteReferenceAction } from '../../../redux/actions';
 
 const a11yProps = (index) => {
     return {
@@ -19,25 +21,60 @@ const a11yProps = (index) => {
 }
 
 export const AdminReference = () => {
+
+    const dispatch = useDispatch()
     const [value, setValue] = useState(0);
     const brands = useSelector(brandsSelector)
     const countries = useSelector(countriesSelector)
     const referenceIsLoaded = useSelector(referenceIsLoadedSelector)
     const references = [
-        { id: 0, ref: brands, name: 'Производители' },
-        { id: 1, ref: countries, name: 'Страны' }
+        {
+            id: 0,
+            list: brands,
+            listName: 'brands',
+            name: 'Производители',
+            update: updateBrand,
+            create: createBrand,
+            delete: deleteBrand,
+        },
+        {
+            id: 1,
+            list: countries,
+            listName: 'countries',
+            name: 'Страны',
+            update: updateCountry,
+            create: createCountry,
+            delete: deleteCountry,
+        }
     ]
 
-    const addRow = (item) => {
+    const fetchDeleteData = (id, ref) => {
+        ref.delete(id)
+            .then(id => {
+                dispatch(deleteReferenceAction({refName:ref.listName, id}))
+            })
     }
 
-    const editRow = () => {
+    const fetchSaveData = (sendData, ref) => {
+        const { id, name } = sendData
+        if (id !== 0) {
+            ref.update({ id, name })
+                .then(data => {
+                    dispatch(updateReferenceAction({
+                        refName: ref.listName,
+                        data
+                    }))
+                })
+        } else {
+            ref.create({ name })
+                .then(data => {
+                    dispatch(createReferenceAction({
+                        refName: ref.listName,
+                        data
+                    }))
+                })
+        }
     }
-
-    const deleteRow = () => {
-
-    }
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -69,13 +106,12 @@ export const AdminReference = () => {
                                 value={value}
                                 index={i}
                                 key={i}
-                                addRow={() => addRow(item)}
                             >
                                 <Button />
                                 <ListBox
-                                    list={item.ref}
-                                    editRow={editRow}
-                                    deleteRow={deleteRow}
+                                    list={item.list}
+                                    fetchDeleteData={(id) => fetchDeleteData(id, item)}
+                                    fetchSaveData={(data) => fetchSaveData(data, item)}
                                 />
                             </TabPanel>
                         )
