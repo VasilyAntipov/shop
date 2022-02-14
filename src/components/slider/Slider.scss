@@ -1,0 +1,25 @@
+.main-container {
+    position: relative;
+    width: 100%;
+}
+.slide-container {
+    overflow: hidden;
+}
+.slides-holder {
+    display: flex;
+    flex-wrap: no-wrap;
+    transition-timing-function: ease-in;
+    -moz-transition-timing-function: ease-in;
+}
+
+.slide-caption {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.8em;
+    top: 45%;
+    left: 0;
+    flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+}
+

@@ -1,5 +1,5 @@
 import './productspage.scss'
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { CircularProgress } from '@mui/material'
 import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
 import { ProductFilter } from '../../components/productfilter/ProductFilter'
@@ -18,6 +18,7 @@ import { ProductCard } from '../../components/productcard/ProductCard'
 import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
 import { PagePanel } from '../../components/pagepanel/PagePanel'
+import { ProductModal } from '../../components/productmodal/ProductModal'
 
 export const ProductsPage = () => {
     const params = useParams()
@@ -29,6 +30,12 @@ export const ProductsPage = () => {
     const countProducts = useSelector(productCountSelector)
     const productIsLoaded = useSelector(productIsLoadedSelector)
     const dispatch = useDispatch()
+    const [modalIsActive, setModalIsActive] = useState(false)
+
+
+    const handleClick = () => {
+        setModalIsActive(true)
+    }
 
     useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
         dispatch(initProducts({ id: params.id, search: location.search }));
@@ -45,6 +52,10 @@ export const ProductsPage = () => {
 
     return (
         <div className="products-page">
+            {modalIsActive && <ProductModal
+                modalIsActive={modalIsActive}
+                setModalIsActive={setModalIsActive}
+            />}
             <BreadCrumbs />
             <div className="products-page-title">
                 <h1>{`${activeMenu(+params.id).name} ${countProducts} товара`}</h1>
@@ -63,6 +74,7 @@ export const ProductsPage = () => {
                                 price={item.price}
                                 brand={item.brand.name}
                                 country={item.country.name}
+                                onClick={handleClick}
                             />
                         )
                     })}
