@@ -1,14 +1,18 @@
 .submenu {
-    padding: 0;
-    margin: 0;
-    max-width: max-content;
-    max-height: max-content;
-    position: absolute;
-    left: 323px;
-    top: 110px;
-    border-radius: 5px;
-    padding-left: 20px;
-    padding-top: 10px;
+    // padding: 0;
+    // margin: 0;
+    // min-height: 500px;
+    // min-width: 500px;
+    // max-width: max-content;
+    // max-height: max-content;
+    // position: absolute;
+    // border-radius: 5px;
+    // padding-left: 20px;
+    // padding-top: 10px;
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    z-index: 1000;
 
     &.show {
         display: block;

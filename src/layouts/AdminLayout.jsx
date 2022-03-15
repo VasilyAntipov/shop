@@ -22,8 +22,6 @@ export const AdminLayout = () => {
     }
         , [])
 
-
-
     return (
         <div className="admin-container">
             <Route component={DrawerPanel} />

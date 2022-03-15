@@ -42,22 +42,26 @@ const App = () => {
 
 
     return (
-        <BrowserRouter>
-            <Route component={Navbar} />
-            <Switch>
-                <Route path={HOMEPAGE_ROUTE} component={HomePage} exact />
-                <Route path={ABOUT_ROUTE} component={AboutPage} exact />
-                {isAdmin && <Route path={ADMIN_ROUTE} component={AdminLayout} />}
-                {isAuth && <Route path={BASKET_ROUTE} component={BasketPage} />}
-                <Route path={`${CATALOG_ROUTE}/:id`} component={CatalogPage} />
-                <Route path={CATALOG_ROUTE} component={CatalogPage} exact />
-                <Route path={`${PRODUCTS_ROUTE}/:id`} component={ProductsPage} />
-                <Route path={PROFILE_ROUTE} component={ProfilePage} />
-                <Redirect to={HOMEPAGE_ROUTE} />
-            </Switch>
-            <Route component={AuthDialog} />
-            <Route component={Footer} />
-        </BrowserRouter>
+        <div className="Shop" >
+            <BrowserRouter>
+                <Route component={Navbar} />
+                <div className="main-body">
+                    <Switch>
+                        <Route path={HOMEPAGE_ROUTE} component={HomePage} exact />
+                        <Route path={ABOUT_ROUTE} component={AboutPage} exact />
+                        {isAdmin && <Route path={ADMIN_ROUTE} component={AdminLayout} />}
+                        {isAuth && <Route path={BASKET_ROUTE} component={BasketPage} />}
+                        <Route path={`${CATALOG_ROUTE}/:id`} component={CatalogPage} />
+                        <Route path={CATALOG_ROUTE} component={CatalogPage} exact />
+                        <Route path={`${PRODUCTS_ROUTE}/:id`} component={ProductsPage} />
+                        <Route path={PROFILE_ROUTE} component={ProfilePage} />
+                        <Redirect to={HOMEPAGE_ROUTE} />
+                    </Switch>
+                </div>
+                <Route component={AuthDialog} />
+                <Route component={Footer} />
+            </BrowserRouter>
+        </div>
     );
 }
 

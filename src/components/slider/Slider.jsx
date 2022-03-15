@@ -15,12 +15,13 @@ export const Slider = (props) => {
             childrenElem: false,
             url: './image2.jpg',
         },
-        {
-            childrenElem: false,
-            url: './image3.jpg',
-        }],
+        // {
+        //     childrenElem: false,
+        //     url: './image3.jpg',
+        // }
+    ],
         showIndicator = true,
-        height = 500,
+        height = 200,
         buttonShape = 'square'
     } = props
 
@@ -87,7 +88,7 @@ export const Slider = (props) => {
     return (
         <div className="main-container">
             <div className="slide-container" style={{
-                minHeight: (window.innerWidth > 450) ? 450 : window.innerHeight / 3,
+                minHeight: '200px'
             }}>
                 <div className="slides-holder" style={{
                     height,

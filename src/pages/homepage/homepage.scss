@@ -1,20 +1,14 @@
 .homepage-container {
-    max-width: 1300px;
     padding-left: 20px;
+    display: flex;
+    min-width: 1080px;
+    justify-content: space-between;
     // padding-right: 20px;
 
-    .homepage-grid {
+    .homepage-menu {
         margin-left: 20px;
-        justify-content: space-between;
-        display: flex;
-
+    }
+    .homepage-body {
+        
     }
 }
-
-@media (max-width: 991px) {
-    .homepage-top-shops {
-        display: flex;
-    }
-}
-
-

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './submenu.scss'
 import { Paper } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
-import { setIsMenuActive, showCardSubMenu } from '../../redux/actions'
+import { setIsMenuActive, showCardSubMenu } from '../../../redux/actions'
 import { MenuItem } from '../menuitem/MenuItem'
 import { SubMenuCard } from '../submenucard/SubMenuCard'
 import {
@@ -10,9 +10,12 @@ import {
     menuHaveChildSelector,
     isMenuActiveSelector,
     idActiveMenuSelector
-} from '../../redux/selectors/menuSelectors'
+} from '../../../redux/selectors/menuSelectors'
 
-export const SubMenu = () => {
+export const SubMenu = (props) => {
+
+    const { isOpen, setIsOpen, subPosition } = props
+    const {x,y} = subPosition
 
     const subItems = useSelector(subMenuItemsSelector)
     const menuHaveChild = useSelector(menuHaveChildSelector)
@@ -32,11 +35,17 @@ export const SubMenu = () => {
         }
     };
 
+
+
     return (
         <Paper
-            className={`submenu ${(isMenuActive) ? 'show' : 'hide'}`}
-            onMouseEnter={() => dispatch(setIsMenuActive(true))}
-            onMouseLeave={() => dispatch(setIsMenuActive(false))}
+            // className={`submenu ${(isMenuActive) ? 'show' : 'hide'}`}
+            className={`submenu ${(isOpen) ? 'show' : 'hide'}`}
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+            style={{left: x, top: y }}
+        // onMouseEnter={() => dispatch(setIsMenuActive(true))}
+        // onMouseLeave={() => dispatch(setIsMenuActive(false))}
         >
             <SubMenuCard
                 id={idActiveSubMenu}

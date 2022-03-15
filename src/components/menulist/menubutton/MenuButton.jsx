@@ -1,21 +1,25 @@
 import './menubutton.scss'
-import React from 'react';
+import React, { useRef } from 'react';
 import ListItem from '@mui/material/ListItem';
 import { Icon } from '@mdi/react'
 import { useDispatch } from 'react-redux'
-import { setIdActiveMenu, setIsMenuActive } from '../../redux/actions'
+import { setIdActiveMenu } from '../../../redux/actions'
 import { MenuItem } from '../menuitem/MenuItem';
 
-export const MenuButton = ({ id, path, name }) => {
+export const MenuButton = ({ id, path, name, setOpenSub, setSubPosition }) => {
+    const ref = useRef()
     const dispatch = useDispatch();
     return (
         <ListItem className="menu-list"
+            ref={ref}
             button={true}
             onMouseEnter={() => {
+                const { x, y } = ref.current.getBoundingClientRect()
+                setOpenSub(true)
+                setSubPosition({ x: x + ref.current.clientWidth, y })
                 dispatch(setIdActiveMenu(id))
-                dispatch(setIsMenuActive(true))
             }}
-            onMouseLeave={() => dispatch(setIsMenuActive(false))}
+            onMouseLeave={() => setOpenSub(false)}
         >
             <Icon
                 path={path}
