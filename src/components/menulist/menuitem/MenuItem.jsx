@@ -2,21 +2,13 @@ import './menuitem.scss'
 import { Link } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { CATALOG_PATH, PRODUCTS_PATH, ARROW } from '../../../utils/constants'
-import { menuHaveChildSelector } from '../../../redux/selectors/menuSelectors'
+import { CATALOG_PATH, PRODUCTS_PATH } from '../../../utils/constants'
 
-export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', showArrow = false }) => {
-    let path;
-    const menuHaveChild = useSelector(state => menuHaveChildSelector(state))
-    if (menuHaveChild(id)) {
-        path = CATALOG_PATH
-        if (showArrow) {
-            name += ARROW
-        }
-    } else {
-        path = PRODUCTS_PATH
-    }
+export const MenuItem = ({ id, name, haveChild, arrow = false, mouseEnter, mouseLeave, size = 'normal' }) => {
+
+    const path = haveChild
+    ? CATALOG_PATH
+    : PRODUCTS_PATH
 
     return (
         <Link
@@ -26,11 +18,17 @@ export const MenuItem = ({ id, mouseEnter, mouseLeave, name, size = 'normal', sh
             underline={'none'}
             to={{ pathname: `${path}${id}` }}
         >
-            <div className={size}
-                onMouseEnter={mouseEnter}
-                onMouseLeave={mouseLeave}
+            <div
+                className={size}
             >
-                {name}
+                <p
+                    className='menu-item'
+                    onMouseEnter={mouseEnter}
+                    onMouseLeave={mouseLeave}
+                >
+                    {name}
+                    {arrow && haveChild ? '➞' : null}
+                </p>
             </div>
         </Link>
 

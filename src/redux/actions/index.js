@@ -42,9 +42,20 @@ import {
     DELETE_REFERENCE
 } from '../constants'
 
-export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
+// export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
+export const initMenuSuccess = createAction(INIT_MENU_SUCCESS, (items) => {
+    return items.map((item) => {
+        if (items.find(elem => elem.parentId === item.id)) {
+            return { ...item, haveChild: true }
+        }
+        else
+            return { ...item, haveChild: false }
+    })
+})
 export const initMenuFail = createAction(INIT_MENU_FAIL)
 export const initMenu = createAction(INIT_MENU)
+
+
 export const setIdActiveMenu = createAction(SET_ID_ACTIVE_MENU)
 export const setIsMenuActive = createAction(SET_IS_MENU_ACTIVE)
 export const showCardSubMenu = createAction(SHOW_CARD_SUB_MENU)
@@ -125,4 +136,4 @@ export const initReferencesFail = createAction(INIT_REFERENCES_FAIL)
 export const initReferencesSuccess = createAction(INIT_REFERENCES_SUCCESS)
 export const updateReferenceAction = createAction(UPDATE_REFERENCE)
 export const createReferenceAction = createAction(CREATE_REFERENCE)
-export const deleteReferenceAction  = createAction(DELETE_REFERENCE)
+export const deleteReferenceAction = createAction(DELETE_REFERENCE)

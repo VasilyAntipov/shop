@@ -1,83 +1,79 @@
 import React, { useState } from 'react'
 import './submenu.scss'
 import { Paper } from '@mui/material'
-import { useSelector, useDispatch } from 'react-redux'
-import { setIsMenuActive, showCardSubMenu } from '../../../redux/actions'
 import { MenuItem } from '../menuitem/MenuItem'
-import { SubMenuCard } from '../submenucard/SubMenuCard'
-import {
-    subMenuItemsSelector,
-    menuHaveChildSelector,
-    isMenuActiveSelector,
-    idActiveMenuSelector
-} from '../../../redux/selectors/menuSelectors'
+import { SmallSubMenu } from '../smallsubmenu/SmallSubMenu'
 
 export const SubMenu = (props) => {
 
-    const { isOpen, setIsOpen, subPosition } = props
-    const {x,y} = subPosition
-
-    const subItems = useSelector(subMenuItemsSelector)
-    const menuHaveChild = useSelector(menuHaveChildSelector)
-    const isMenuActive = useSelector(isMenuActiveSelector)
-    const idMenuActive = useSelector(idActiveMenuSelector)
-
-    const dispatch = useDispatch()
+    const { setIsOpen, subPosition, items, activeId } = props
+    const { x, y } = subPosition
 
     const [anchorEl, setAnchorEl] = useState(null);
-    const [idActiveSubMenu, setIdActiveSubMenu] = useState(null);
+    const [activeIdSubCard, setActiveIdSubCard] = useState(null)
+    const [subCardIsOpen, setSubCardIsOpen] = useState(false)
 
-    const handleCardSubMenuOpen = (id, event) => {
-        if (menuHaveChild(id)) {
-            setIdActiveSubMenu(id);
+    const handleSubItemEnter = (item, event) => {
+        if (item.haveChild) {
+            setSubCardIsOpen(true);
+            setActiveIdSubCard(item.id);
             setAnchorEl(event.currentTarget);
-            dispatch(showCardSubMenu(true))
         }
     };
 
+    const handleSubItemLeave = () => {
+        setSubCardIsOpen(false);
+    };
 
-
+    
     return (
         <Paper
-            // className={`submenu ${(isMenuActive) ? 'show' : 'hide'}`}
-            className={`submenu ${(isOpen) ? 'show' : 'hide'}`}
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
-            style={{left: x, top: y }}
-        // onMouseEnter={() => dispatch(setIsMenuActive(true))}
-        // onMouseLeave={() => dispatch(setIsMenuActive(false))}
+            className="submenu"
+            style={{ left: x, top: y }}
         >
-            <SubMenuCard
-                id={idActiveSubMenu}
+            {subCardIsOpen && <SmallSubMenu
+                id={activeIdSubCard}
                 anchorEl={anchorEl}
-            />
+                items={items.filter(el => el.parentId === activeIdSubCard)}
+                subCardIsOpen={subCardIsOpen}
+                setSubCardIsOpen={setSubCardIsOpen}
+            />}
+
             <div className="content-menu">
-                {subItems
-                    .filter(elem => elem.parentId === idMenuActive)
+                {items
+                    .filter(item => item.parentId === activeId)
                     .map((item) => {
                         return (
-                            <div key={item.id} className="menu-level-container">
+                            <div
+                                key={item.id}
+                                className="menu-level-container"
+                            >
                                 <MenuItem
                                     id={item.id}
-                                    size={'big'}
+                                    size='big'
                                     name={item.name}
+                                    haveChild={item.haveChild}
                                 />
-                                {subItems
+                                {items
                                     .filter(elem => elem.parentId === item.id)
-                                    .map((subItem) => {
+                                    .map((elem) => {
                                         return (
-                                            <li key={subItem.id}>
+                                            <li key={elem.id}>
                                                 <MenuItem
-                                                    id={subItem.id}
-                                                    size={'normal'}
-                                                    name={subItem.name}
-                                                    showArrow={true}
-                                                    mouseEnter={(event) => handleCardSubMenuOpen(subItem.id, event)}
-                                                    mouseLeave={() => dispatch(showCardSubMenu(false))}
+                                                    id={elem.id}
+                                                    size='normal'
+                                                    name={elem.name}
+                                                    mouseEnter={(e) => handleSubItemEnter(elem, e)}
+                                                    mouseLeave={() => handleSubItemLeave()}
+                                                    haveChild={elem.haveChild}
+                                                    arrow={true}
                                                 />
                                             </li>
                                         )
-                                    })}
+                                    })
+                                }
                             </div>
                         )
                     })}

@@ -8,9 +8,11 @@ import { SubMenu } from './submenu/SubMenu';
 
 export const MenuList = (props) => {
 
-    const { isLoaded, items } = props
+    const { isLoaded, items, subItems} = props
+
     const [isOpenSub, setIsOpenSub] = useState(false)
     const [subPosition, setSubPosition] = useState({ x: 0, y: 0 })
+    const [activeId, setActiveId] = useState(null)
 
     if (!isLoaded)
         return <CircularProgress />
@@ -21,19 +23,21 @@ export const MenuList = (props) => {
                 {items.map((item) =>
                     <MenuButton
                         key={item.id}
-                        id={item.id}
-                        path={mdiWashingMachine}
-                        name={item.name}
+                        item={item}
+                        img={mdiWashingMachine}
                         setOpenSub={setIsOpenSub}
                         setSubPosition={setSubPosition}
+                        setActiveId={setActiveId}
                     />
                 )}
             </List>
-            <SubMenu
+            {isOpenSub && <SubMenu
                 isOpen={isOpenSub}
                 setIsOpen={setIsOpenSub}
                 subPosition={subPosition}
-            />
+                items={subItems}
+                activeId={activeId}
+            />}
         </Paper >
     )
 }

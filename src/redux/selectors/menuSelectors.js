@@ -11,6 +11,7 @@ export const mainMenuItemsSelector =
     createSelector([menuItemsSelector], (items) => items.filter(item => item.parentId === 0))
 export const subMenuItemsSelector =
     createSelector([menuItemsSelector], (items) => items.filter(item => item.parentId !== 0))
+    
 export const menuHaveChildSelector =
     (state) => (id) => menuItemsSelector(state).some(item => item.parentId === id);
 
