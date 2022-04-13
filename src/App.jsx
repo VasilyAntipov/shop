@@ -11,7 +11,8 @@ import {
     CATALOG_ROUTE,
     HOMEPAGE_ROUTE,
     PRODUCTS_ROUTE,
-    PROFILE_ROUTE
+    PROFILE_ROUTE,
+    DELIVERY_ROUTE
 } from "./utils/constants";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ProductsPage } from "./pages/productspage/ProductsPage";
@@ -20,6 +21,7 @@ import { BasketPage } from "./pages/basketpage/BasketPage";
 import { AboutPage } from "./pages/aboutpage/AboutPage";
 import { ProfilePage } from "./pages/profilepage/ProfilePage";
 import { HomePage } from "./pages/homepage/HomePage";
+import {DeliveryPage} from "./pages/delivery/delivery"
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/navbar/Navbar";
 import { isAdminSelector, isAuthSelector, userIsLoadedSelector } from "./redux/selectors/userSelectors.js";
@@ -55,6 +57,7 @@ const App = () => {
                         <Route path={CATALOG_ROUTE} component={CatalogPage} exact />
                         <Route path={`${PRODUCTS_ROUTE}/:id`} component={ProductsPage} />
                         <Route path={PROFILE_ROUTE} component={ProfilePage} />
+                        <Route path={DELIVERY_ROUTE} component={DeliveryPage} />
                         <Redirect to={HOMEPAGE_ROUTE} />
                     </Switch>
                 </div>

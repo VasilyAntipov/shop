@@ -1,6 +1,5 @@
 import React from 'react'
 import './ProductModal.scss'
-import {Slider} from '../slider/Slider'
 
 export const ProductModal = (props) => {
     const { modalIsActive, setModalIsActive } = props
@@ -16,8 +15,7 @@ export const ProductModal = (props) => {
             <div
                 className="product-modal"
             >
-                
-                <Slider />
+
                 модалка для продукта
             </div>
         </div>
