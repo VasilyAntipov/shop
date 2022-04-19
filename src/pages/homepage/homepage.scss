@@ -12,27 +12,16 @@
             width: 100%;
             height: max-content;
             padding: 15px;
-            position: relative;
-            .top-container {
-                height: max-content;
-                width: auto;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                .slider-container {
-                    position: relative;
-                    display: block;
-                }
                 .actions {
-                    width: 100%;
+                    padding-left: 0;
+                    width: 580px;
                     height: 200px;
                     background-color: green;
-                    margin-left: 15px;
+  
                 }
-            }
             .middle-container {
-                height: 300px;
-                width: auto;
+                height: 150px;
+                width: 700px;
                 background-color: yellow;
             }
         }

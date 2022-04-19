@@ -39,7 +39,8 @@ import {
     DELETE_PRODUCT,
     UPDATE_REFERENCE,
     CREATE_REFERENCE,
-    DELETE_REFERENCE
+    DELETE_REFERENCE,
+    UPDATE_RATING
 } from '../constants'
 
 // export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -71,6 +72,7 @@ export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
 export const addProductAction = createAction(ADD_PRODUCT)
 export const updateProductAction = createAction(UPDATE_PRODUCT)
 export const deleteProductAction = createAction(DELETE_PRODUCT)
+export const updateRatingAction = createAction(UPDATE_RATING)
 
 
 export const initFilters = createAction(INIT_FILTERS)

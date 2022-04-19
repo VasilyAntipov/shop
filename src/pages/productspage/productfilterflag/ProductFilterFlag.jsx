@@ -3,9 +3,9 @@ import './productfilterflag.scss'
 import { Button } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { showFilterFlag } from '../../redux/actions'
-import { filterApplyButtonSelector, filtersToArraySelector } from '../../redux/selectors/filterSelectors'
-import { addSearchToUrl } from '../../utils/func'
+import { showFilterFlag } from '../../../redux/actions'
+import { filterApplyButtonSelector, filtersToArraySelector } from '../../../redux/selectors/filterSelectors'
+import { addSearchToUrl } from '../../../utils/func'
 export const ProductFilterFlag = () => {
 
     const location = useLocation()

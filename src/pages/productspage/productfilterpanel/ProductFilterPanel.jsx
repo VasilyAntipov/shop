@@ -1,9 +1,9 @@
 import './productfilterpanel.scss'
 import React from 'react'
 import { Paper } from '@mui/material'
-import { PopoverCheckbox } from '../popovercheckbox/PopoverCheckbox'
+import { PopoverCheckbox} from '../../../components/popovercheckbox/PopoverCheckbox'
 import { useSelector } from 'react-redux'
-import { orderListSelector, groupListSelector, filterIsLoadedSelector } from '../../redux/selectors/filterSelectors'
+import { orderListSelector, groupListSelector, filterIsLoadedSelector } from '../../../redux/selectors/filterSelectors'
 
 export const ProductFilterPanel = () => {
     const orderList = useSelector(orderListSelector)

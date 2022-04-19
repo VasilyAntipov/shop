@@ -2,8 +2,11 @@ import './productspage.scss'
 import React, { useEffect, useCallback, useState } from 'react'
 import { CircularProgress } from '@mui/material'
 import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
-import { ProductFilter } from '../../components/productfilter/ProductFilter'
-import { ProductFilterPanel } from '../../components/productfilterpanel/ProductFilterPanel'
+import { ProductFilter } from './productfilter/ProductFilter'
+import { ProductFilterPanel } from './productfilterpanel/ProductFilterPanel'
+import { PagePanel } from '../../components/pagepanel/PagePanel'
+import { ProductModal } from './productmodal/ProductModal'
+
 import { useParams, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -14,11 +17,9 @@ import {
     productIsLoadedSelector,
     productCountSelector
 } from '../../redux/selectors/productSelectors'
-import { ProductCard } from '../../components/productcard/ProductCard'
+import { ProductCard } from './productcard/ProductCard'
 import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
-import { PagePanel } from '../../components/pagepanel/PagePanel'
-import { ProductModal } from '../../components/productmodal/ProductModal'
 
 export const ProductsPage = () => {
     const params = useParams()
@@ -29,7 +30,9 @@ export const ProductsPage = () => {
     const menuIsLoaded = useSelector(menuIsLoadedSelector)
     const countProducts = useSelector(productCountSelector)
     const productIsLoaded = useSelector(productIsLoadedSelector)
+
     const dispatch = useDispatch()
+    
     const [modalIsActive, setModalIsActive] = useState(false)
 
 
@@ -48,6 +51,10 @@ export const ProductsPage = () => {
                 <CircularProgress />
             </div>
         );
+    }
+
+    const setRating = (id) => {
+        
     }
 
     return (
@@ -74,6 +81,8 @@ export const ProductsPage = () => {
                                 price={item.price}
                                 brand={item.brand.name}
                                 country={item.country.name}
+                                rating={item.ratings}
+                                setRating={setRating}
                                 onClick={handleClick}
                             />
                         )

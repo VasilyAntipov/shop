@@ -4,8 +4,8 @@ import { Paper, Link } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { ProductFilterAccordion } from '../productfilteraccordion/ProductFilterAccordion'
 import { ProductFilterFlag } from '../productfilterflag/ProductFilterFlag'
-import { filterItemsSelector, filterIsLoadedSelector } from '../../redux/selectors/filterSelectors'
-import { clearFiltersAll, showFilterFlag } from '../../redux/actions'
+import { filterItemsSelector, filterIsLoadedSelector } from '../../../redux/selectors/filterSelectors'
+import { clearFiltersAll, showFilterFlag} from '../../../redux/actions/index'
 export const ProductFilter = () => {
 
     const dispatch = useDispatch()

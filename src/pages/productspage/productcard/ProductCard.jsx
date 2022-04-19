@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './productcard.scss'
 import { Paper } from '@mui/material'
 import { Button } from '@mui/material'
-import { IMAGES_URL } from '../../utils/constants'
+import { IMAGES_URL } from '../../../utils/constants'
+import Rating from '@mui/material/Rating';
+import { updateRating } from '../../../http/productApi'
 
-export const ProductCard = ({ name, img, price, brand, country, onClick }) => {
+export const ProductCard = ({ id, name, img, price, brand, country, rating, setRating, onClick, }) => {
+
+    const avgDefault = rating.length
+        ? rating.reduce((a, b) => (a.rate + b.rate)) / rating.length
+        : 1
+    const [avgRate] = useState(avgDefault)
+
+    const updateRatingHandle = (rating) => {
+        updateRating(id, rating)
+            .then()
+    }
+
     return (
         <Paper
             onClick={onClick}
@@ -19,7 +32,14 @@ export const ProductCard = ({ name, img, price, brand, country, onClick }) => {
                 <div className='card-body-container'>
                     <span>{name}</span><br /><br />
                     <span>Страна производства: {country}</span><br /><br />
-                    <span>Производитель: {brand}</span>
+                    <span>Производитель: {brand}</span><br />
+                    <Rating
+                        name="simple-controlled"
+                        value={avgRate}
+                        onChange={(event, newValue) => {
+                            updateRatingHandle(newValue);
+                        }}
+                    />
                 </div>
             </div>
             <div className="product-card-buy">

@@ -25,3 +25,8 @@ export const getOneProduct = async (id) => {
     const { data } = await $host.get('api/product/one/' + id)
     return data
 }
+
+export const updateRating = async (id, rate) => {
+    const { data } = await $host.post('api/product/rate/', { id, rate })
+    return data
+}

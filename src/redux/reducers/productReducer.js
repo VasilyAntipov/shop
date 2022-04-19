@@ -5,7 +5,8 @@ import {
     INIT_PRODUCTS_SUCCESS,
     ADD_PRODUCT,
     UPDATE_PRODUCT,
-    DELETE_PRODUCT
+    DELETE_PRODUCT,
+    UPDATE_RATING
 } from "../constants"
 
 const initState = {
@@ -67,6 +68,11 @@ export const productReducer = (state = initState, action) => {
             return {
                 ...state,
                 items: state.items.filter(item => item.id !== action.payload)
+            }
+        case UPDATE_RATING:
+            return {
+                ...state,
+                items: state.items
             }
         default:
             return state

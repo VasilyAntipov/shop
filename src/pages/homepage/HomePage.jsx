@@ -24,7 +24,18 @@ export const HomePage = () => {
     const settings = {
         // lazyload: true,
         nav: false,
-        mouseDrag: true
+        mouseDrag: true,
+        controls: false,
+        mode: 'carousel',
+        // controlsPosition: 'bottom',
+        // lazyload: false,
+        // autoWidth: true,
+        // center: true,
+        arrowKeys: true,
+        autoplay: true,
+        autoplayButtonOutput: false,
+
+
     };
     const items = [
         { img: 'image1.jpg' },
@@ -42,28 +53,38 @@ export const HomePage = () => {
                     />
                 </div>
                 <div className="homepage-body">
-                    <div className="top-container">
-                        <div className="actions" style={{overflow:'hidden' , width: 500}}>
-                            <TinySlider settings={settings}>
-                                {items.map((el, index) => (
-                                    <div key={index} style={{ position: "relative"}}>
-                                        <img
-                                            className={`tns-lazy-img`}
-                                            src={el.img}
-                                            data-src={el}
-                                            alt=""
-                                        // style={imgStyles}
-                                        />
-                                    </div>
-                                ))}
-                            </TinySlider>
-                        </div>
+                    <div className="actions">
+                        <TinySlider settings={settings}>
+                            {items.map((el, index) => (
+                                <div key={index} style={{ position: "relative" }}>
+                                    <img
+                                        className="slider-image"
+                                        src={el.img}
+                                        data-src={el}
+                                        alt=""
+                                    // style={imgStyles}
+                                    />
+                                </div>
+                            ))}
+                        </TinySlider>
                     </div>
-                    <div style={{ marginTop: 15, marginBottom: 15 }}>
+                    <div style={{ marginTop: 30 }}>
                         <h2>Актуальные предложения</h2>
                     </div>
                     <div className="middle-container">
-
+                        <TinySlider settings={settings}>
+                            {items.map((el, index) => (
+                                <div key={index} style={{ position: "relative" }}>
+                                    <img
+                                        className="slider-image"
+                                        src={el.img}
+                                        data-src={el}
+                                        alt=""
+                                    // style={imgStyles}
+                                    />
+                                </div>
+                            ))}
+                        </TinySlider>
                     </div>
                     <div className="bottom-container"></div>
                 </div>
