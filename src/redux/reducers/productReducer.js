@@ -70,10 +70,25 @@ export const productReducer = (state = initState, action) => {
                 items: state.items.filter(item => item.id !== action.payload)
             }
         case UPDATE_RATING:
-            return {
-                ...state,
-                items: state.items
+            {
+                return {
+                    ...state,   
+                    items: state.items.map(item => {
+                        if (item.id === action.payload.id) {
+                            console.log('update')
+                            return {
+                                ...item,
+                                ratings: [
+                                    ...item.ratings,
+                                    { rate: action.payload.rate }
+                                ]
+                            }
+                        }
+                        return item
+                    })
+                }
             }
+            
         default:
             return state
     }

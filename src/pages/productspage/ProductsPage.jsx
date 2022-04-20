@@ -21,6 +21,7 @@ import { ProductCard } from './productcard/ProductCard'
 import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
 
+
 export const ProductsPage = () => {
     const params = useParams()
     const location = useLocation()
@@ -35,11 +36,6 @@ export const ProductsPage = () => {
     
     const [modalIsActive, setModalIsActive] = useState(false)
 
-
-    const handleClick = () => {
-        setModalIsActive(true)
-    }
-
     useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
         dispatch(initProducts({ id: params.id, search: location.search }));
         dispatch(initFilters({ id: params.id, search: location.search }));
@@ -53,9 +49,7 @@ export const ProductsPage = () => {
         );
     }
 
-    const setRating = (id) => {
-        
-    }
+   
 
     return (
         <div className="products-page">
@@ -81,9 +75,7 @@ export const ProductsPage = () => {
                                 price={item.price}
                                 brand={item.brand.name}
                                 country={item.country.name}
-                                rating={item.ratings}
-                                setRating={setRating}
-                                onClick={handleClick}
+                                ratings={item.ratings}
                             />
                         )
                     })}

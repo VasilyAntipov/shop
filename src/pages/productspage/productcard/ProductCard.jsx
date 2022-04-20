@@ -1,21 +1,27 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import './productcard.scss'
 import { Paper } from '@mui/material'
 import { Button } from '@mui/material'
 import { IMAGES_URL } from '../../../utils/constants'
 import Rating from '@mui/material/Rating';
 import { updateRating } from '../../../http/productApi'
+import { updateRatingAction } from '../../../redux/actions'
 
-export const ProductCard = ({ id, name, img, price, brand, country, rating, setRating, onClick, }) => {
 
-    const avgDefault = rating.length
-        ? rating.reduce((a, b) => (a.rate + b.rate)) / rating.length
-        : 1
-    const [avgRate] = useState(avgDefault)
+export const ProductCard = ({ id, name, img, price, brand, country, onClick, ratings }) => {
+    const dispatch = useDispatch()
 
-    const updateRatingHandle = (rating) => {
-        updateRating(id, rating)
-            .then()
+    const avgRating = ratings.length
+        ? ratings.reduce((partial_sum, a) => partial_sum + a.rate, 0) / ratings.length
+        : 0
+
+    const handleChangeRating = (newRating) => {
+        updateRating(id, newRating)
+            .then(data => {
+                const { rate } = data
+                dispatch(updateRatingAction({ id, rate }))
+            })
     }
 
     return (
@@ -35,9 +41,9 @@ export const ProductCard = ({ id, name, img, price, brand, country, rating, setR
                     <span>Производитель: {brand}</span><br />
                     <Rating
                         name="simple-controlled"
-                        value={avgRate}
+                        value={avgRating}
                         onChange={(event, newValue) => {
-                            updateRatingHandle(newValue);
+                            handleChangeRating(newValue)
                         }}
                     />
                 </div>
