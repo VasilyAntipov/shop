@@ -30,3 +30,5 @@ export const updateRating = async (id, rate) => {
     const { data } = await $host.post('api/product/rate/', { id, rate })
     return data
 }
+
+

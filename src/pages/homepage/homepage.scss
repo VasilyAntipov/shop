@@ -4,7 +4,7 @@
     .homepage-top-container {
         display: flex;
         justify-content: space-between;
-        background-color: tomato;
+        background-color: white;
         .homepage-menu {
             margin-left: 20px;
         }
@@ -16,13 +16,11 @@
                     padding-left: 0;
                     width: 580px;
                     height: 200px;
-                    background-color: green;
   
                 }
             .middle-container {
                 height: 150px;
                 width: 700px;
-                background-color: yellow;
             }
         }
     }

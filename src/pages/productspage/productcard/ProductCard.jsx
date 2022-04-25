@@ -9,18 +9,15 @@ import { updateRating } from '../../../http/productApi'
 import { updateRatingAction } from '../../../redux/actions'
 
 
-export const ProductCard = ({ id, name, img, price, brand, country, onClick, ratings }) => {
-    const dispatch = useDispatch()
+export const ProductCard = ({ id, name, img, price, brand, country, onClick, avgRating, countRating }) => {
 
-    const avgRating = ratings.length
-        ? ratings.reduce((partial_sum, a) => partial_sum + a.rate, 0) / ratings.length
-        : 0
+    const dispatch = useDispatch()
 
     const handleChangeRating = (newRating) => {
         updateRating(id, newRating)
             .then(data => {
-                const { rate } = data
-                dispatch(updateRatingAction({ id, rate }))
+                const { avgRating , countRating} = data
+                dispatch(updateRatingAction({ id, avgRating, countRating }))
             })
     }
 
@@ -46,6 +43,8 @@ export const ProductCard = ({ id, name, img, price, brand, country, onClick, rat
                             handleChangeRating(newValue)
                         }}
                     />
+                    <br />
+                    <span>количество голосов: {countRating} </span>
                 </div>
             </div>
             <div className="product-card-buy">

@@ -2,7 +2,8 @@ import { put, all, takeLatest, select } from 'redux-saga/effects';
 import {
     INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER,
     SET_CATALOG_TABLE_PARENT,
-    INIT_REFERENCES
+    INIT_REFERENCES,
+    INIT_TOP_PRODUCTS
 } from '../redux/constants';
 import {
     initMenuSuccess,
@@ -15,14 +16,17 @@ import {
     initUserFail,
     initUserSuccess,
     initReferencesFail,
-    initReferencesSuccess
+    initReferencesSuccess,
+    initTopProductsFail,
+    initTopProductsSuccess,
 } from '../redux/actions'
 
 import { auth } from '../http/userApi'
 import { getCategories } from '../http/categoryApi'
-import { getProductsByCatId } from '../http/productApi';
+import { getProductsByCatId, } from '../http/productApi';
 import { fetchBrands, fetchCountries } from '../http/referenceApi';
-import {getFilters} from '../http/filterApi'
+import { getFilters } from '../http/filterApi'
+import { getTopProducts } from '../http/homeApi'
 
 function* initMenu() {
     try {
@@ -37,7 +41,7 @@ function* setCatalogTableParent() {
     try {
         const menu = yield select(state => state.menu)
         const id = menu.admCatalogTableParent.id
-        const products = yield getProductsByCatId({id});
+        const products = yield getProductsByCatId({ id });
         yield put(initProductsSuccess(products));
     } catch (e) {
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));
@@ -51,6 +55,16 @@ function* initProducts(action) {
         yield put(initProductsSuccess(products));
     } catch (e) {
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));
+    }
+}
+
+
+function* initTopProducts() {
+    try {
+        const topProducts = yield getTopProducts();
+        yield put(initTopProductsSuccess(topProducts));
+    } catch (e) {
+        yield put(initTopProductsFail('COULD NOT GET TOP'));
     }
 }
 
@@ -91,6 +105,7 @@ export function* rootSaga() {
         takeLatest(INIT_FILTERS, initFilters),
         takeLatest(INIT_USER, initUser),
         takeLatest(SET_CATALOG_TABLE_PARENT, setCatalogTableParent),
-        takeLatest(INIT_REFERENCES, initReferences)
+        takeLatest(INIT_REFERENCES, initReferences),
+        takeLatest(INIT_TOP_PRODUCTS, initTopProducts)
     ]);
 }

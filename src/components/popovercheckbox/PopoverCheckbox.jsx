@@ -10,7 +10,7 @@ export const PopoverCheckbox = ({ className, checkBox, title, element }) => {
 
     const location = useLocation()
     const params = new URLSearchParams(location.search);
-    const activeItemId = params.get(element) || 1;
+    const activeItemId = params.get(element) || 0;
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -33,7 +33,7 @@ export const PopoverCheckbox = ({ className, checkBox, title, element }) => {
         <div className={className}>
             <span className="sort">{title}</span>
             <Link onClick={(e) => handleClick(e)}>
-                {checkBox[activeItemId - 1].title}
+                {checkBox[activeItemId].title}
             </Link>
             <Popover
                 open={open}

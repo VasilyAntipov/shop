@@ -21,7 +21,7 @@ export const ProductFilterPanel = () => {
     return (
         <Paper className="product-filter-panel">
             <PopoverCheckbox
-                element="order"
+                element="orderIndex"
                 checkBox={orderList}
                 className="popover sort"
                 title="сортировка: "

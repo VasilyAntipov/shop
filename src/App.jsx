@@ -2,7 +2,7 @@ import './app.scss';
 import React, { useEffect } from 'react';
 import { BrowserRouter, withRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { initMenu, initUser } from './redux/actions';
+import { initMenu, initUser ,initTopProducts} from './redux/actions';
 import { CircularProgress } from '@mui/material';
 import {
     ABOUT_ROUTE,
@@ -21,7 +21,7 @@ import { BasketPage } from "./pages/basketpage/BasketPage";
 import { AboutPage } from "./pages/aboutpage/AboutPage";
 import { ProfilePage } from "./pages/profilepage/ProfilePage";
 import { HomePage } from "./pages/homepage/HomePage";
-import {DeliveryPage} from "./pages/delivery/delivery"
+import { DeliveryPage } from "./pages/delivery/delivery"
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/navbar/Navbar";
 import { isAdminSelector, isAuthSelector, userIsLoadedSelector } from "./redux/selectors/userSelectors.js";

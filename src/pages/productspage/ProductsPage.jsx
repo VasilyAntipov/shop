@@ -49,7 +49,6 @@ export const ProductsPage = () => {
         );
     }
 
-   
 
     return (
         <div className="products-page">
@@ -73,9 +72,10 @@ export const ProductsPage = () => {
                                 name={item.name}
                                 img={item.img}
                                 price={item.price}
-                                brand={item.brand.name}
-                                country={item.country.name}
-                                ratings={item.ratings}
+                                brand={item.brandName}
+                                country={item.countryName}
+                                avgRating={item.avgRating}
+                                countRating={item.countRating}
                             />
                         )
                     })}
