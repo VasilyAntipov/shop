@@ -5,8 +5,8 @@ import {
     TextField,
 } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { openAuthDialog, loadUserData, setIsAuth } from '../../redux/actions'
-import { registration } from '../../http/userApi'
+import { openAuthDialog, loadUserData, setIsAuth } from '../../../redux/actions'
+import { registration } from '../../../http/userApi'
 
 export const RegForm = () => {
     const dispatch = useDispatch()

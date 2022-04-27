@@ -16,7 +16,9 @@ import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 import { initTopProducts } from '../../redux/actions'
 import { homeIsLoadedSelector, homeItemsSelector } from '../../redux/selectors/homeSelector'
-import { IMAGES_URL } from '../../utils/constants'
+import { Link } from 'react-router-dom'
+import { IMAGES_URL, PRODUCTS_PATH } from '../../utils/constants'
+
 
 export const HomePage = () => {
 
@@ -27,8 +29,6 @@ export const HomePage = () => {
     const subMenuItems = useSelector(subMenuItemsSelector)
     const topProducts = useSelector(homeItemsSelector)
     const topProductsIsLoaded = useSelector(homeIsLoadedSelector)
-
-
 
     const settings1 = {
         nav: false,
@@ -43,9 +43,8 @@ export const HomePage = () => {
     const settings2 = {
         nav: false,
         mouseDrag: true,
-        // controls: true,
+        controls: false,
         mode: 'carousel',
-        arrowKeys: true,
         autoplayButtonOutput: false,
         items: 5
     };
@@ -73,15 +72,18 @@ export const HomePage = () => {
                 </div>
                 <div className="homepage-body">
                     <div className="actions">
-                        <TinySlider settings={settings1}>
+                        <TinySlider
+                            settings={settings1}
+
+                        >
                             {items.map((el, index) => (
-                                <div key={index} style={{ position: "relative" }}>
+                                <div key={index} style={{ position: "relative" }}
+                                >
                                     <img
-                                        className="slider-image"
+                                        className="slider-image actions"
                                         src={el.img}
                                         data-src={el}
                                         alt=""
-                                    // style={imgStyles}
                                     />
                                 </div>
                             ))}
@@ -94,15 +96,22 @@ export const HomePage = () => {
                         {
                             topProductsIsLoaded && <TinySlider settings={settings2}>
                                 {topProducts.map((el, index) => (
-                                    <div key={index} style={{ position: "relative" }}>
+                                    <Link
+                                        className={`link-item`}
+                                        to={PRODUCTS_PATH + `${el.id}`}
+                                        key={index} style={{ position: "relative" }}
+                                    >
                                         <img
-                                            className="slider-image"
+                                            onClick={() => {
+
+                                            }}
+                                            className="slider-image actual"
                                             src={IMAGES_URL + `/${el.img}`}
                                             data-src={el}
                                             alt=""
                                             style={{ objectFit: "contain", width: 'auto', height: 100 }}
                                         />
-                                    </div>
+                                    </Link>
                                 ))}
                             </TinySlider>
                         }
@@ -111,7 +120,7 @@ export const HomePage = () => {
                 </div>
             </div>
             <div className="homepage-bottom-container">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est, quae.</p>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est, quae.</p>
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Popover, Link } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import { useLocation } from 'react-router'
-import { addSearchToUrl } from '../../utils/func'
+import { addSearchToUrl } from '../../../../../utils/func'
 
 export const PopoverCheckbox = ({ className, checkBox, title, element }) => {
 

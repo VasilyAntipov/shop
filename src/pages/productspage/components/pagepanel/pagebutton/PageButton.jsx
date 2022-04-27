@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
-import { addSearchToUrl } from '../../utils/func'
+import { addSearchToUrl } from '../../../../../utils/func'
 
 export const PageButton = ({ id }) => {
     const location = useLocation()

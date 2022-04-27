@@ -1,12 +1,12 @@
 import './pagepanel.scss'
 import React from 'react'
 import { Paper, } from '@mui/material'
-import { productCountSelector } from '../../redux/selectors/productSelectors'
+import { productCountSelector } from '../../../../redux/selectors/productSelectors'
 import { useSelector } from 'react-redux'
-import { PRODUCT_LIMIT, COUNT_BUTTONS } from '../../utils/constants'
+import { PRODUCT_LIMIT, COUNT_BUTTONS } from '../../../../utils/constants'
 import { useLocation } from 'react-router'
-import { PageButton } from '../pagebutton/PageButton'
-import { PageButtonArrow } from '../pagebuttonarrow/PageButtonArrow'
+import { PageButton } from './pagebutton/PageButton'
+import { PageButtonArrow } from './pagebuttonarrow/PageButtonArrow'
 export const PagePanel = () => {
 
     const location = useLocation()

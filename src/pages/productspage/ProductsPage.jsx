@@ -2,11 +2,9 @@ import './productspage.scss'
 import React, { useEffect, useCallback, useState } from 'react'
 import { CircularProgress } from '@mui/material'
 import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
-import { ProductFilter } from './productfilter/ProductFilter'
-import { ProductFilterPanel } from './productfilterpanel/ProductFilterPanel'
-import { PagePanel } from '../../components/pagepanel/PagePanel'
-import { ProductModal } from './productmodal/ProductModal'
-
+import { ProductFilter } from './components/productfilter/ProductFilter'
+import { ProductFilterPanel } from './components/productfilterpanel/ProductFilterPanel'
+import { PagePanel } from './components/pagepanel/PagePanel'
 import { useParams, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -17,7 +15,7 @@ import {
     productIsLoadedSelector,
     productCountSelector
 } from '../../redux/selectors/productSelectors'
-import { ProductCard } from './productcard/ProductCard'
+import { ProductCard } from './components/productcard/ProductCard'
 import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
 
@@ -34,8 +32,6 @@ export const ProductsPage = () => {
 
     const dispatch = useDispatch()
     
-    const [modalIsActive, setModalIsActive] = useState(false)
-
     useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
         dispatch(initProducts({ id: params.id, search: location.search }));
         dispatch(initFilters({ id: params.id, search: location.search }));
@@ -52,10 +48,6 @@ export const ProductsPage = () => {
 
     return (
         <div className="products-page">
-            {modalIsActive && <ProductModal
-                modalIsActive={modalIsActive}
-                setModalIsActive={setModalIsActive}
-            />}
             <BreadCrumbs />
             <div className="products-page-title">
                 <h1>{`${activeMenu(+params.id).name} ${countProducts} товара`}</h1>

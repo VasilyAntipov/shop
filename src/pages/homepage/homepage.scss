@@ -12,16 +12,21 @@
             width: 100%;
             height: max-content;
             padding: 15px;
+
                 .actions {
                     padding-left: 0;
                     width: 580px;
                     height: 200px;
-  
                 }
+              
             .middle-container {
                 height: 150px;
                 width: 700px;
             }
+   
+        }
+        .slider-image {
+            cursor: pointer;
         }
     }
     .homepage-bottom-container {

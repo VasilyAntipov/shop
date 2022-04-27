@@ -22,7 +22,6 @@ import { AboutPage } from "./pages/aboutpage/AboutPage";
 import { ProfilePage } from "./pages/profilepage/ProfilePage";
 import { HomePage } from "./pages/homepage/HomePage";
 import { DeliveryPage } from "./pages/delivery/delivery"
-import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/navbar/Navbar";
 import { isAdminSelector, isAuthSelector, userIsLoadedSelector } from "./redux/selectors/userSelectors.js";
 import { AuthDialog } from './components/authdialog/AuthDialog';
@@ -62,7 +61,6 @@ const App = () => {
                     </Switch>
                 </div>
                 <Route component={AuthDialog} />
-                <Route component={Footer} />
             </BrowserRouter>
         </div>
     );

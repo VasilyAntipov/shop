@@ -15,7 +15,7 @@ import {
     clearFilters,
     showFilterFlag,
     changeFilterMark
-} from '../../../redux/actions'
+} from '../../../../../redux/actions'
 
 export const ProductFilterAccordion = ({ filterArray, filterType, filterName, filterCount }) => {
 

@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux'
 import './productcard.scss'
 import { Paper } from '@mui/material'
 import { Button } from '@mui/material'
-import { IMAGES_URL } from '../../../utils/constants'
+import { IMAGES_URL } from '../../../../utils/constants'
 import Rating from '@mui/material/Rating';
-import { updateRating } from '../../../http/productApi'
-import { updateRatingAction } from '../../../redux/actions'
+import { updateRating } from '../../../../http/productApi'
+import { updateRatingAction } from '../../../../redux/actions'
 
 
 export const ProductCard = ({ id, name, img, price, brand, country, onClick, avgRating, countRating }) => {

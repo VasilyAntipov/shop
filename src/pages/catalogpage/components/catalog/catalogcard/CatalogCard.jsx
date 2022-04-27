@@ -1,9 +1,9 @@
 import './catalogcard.scss'
 import React from 'react'
 import { Paper } from '@mui/material'
-import { IMAGES_URL, CATALOG_ROUTE, PRODUCTS_ROUTE } from '../../utils/constants'
+import { IMAGES_URL, CATALOG_ROUTE, PRODUCTS_ROUTE } from '../../../../../utils/constants'
 import { useSelector } from 'react-redux'
-import { menuHaveChildSelector } from '../../redux/selectors/menuSelectors'
+import { menuHaveChildSelector } from '../../../../../redux/selectors/menuSelectors'
 import { Link as RouterLink } from 'react-router-dom'
 import { Link } from '@mui/material'
 

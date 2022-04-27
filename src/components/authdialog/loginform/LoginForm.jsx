@@ -10,8 +10,8 @@ import {
     openAuthDialog,
     setIsAuth,
     setIsAdmin
-} from '../../redux/actions'
-import { login } from '../../http/userApi'
+} from '../../../redux/actions'
+import { login } from '../../../http/userApi'
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
