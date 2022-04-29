@@ -19,6 +19,8 @@
     }
     .product-card-body {
         display: flex;
+        justify-content: left;
+        height:100px;
         .card-body-container {
             margin-top: auto;
             margin-bottom: auto;

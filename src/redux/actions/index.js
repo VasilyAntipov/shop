@@ -43,7 +43,9 @@ import {
     UPDATE_RATING,
     INIT_TOP_PRODUCTS,
     INIT_TOP_PRODUCTS_SUCCESS,
-    INIT_TOP_PRODUCTS_FAIL
+    INIT_TOP_PRODUCTS_FAIL,
+    INIT_PRODUCTS_SUCCESS_ONE,
+    INIT_PRODUCTS_ONE,
 } from '../constants'
 
 // export const initMenuSuccess = createAction(INIT_MENU_SUCCESS)
@@ -71,6 +73,8 @@ export const deleteCategoryAction = createAction(DELETE_CATEGORY)
 export const isProduct = createAction(IS_PRODUCT)
 export const initProducts = createAction(INIT_PRODUCTS)
 export const initProductsSuccess = createAction(INIT_PRODUCTS_SUCCESS)
+export const initProductsSuccessOne = createAction(INIT_PRODUCTS_SUCCESS_ONE)
+export const initProductsOne = createAction(INIT_PRODUCTS_ONE)
 export const initProductsFail = createAction(INIT_PRODUCTS_FAIL)
 export const addProductAction = createAction(ADD_PRODUCT)
 export const updateProductAction = createAction(UPDATE_PRODUCT)

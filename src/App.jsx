@@ -12,7 +12,8 @@ import {
     HOMEPAGE_ROUTE,
     PRODUCTS_ROUTE,
     PROFILE_ROUTE,
-    DELIVERY_ROUTE
+    DELIVERY_ROUTE,
+    PRODUCT_ROUTE
 } from "./utils/constants";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ProductsPage } from "./pages/productspage/ProductsPage";
@@ -25,6 +26,7 @@ import { DeliveryPage } from "./pages/delivery/delivery"
 import { Navbar } from "./components/navbar/Navbar";
 import { isAdminSelector, isAuthSelector, userIsLoadedSelector } from "./redux/selectors/userSelectors.js";
 import { AuthDialog } from './components/authdialog/AuthDialog';
+import { ProductInfo } from './pages/productinfo/ProductInfo';
 const App = () => {
 
     const isAdmin = useSelector(isAdminSelector)
@@ -57,6 +59,7 @@ const App = () => {
                         <Route path={`${PRODUCTS_ROUTE}/:id`} component={ProductsPage} />
                         <Route path={PROFILE_ROUTE} component={ProfilePage} />
                         <Route path={DELIVERY_ROUTE} component={DeliveryPage} />
+                        <Route path={`${PRODUCT_ROUTE}/:id`} component={ProductInfo} />
                         <Redirect to={HOMEPAGE_ROUTE} />
                     </Switch>
                 </div>

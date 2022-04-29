@@ -1,0 +1,27 @@
+.product-card-info {
+    width: 800px;
+    height: 500px;
+    .main-wrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        img {
+            padding-left: 30px;
+            height:300px;
+        }
+
+        .product-card-body {
+            padding: 15px;
+            height:200px;
+            // display: flex;
+            // justify-content: left;
+            .card-body-container {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+    }
+}
