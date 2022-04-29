@@ -17,7 +17,7 @@ import 'tiny-slider/dist/tiny-slider.css';
 import { initTopProducts } from '../../redux/actions'
 import { homeIsLoadedSelector, homeItemsSelector } from '../../redux/selectors/homeSelector'
 import { Link } from 'react-router-dom'
-import { IMAGES_URL, PRODUCTS_PATH } from '../../utils/constants'
+import { IMAGES_URL, PRODUCT_ROUTE } from '../../utils/constants'
 
 
 export const HomePage = () => {
@@ -98,7 +98,7 @@ export const HomePage = () => {
                                 {topProducts.map((el, index) => (
                                     <Link
                                         className={`link-item`}
-                                        to={PRODUCTS_PATH + `${el.id}`}
+                                        to={PRODUCT_ROUTE + `/${el.id}`}
                                         key={index} style={{ position: "relative" }}
                                     >
                                         <img

@@ -9,28 +9,36 @@ import { updateRating } from '../../../../http/productApi'
 import { updateRatingAction } from '../../../../redux/actions'
 
 
-export const ProductCard = ({ id, name, img, price, brand, country, onClick, avgRating, countRating }) => {
+export const ProductCard = ({ id, name, img, price, brand, country, openProductInfo, avgRating, countRating, addToBasket }) => {
 
     const dispatch = useDispatch()
+
 
     const handleChangeRating = (newRating) => {
         updateRating(id, newRating)
             .then(data => {
-                const { avgRating , countRating} = data
+                const { avgRating, countRating } = data
                 dispatch(updateRatingAction({ id, avgRating, countRating }))
             })
     }
 
+    const [imageSliderisOpen, setImageSliderIsOpen] = useState(false)
+
+    const showImageSlider = () => {
+        setImageSliderIsOpen(true)
+    }
+
     return (
         <Paper
-            onClick={onClick}
+            onClick={() => openProductInfo(id)}
             className="product-card">
-            <div className="img-container">
+            {!imageSliderisOpen && <div className="img-container">
                 <img
                     src={IMAGES_URL + img}
                     alt={img}
+                    onClick={showImageSlider}
                 ></img>
-            </div>
+            </div>}
             <div className='product-card-body'>
                 <div className='card-body-container'>
                     <span>{name}</span><br /><br />
@@ -51,6 +59,7 @@ export const ProductCard = ({ id, name, img, price, brand, country, onClick, avg
                 <div className='card-buy-container'>
                     <div className='price'>{price}₽</div>
                     <Button
+                        onClick={() => addToBasket(id)}
                         variant="contained"
                         color="secondary"
                     >купить</Button>

@@ -3,7 +3,8 @@ import {
     INIT_MENU, INIT_PRODUCTS, INIT_FILTERS, INIT_USER,
     SET_CATALOG_TABLE_PARENT,
     INIT_REFERENCES,
-    INIT_TOP_PRODUCTS
+    INIT_TOP_PRODUCTS,
+    INIT_PRODUCTS_ONE
 } from '../redux/constants';
 import {
     initMenuSuccess,
@@ -19,11 +20,12 @@ import {
     initReferencesSuccess,
     initTopProductsFail,
     initTopProductsSuccess,
+    initProductsSuccessOne
 } from '../redux/actions'
 
 import { auth } from '../http/userApi'
 import { getCategories } from '../http/categoryApi'
-import { getProductsByCatId, } from '../http/productApi';
+import { getProductsByCatId, getOneProduct } from '../http/productApi';
 import { fetchBrands, fetchCountries } from '../http/referenceApi';
 import { getFilters } from '../http/filterApi'
 import { getTopProducts } from '../http/homeApi'
@@ -58,6 +60,14 @@ function* initProducts(action) {
     }
 }
 
+function* initProductsOne(action) {
+    try {
+        const product = yield getOneProduct(action.payload.id);
+        yield put(initProductsSuccessOne(product));
+    } catch (e) {
+        yield put(initProductsFail('COULD NOT GET PRODUCTS'));
+    }
+}
 
 function* initTopProducts() {
     try {
@@ -106,6 +116,7 @@ export function* rootSaga() {
         takeLatest(INIT_USER, initUser),
         takeLatest(SET_CATALOG_TABLE_PARENT, setCatalogTableParent),
         takeLatest(INIT_REFERENCES, initReferences),
-        takeLatest(INIT_TOP_PRODUCTS, initTopProducts)
+        takeLatest(INIT_TOP_PRODUCTS, initTopProducts),
+        takeLatest(INIT_PRODUCTS_ONE, initProductsOne)
     ]);
 }

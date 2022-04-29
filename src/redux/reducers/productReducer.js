@@ -6,7 +6,8 @@ import {
     ADD_PRODUCT,
     UPDATE_PRODUCT,
     DELETE_PRODUCT,
-    UPDATE_RATING
+    UPDATE_RATING,
+    INIT_PRODUCTS_SUCCESS_ONE
 } from "../constants"
 
 const initState = {
@@ -34,6 +35,22 @@ export const productReducer = (state = initState, action) => {
                 items: action.payload.rows,
                 countItems: action.payload.count
             }
+        case INIT_PRODUCTS_SUCCESS_ONE: {
+            return {
+                ...state,
+                isLoading: false,
+                isLoaded: true,
+                items: state.items.length > 0
+                    ? state.items.map(item => {
+                        if (item.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return item
+                    })
+                    : [action.payload]
+            }
+        }
+
         case INIT_PRODUCTS_FAIL:
             return {
                 ...state,
