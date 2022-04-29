@@ -103,7 +103,7 @@ export const HomePage = () => {
                                     >
                                         <img
                                             onClick={() => {
-
+                                                
                                             }}
                                             className="slider-image actual"
                                             src={IMAGES_URL + `/${el.img}`}
