@@ -2,7 +2,7 @@ import './app.scss';
 import React, { useEffect } from 'react';
 import { BrowserRouter, withRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { initMenu, initUser ,initTopProducts} from './redux/actions';
+import { initMenu, initUser } from './redux/actions';
 import { CircularProgress } from '@mui/material';
 import {
     ABOUT_ROUTE,

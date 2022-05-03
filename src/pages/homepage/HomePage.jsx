@@ -2,15 +2,11 @@ import './homepage.scss'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuList } from '../../components/menulist/MenuList'
-import { SubMenu } from '../../components/menulist/submenu/SubMenu'
-import { Paper } from '@mui/material'
-import { Button } from '@mui/material'
 import {
     mainMenuItemsSelector,
     menuIsLoadedSelector,
     subMenuItemsSelector
 } from '../../redux/selectors/menuSelectors'
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
@@ -103,7 +99,7 @@ export const HomePage = () => {
                                     >
                                         <img
                                             onClick={() => {
-                                                
+
                                             }}
                                             className="slider-image actual"
                                             src={IMAGES_URL + `/${el.img}`}

@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-
-import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete'
-import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton';
-import { changeOneReference } from '../../../../redux/actions';
-import { useDispatch } from 'react-redux'
 import { Field } from './Field'
 import { Button } from '@mui/material'
 
@@ -16,10 +11,10 @@ export const ListBox = (props) => {
     const [listData, setListData] = useState(list)
 
 
-    useEffect( () => {
+    useEffect(() => {
         setListData(list)
     }, [list])
-    
+
     const handlerClick = () => {
         if (!listData.find(item => item.id === 0))
             setListData([{ id: 0, name: '' }, ...listData])

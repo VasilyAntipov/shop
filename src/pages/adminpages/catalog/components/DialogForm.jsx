@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -17,7 +17,7 @@ export const DialogForm = props => {
         fetchDataAction,
     } = props
 
-    const { labels, fields} = options
+    const { labels, fields } = options
     // const disabled =
     //     !editableData?.categoryId
     //     || !editableData?.countryId

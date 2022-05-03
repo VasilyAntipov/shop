@@ -7,7 +7,7 @@ import {
 } from '../../../redux/selectors/productSelectors'
 import { columnsProduct, PRODUCT, sortHeadersProduct } from './utils/constants'
 import { createProduct, deleteProduct, updateProduct } from '../../../http/productApi'
-import { admCatalogTableParentSelector, getMenuItemsByParentIdSelector, menuItemsSelector } from '../../../redux/selectors/menuSelectors'
+import { admCatalogTableParentSelector, menuItemsSelector } from '../../../redux/selectors/menuSelectors'
 import { brandsSelector, countriesSelector } from '../../../redux/selectors/referenceSelector'
 import { labelsProduct } from './utils/constants'
 import { addProductAction, deleteProductAction, updateProductAction } from '../../../redux/actions'

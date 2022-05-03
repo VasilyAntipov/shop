@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './styles/admincatalog.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -6,7 +6,7 @@ import {
     admCatalogTableParentSelector
 } from '../../../redux/selectors/menuSelectors'
 import { Checkbox, CircularProgress, FormControlLabel, FormGroup } from '@mui/material'
-import { initProducts, initReferences } from '../../../redux/actions'
+import { initProducts } from '../../../redux/actions'
 import { productSelector } from '../../../redux/selectors/productSelectors'
 import { TableCatalog } from './TableCatalog'
 import { TableProduct } from './TableProduct'
@@ -22,7 +22,7 @@ export const AdminCatalog = () => {
 
     const checkedHandle = () => {
         if (!checked)
-            dispatch(initProducts({id:admCatalogTableParent.id}))
+            dispatch(initProducts({ id: admCatalogTableParent.id }))
         setChecked(old => !old)
     }
 

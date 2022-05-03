@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux'
 import { brandsSelector, countriesSelector, referenceIsLoadedSelector } from '../../../redux/selectors/referenceSelector'
-
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -51,7 +50,7 @@ export const AdminReference = () => {
     const fetchDeleteData = (id, ref) => {
         ref.delete(id)
             .then(id => {
-                dispatch(deleteReferenceAction({refName:ref.listName, id}))
+                dispatch(deleteReferenceAction({ refName: ref.listName, id }))
             })
     }
 

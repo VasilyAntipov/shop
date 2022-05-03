@@ -65,6 +65,7 @@ function* initProductsOne(action) {
         const product = yield getOneProduct(action.payload.id);
         yield put(initProductsSuccessOne(product));
     } catch (e) {
+        console.log('saga', e)
         yield put(initProductsFail('COULD NOT GET PRODUCTS'));
     }
 }

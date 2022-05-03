@@ -9,10 +9,8 @@ import {
 } from "../utils/constants";
 import { Route, Redirect, Switch } from 'react-router-dom'
 import { DrawerPanel } from "../components/drawerpanel/DrawerPanel";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, } from 'react-redux';
 import { initReferences } from '../redux/actions';
-import { brandsSelector } from '../redux/selectors/referenceSelector';
-import { countriesSelector } from '../redux/selectors/referenceSelector';
 
 export const AdminLayout = () => {
 
@@ -20,7 +18,7 @@ export const AdminLayout = () => {
     useEffect(() => {
         dispatch(initReferences())// eslint-disable-next-line react-hooks/exhaustive-deps
     }
-        , [])
+        , [dispatch,])
 
     return (
         <div className="admin-container">

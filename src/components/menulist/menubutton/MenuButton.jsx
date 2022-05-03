@@ -1,10 +1,8 @@
 import './menubutton.scss'
-import React, { useRef } from 'react';
+import React from 'react';
 import ListItem from '@mui/material/ListItem';
 import { Icon } from '@mdi/react'
 import { MenuItem } from '../menuitem/MenuItem';
-
-
 
 export const MenuButton = (props) => {
     const {
@@ -28,7 +26,7 @@ export const MenuButton = (props) => {
         setOpenSub(false)
     }
 
- 
+
     return (
         <ListItem className="menu-list"
             button={true}

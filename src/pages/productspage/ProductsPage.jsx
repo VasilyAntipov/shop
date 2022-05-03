@@ -1,5 +1,5 @@
 import './productspage.scss'
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { CircularProgress } from '@mui/material'
 import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
 import { ProductFilter } from './components/productfilter/ProductFilter'
@@ -18,7 +18,7 @@ import {
 import { ProductCard } from './components/productcard/ProductCard'
 import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
-import { BASKET_ROUTE, PRODUCT_ROUTE } from '../../utils/constants'
+import { BASKET_ROUTE } from '../../utils/constants'
 import { isAuthSelector } from '../../redux/selectors/userSelectors'
 
 
@@ -44,7 +44,7 @@ export const ProductsPage = () => {
     }), [dispatch, params, location.search]);
 
 
-    const openProductInfo = useCallback((id) => history.push('/product/id'), [history]);
+    const openProductInfo = useCallback((id) => history.push(`/product/${id}`), [history]);
 
     const addToBasket = () => {
         if (isAuth) {

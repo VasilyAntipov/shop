@@ -14,6 +14,7 @@ const initState = {
     isProduct: true,
     isLoading: false,
     isLoaded: false,
+    oneIdsLoaded: [],
     items: [],
     countItems: null,
     queryUrl: '',
@@ -33,21 +34,23 @@ export const productReducer = (state = initState, action) => {
                 isLoading: false,
                 isLoaded: true,
                 items: action.payload.rows,
-                countItems: action.payload.count
+                countItems: action.payload.count,
+                oneIdsLoaded: []
             }
         case INIT_PRODUCTS_SUCCESS_ONE: {
+            const { rows, count } = action.payload
+            const oneElement = rows[0]
             return {
                 ...state,
                 isLoading: false,
                 isLoaded: true,
-                items: state.items.length > 0
-                    ? state.items.map(item => {
-                        if (item.id === action.payload.id) {
-                            return action.payload
-                        }
-                        return item
-                    })
-                    : [action.payload]
+                items: (state.items.length === 0)
+                    ? rows
+                    : state.items.find(item => item.id === oneElement.id)
+                        ? state.items
+                        : [...state.items, oneElement],
+                countItems: state.countItems ? state.countItems + 1 : count,
+                oneIdsLoaded: [...state.oneIdsLoaded, oneElement.id]
             }
         }
 

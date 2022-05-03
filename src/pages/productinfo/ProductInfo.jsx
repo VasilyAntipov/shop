@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import './productinfo.scss'
 import { Paper } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
-import { productItemsSelector, productIsLoadedSelector } from '../../redux/selectors/productSelectors'
+import { productItemsSelector, productIsLoadedSelector, oneIdsLoadedSelector } from '../../redux/selectors/productSelectors'
 import { useParams } from 'react-router-dom'
 import { CircularProgress } from '@mui/material'
 import { initProductsOne } from '../../redux/actions'
@@ -16,16 +16,15 @@ export const ProductInfo = () => {
     const { id } = params
     const products = useSelector(productItemsSelector)
     const isLoaded = useSelector(productIsLoadedSelector)
-
+    const idsLoaded = useSelector(oneIdsLoadedSelector)
     const data = products.find(item => item.id === +id)
 
-    useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
-        dispatch(initProductsOne({ id: params.id }));
+    useEffect(useCallback(() => {
+        dispatch(initProductsOne({ id: +params.id }));
     }), [dispatch, params]);
 
 
-    console.log(data)
-    if (!isLoaded)
+    if (!isLoaded || (!idsLoaded.find(el => el === +id)))
         return (
             <CircularProgress />
         )
