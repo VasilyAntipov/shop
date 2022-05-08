@@ -43,6 +43,10 @@ export const ProductsPage = () => {
         dispatch(initFilters({ id: params.id, search: location.search }));
     }), [dispatch, params, location.search]);
 
+    useEffect(useCallback(() => {
+       
+    }), [window]);
+
 
     const openProductInfo = useCallback((id) => history.push(`/product/${id}`), [history]);
 

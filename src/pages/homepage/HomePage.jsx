@@ -1,5 +1,5 @@
 import './homepage.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuList } from '../../components/menulist/MenuList'
 import {
@@ -12,7 +12,7 @@ import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 import { initTopProducts } from '../../redux/actions'
 import { homeIsLoadedSelector, homeItemsSelector } from '../../redux/selectors/homeSelector'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { IMAGES_URL, PRODUCT_ROUTE } from '../../utils/constants'
 
 
@@ -46,9 +46,12 @@ export const HomePage = () => {
     };
 
     const items = [
-        { img: 'image1.jpg' },
-        { img: 'image2.jpg' }
+        { img: 'image1.jpg' , link:'/delivery'},
+        { img: 'image2.jpg' , link: '/reg'}
     ]
+
+    const history = useHistory();
+    const handleOnClick = useCallback((link) => history.push(link), [history]);
 
 
     useEffect(() => {
@@ -74,6 +77,7 @@ export const HomePage = () => {
                         >
                             {items.map((el, index) => (
                                 <div key={index} style={{ position: "relative" }}
+                                    onClick={()=>handleOnClick(el.link)}
                                 >
                                     <img
                                         className="slider-image actions"
@@ -95,7 +99,7 @@ export const HomePage = () => {
                                     <Link
                                         className={`link-item`}
                                         to={PRODUCT_ROUTE + `/${el.id}`}
-                                        key={index} style={{ position: "relative" }}
+                                        key={index} style={{ position: "relative", textAlign: 'center', margin:5}}
                                     >
                                         <img
                                             onClick={() => {
@@ -107,6 +111,8 @@ export const HomePage = () => {
                                             alt=""
                                             style={{ objectFit: "contain", width: 'auto', height: 100 }}
                                         />
+                                        <div style={{ color: 'black' }}>{el.name}
+                                        </div>
                                     </Link>
                                 ))}
                             </TinySlider>

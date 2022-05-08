@@ -19,9 +19,9 @@ export const ProductInfo = () => {
     const idsLoaded = useSelector(oneIdsLoadedSelector)
     const data = products.find(item => item.id === +id)
 
-    useEffect(useCallback(() => {
+    useEffect(useCallback(() => {// eslint-disable-line react-hooks/exhaustive-deps
         dispatch(initProductsOne({ id: +params.id }));
-    }), [dispatch, params]);
+    }), [params]);
 
 
     if (!isLoaded || (!idsLoaded.find(el => el === +id)))

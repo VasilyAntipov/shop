@@ -17,17 +17,20 @@ import {
     changeFilterMark
 } from '../../../../../redux/actions'
 
-export const ProductFilterAccordion = ({ filterArray, filterType, filterName, filterCount }) => {
+export const ProductFilterAccordion = ({ filterArray, filterType, filterName, filterCount, setCoordinates, coordinates }) => {
 
     const dispatch = useDispatch()
 
     const handleChange = (e, id) => {
-        const coordinateFilterFlagY = e.target.getBoundingClientRect().top + window.pageYOffset;
+        const { x, y, width } = e.currentTarget.getBoundingClientRect();
+
         dispatch(showFilterFlag({
             visible: true,
-            coordinatsY: coordinateFilterFlagY
+            // coordinatsY: coordinateFilterFlagY
         }))
+        setCoordinates({ x: x + width, y })
         dispatch(changeFilterMark({ id, filterType }))
+        console.log(e.target)
     };
 
     const handleClickClearFilters = (e) => {
@@ -53,12 +56,13 @@ export const ProductFilterAccordion = ({ filterArray, filterType, filterName, fi
                             <div
                                 className="button-check"
                                 key={item.id}
+                                onChange={(e) => handleChange(e, item.id)}
                             >
                                 <FormControlLabel
                                     className="form"
                                     control={<Checkbox checked={item.checked} />}
                                     label={`${item.name} (${item.count})`}
-                                    onChange={(e) => handleChange(e, item.id)}
+                                    
                                 />
                             </div>
                         )
