@@ -1,15 +1,15 @@
 import './drawerpanel.scss'
 import React from 'react';
 import { Drawer, List, ListItem } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { drawerItems } from '../../utils/constants';
 
 
 export const DrawerPanel = () => {
 
-    const history = useHistory()
+    const navigate = useNavigate()
     const handleOpenAdminMenu = (route) => {
-        history.push(route)
+        navigate(route)
     }
 
     return (

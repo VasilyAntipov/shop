@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import './productfilteraccordion.scss'
 import {
     Accordion,
@@ -16,30 +16,39 @@ import {
     showFilterFlag,
     changeFilterMark
 } from '../../../../../redux/actions'
+import { useLocation , useNavigate, useSearchParams} from 'react-router-dom'
 
-export const ProductFilterAccordion = ({ filterArray, filterType, filterName, filterCount, setCoordinates, coordinates }) => {
+export const ProductFilterAccordion = ({ accItems, accType, accName }) => {
 
     const dispatch = useDispatch()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const [itemsChecked, setItemsCheckers] = useState(null)
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleChange = (e, id) => {
-        const { x, y, width } = e.currentTarget.getBoundingClientRect();
-
-        dispatch(showFilterFlag({
-            visible: true,
-            // coordinatsY: coordinateFilterFlagY
-        }))
-        setCoordinates({ x: x + width, y })
-        dispatch(changeFilterMark({ id, filterType }))
-        console.log(e.target)
+        // console.log(location.search)
+        console.log(location)
+        // console.log(searchParams)
     };
 
     const handleClickClearFilters = (e) => {
-        dispatch(clearFilters(filterType))
-        dispatch(showFilterFlag({
-            visible: true,
-            coordinatsY: e.pageY - 30
-        }))
+        // console.log(itemsChecked)
     }
+
+    // useEffect(() => {
+    //     setItemsCheckers(accItems.map(item => {
+    //         return {
+    //             ...item,
+    //             checked: true
+    //             // :
+    //             //     query.get(accType)
+    //             //         .split(',')
+    //             //         .find(el => +el === +item.id)
+    //         }
+    //     }))
+
+    // }, [location]);
 
     return (
         <div>
@@ -48,10 +57,10 @@ export const ProductFilterAccordion = ({ filterArray, filterType, filterName, fi
                 defaultExpanded={true}
             >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}                >
-                    {filterName}
+                    {accName}
                 </AccordionSummary>
                 <AccordionDetails>
-                    {filterArray.map((item) => {
+                    {accItems.map((item) => {
                         return (
                             <div
                                 className="button-check"
@@ -62,7 +71,6 @@ export const ProductFilterAccordion = ({ filterArray, filterType, filterName, fi
                                     className="form"
                                     control={<Checkbox checked={item.checked} />}
                                     label={`${item.name} (${item.count})`}
-                                    
                                 />
                             </div>
                         )

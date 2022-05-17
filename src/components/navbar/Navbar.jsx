@@ -2,7 +2,7 @@ import './navbar.scss'
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ABOUT_ROUTE, ADMIN_ROUTE, HOMEPAGE_ROUTE } from '../../utils/constants';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAdminSelector, isAuthSelector } from '../../redux/selectors/userSelectors'
@@ -12,7 +12,7 @@ import { openAuthDialog, userLogout } from '../../redux/actions';
 export const Navbar = () => {
     const isAuth = useSelector(isAuthSelector)
     const isAdmin = useSelector(isAdminSelector)
-    const history = useHistory()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -33,7 +33,7 @@ export const Navbar = () => {
     const idMenu = isMenuOpen ? 'simple-popover' : undefined;
 
     const handleAdminPageOpen = () => {
-        history.push(ADMIN_ROUTE)
+        navigate(ADMIN_ROUTE)
     }
 
     const handleUserLogout = () => {

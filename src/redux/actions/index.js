@@ -83,44 +83,7 @@ export const updateRatingAction = createAction(UPDATE_RATING)
 
 
 export const initFilters = createAction(INIT_FILTERS)
-export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS, (payload) => {
-    const { filters, search } = payload;
-    let filtersChecked = urlParse(search);
-    try {
-        return filters.map((item) => {
-            let dataSrc;
-            const checked = filtersChecked.find(checkItem => item.type === checkItem.type)
-            if (checked) {
-                dataSrc = item.data.map(dataItem => ({
-                    ...dataItem,
-                    checked: checked.arrayOfChecked.includes(dataItem.id)
-                }))
-            }
-            else
-                dataSrc = item.data.map((dataItem) => {
-                    return { ...dataItem, checked: false }
-                })
-            return (
-                {
-                    ...item,
-                    data: dataSrc
-                }
-            )
-        })
-    }
-    catch (e) {
-        return filters.map((item) => (
-            {
-                ...item,
-                data: item.data.map((item) => ({
-                    ...item,
-                    checked: false
-                }))
-            }
-        ))
-    }
-})
-
+export const initFiltersSuccess = createAction(INIT_FILTERS_SUCCESS)
 export const initFiltersFail = createAction(INIT_FILTERS_FAIL)
 export const showFilterFlag = createAction(SHOW_FILTER_FLAG)
 export const changeFilterMark = createAction(CHANGE_FILTER_MARK)

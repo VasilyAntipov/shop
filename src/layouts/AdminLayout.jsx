@@ -7,7 +7,7 @@ import {
     ADMIN_ROUTE,
     ADMIN_CATALOG_ROUTE
 } from "../utils/constants";
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Navigate, Routes } from 'react-router-dom'
 import { DrawerPanel } from "../components/drawerpanel/DrawerPanel";
 import { useDispatch, } from 'react-redux';
 import { initReferences } from '../redux/actions';
@@ -23,11 +23,14 @@ export const AdminLayout = () => {
     return (
         <div className="admin-container">
             <Route component={DrawerPanel} />
-            <Switch>
+            <Routes>
                 <Route path={ADMIN_CATALOG_ROUTE} exact component={AdminCatalog} />
                 <Route path={ADMIN_REFERENCE_ROUTE} exact component={AdminReference} />
-                <Redirect from={ADMIN_ROUTE} to={ADMIN_CATALOG_ROUTE} />
-            </Switch>
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
+            </Routes>
         </div>
     );
 }

@@ -12,7 +12,7 @@ import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 import { initTopProducts } from '../../redux/actions'
 import { homeIsLoadedSelector, homeItemsSelector } from '../../redux/selectors/homeSelector'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IMAGES_URL, PRODUCT_ROUTE } from '../../utils/constants'
 
 
@@ -50,8 +50,8 @@ export const HomePage = () => {
         { img: 'image2.jpg' , link: '/reg'}
     ]
 
-    const history = useHistory();
-    const handleOnClick = useCallback((link) => history.push(link), [history]);
+    const navigate = useNavigate();
+    const handleOnClick = useCallback((link) => navigate(link), [navigate]);
 
 
     useEffect(() => {
@@ -73,7 +73,6 @@ export const HomePage = () => {
                     <div className="actions">
                         <TinySlider
                             settings={settings1}
-
                         >
                             {items.map((el, index) => (
                                 <div key={index} style={{ position: "relative" }}

@@ -1,6 +1,6 @@
 import './app.scss';
 import React, { useEffect } from 'react';
-import { BrowserRouter, withRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { initMenu, initUser } from './redux/actions';
 import { CircularProgress } from '@mui/material';
@@ -46,27 +46,28 @@ const App = () => {
 
     return (
         <div className="Shop" >
-            <BrowserRouter>
-                <Route component={Navbar} />
-                <div className="main-body">
-                    <Switch>
-                        <Route path={HOMEPAGE_ROUTE} component={HomePage} exact />
-                        <Route path={ABOUT_ROUTE} component={AboutPage} exact />
-                        {isAdmin && <Route path={ADMIN_ROUTE} component={AdminLayout} />}
-                        {isAuth && <Route path={BASKET_ROUTE} component={BasketPage} />}
-                        <Route path={`${CATALOG_ROUTE}/:id`} component={CatalogPage} />
-                        <Route path={CATALOG_ROUTE} component={CatalogPage} exact />
-                        <Route path={`${PRODUCTS_ROUTE}/:id`} component={ProductsPage} />
-                        <Route path={PROFILE_ROUTE} component={ProfilePage} />
-                        <Route path={DELIVERY_ROUTE} component={DeliveryPage} />
-                        <Route path={`${PRODUCT_ROUTE}/:id`} component={ProductInfo} />
-                        <Redirect to={HOMEPAGE_ROUTE} />
-                    </Switch>
-                </div>
-                <Route component={AuthDialog} />
-            </BrowserRouter>
+            <Navbar />
+            <div className="main-body">
+                <Routes>
+                    <Route path={HOMEPAGE_ROUTE} element={<HomePage />} exact />
+                    <Route path={ABOUT_ROUTE} element={<AboutPage />} exact />
+                    {isAdmin && <Route path={ADMIN_ROUTE} element={<AdminLayout />} />}
+                    {isAuth && <Route path={BASKET_ROUTE} element={<BasketPage />} />}
+                    <Route path={`${CATALOG_ROUTE}/:id`} element={<CatalogPage />} />
+                    <Route path={CATALOG_ROUTE} element={<CatalogPage />} exact />
+                    <Route path={`${PRODUCTS_ROUTE}/:id`} element={<ProductsPage />} />
+                    <Route path={PROFILE_ROUTE} element={<ProfilePage />} />
+                    <Route path={DELIVERY_ROUTE} element={<DeliveryPage />} />
+                    <Route path={`${PRODUCT_ROUTE}/:id`} element={<ProductInfo />} />
+                    <Route
+                        path="*"
+                        element={<Navigate to="/" replace />}
+                    />
+                </Routes>
+            </div>
+            <AuthDialog />
         </div>
     );
 }
 
-export default withRouter(App)
+export default App

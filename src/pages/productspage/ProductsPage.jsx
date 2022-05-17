@@ -5,7 +5,7 @@ import { BreadCrumbs } from '../../components/breadcrumbs/BreadCrumbs'
 import { ProductFilter } from './components/productfilter/ProductFilter'
 import { ProductFilterPanel } from './components/productfilterpanel/ProductFilterPanel'
 import { PagePanel } from './components/pagepanel/PagePanel'
-import { useParams, useLocation, useHistory } from 'react-router-dom'
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     getMenuItemByIdSelector,
@@ -20,12 +20,13 @@ import { productItemsSelector } from '../../redux/selectors/productSelectors'
 import { initProducts, initFilters } from '../../redux/actions'
 import { BASKET_ROUTE } from '../../utils/constants'
 import { isAuthSelector } from '../../redux/selectors/userSelectors'
+import { filterItemsSelector, filterIsLoadedSelector} from '../../redux/selectors/filterSelectors'
 
 
 export const ProductsPage = () => {
     const params = useParams()
     const location = useLocation()
-    const history = useHistory()
+    const navigate = useNavigate()
 
 
     const productItems = useSelector(productItemsSelector)
@@ -35,6 +36,9 @@ export const ProductsPage = () => {
     const productIsLoaded = useSelector(productIsLoadedSelector)
     const isAuth = useSelector(isAuthSelector)
 
+    const filters = useSelector(filterItemsSelector)
+    const filterIsLoaded = useSelector(filterIsLoadedSelector)
+
     const dispatch = useDispatch()
 
 
@@ -43,16 +47,13 @@ export const ProductsPage = () => {
         dispatch(initFilters({ id: params.id, search: location.search }));
     }), [dispatch, params, location.search]);
 
-    useEffect(useCallback(() => {
-       
-    }), [window]);
+  
 
-
-    const openProductInfo = useCallback((id) => history.push(`/product/${id}`), [history]);
+    const openProductInfo = useCallback((id) => navigate(`/product/${id}`), [navigate]);
 
     const addToBasket = () => {
         if (isAuth) {
-            history.push(BASKET_ROUTE)
+            navigate(BASKET_ROUTE)
         }
         else {
             alert('Зарегистрируйтесь или войдите в систему')
@@ -77,7 +78,9 @@ export const ProductsPage = () => {
             </div>
             <ProductFilterPanel />
             <div className="products-page-content">
-                <ProductFilter />
+                {filterIsLoaded && <ProductFilter
+                    filters={filters}
+                 />}
                 <div className="products-list">
                     {productItems.map((item) => {
                         return (

@@ -84,7 +84,7 @@ function* initFilters(action) {
         const { id, search } = action.payload;
         const { filters, orderList, groupList } = yield getFilters(id);
         yield put(initOrderGroupListSuccess({ orderList, groupList }));
-        yield put(initFiltersSuccess({ filters, search }));
+        yield put(initFiltersSuccess(filters));
     } catch (e) {
         yield put(initFiltersFail('COULD NOT GET FILTERS'));
     }
